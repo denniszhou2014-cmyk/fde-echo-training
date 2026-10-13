@@ -106,7 +106,8 @@ section.chap:first-child{border-top:0;margin-top:0}
 .lvl .status{display:inline-block;margin-bottom:8px;font-size:.75rem;padding:2px 8px;border-radius:99px}
 .l1 .num{color:var(--teal)} .l2 .num{color:var(--blue)} .l3 .num{color:var(--accent)}
 .l1 .status{background:var(--ok-soft);color:var(--ok)}
-.l2 .status,.l3 .status{background:var(--surface-2);color:var(--ink-3)}
+.l2 .status{background:var(--blue-soft);color:var(--blue)}
+.l3 .status{background:var(--surface-2);color:var(--ink-3)}
 .lvl-detail{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow)}
 .lvl-detail h4{margin-top:1em}
 .mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:10px 0}
@@ -197,6 +198,7 @@ svg text{font-family:inherit}
 .timeline{border-left:2px solid var(--line);margin:10px 0 10px 8px;padding-left:18px}
 .timeline div{position:relative;margin:8px 0}
 .timeline div::before{content:"";position:absolute;left:-24px;top:9px;width:10px;height:10px;border-radius:50%;background:var(--teal)}
+.dayrow{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
 .homework{background:var(--blue-soft);border-radius:var(--radius);padding:14px 18px;margin:1.2em 0}
 .homework h4{margin:.2em 0 .4em;color:var(--blue)}
 .cert{display:none;text-align:center;border:3px double var(--gold);border-radius:16px;padding:28px 20px;margin-top:16px;background:var(--gold-soft)}
@@ -229,8 +231,8 @@ footer{color:var(--ink-3);font-size:.85rem;border-top:1px solid var(--line);marg
   <div class="topbar-in">
     <button class="iconbtn menubtn" id="menuBtn" aria-label="目录">☰</button>
     <a class="brand" href="#home">FDE · <span>Echo</span> 培训手册</a>
-    <div class="pbar" title="初级学习进度"><i id="pbarFill"></i></div>
-    <span class="ptext" id="ptext">初级进度 0/7</span>
+    <div class="pbar" title="学习进度"><i id="pbarFill"></i></div>
+    <span class="ptext" id="ptext">初级 0/7 · 中级 0/9</span>
     <button class="iconbtn" id="themeBtn" aria-label="切换主题">◐</button>
   </div>
 </header>
@@ -249,6 +251,17 @@ footer{color:var(--ink-3);font-size:.85rem;border-top:1px solid var(--line);marg
   <a href="#s5" data-k="s5">第5节 用例设计与价值 <span class="ck"></span></a>
   <a href="#s6" data-k="s6">第6节 交付、演示与沟通 <span class="ck"></span></a>
   <a href="#final" data-k="final">结业测验与项目 <span class="ck"></span></a>
+  <div class="grp">中级 · 12 小时</div>
+  <a href="#l2guide">中级课程说明</a>
+  <a href="#m1" data-k="m1">M1 发现冲刺 <span class="ck"></span></a>
+  <a href="#m2" data-k="m2">M2 业务论证 <span class="ck"></span></a>
+  <a href="#m3" data-k="m3">M3 原型与低代码 <span class="ck"></span></a>
+  <a href="#m4" data-k="m4">M4 AI 与大模型用例 <span class="ck"></span></a>
+  <a href="#m5" data-k="m5">M5 试点设计与指标 <span class="ck"></span></a>
+  <a href="#m6" data-k="m6">M6 变革管理与采纳 <span class="ck"></span></a>
+  <a href="#m7" data-k="m7">M7 工作坊主持 <span class="ck"></span></a>
+  <a href="#m8" data-k="m8">M8 复杂干系人 <span class="ck"></span></a>
+  <a href="#mfinal" data-k="mfinal">中级结业 <span class="ck"></span></a>
   <div class="grp">附录</div>
   <a href="#templates">模板工具箱</a>
   <a href="#glossary">术语表</a>
@@ -264,9 +277,9 @@ footer{color:var(--ink-3);font-size:.85rem;border-top:1px solid var(--line);marg
     <p class="lead">这份手册写给没有咨询、产品或技术背景的新人。学完以后，你能走进一家陌生企业，弄清他们真正的问题，把问题变成软件能解决的用例，再带着工程师把方案落地，最后让一线员工真的用起来。</p>
     <div class="kpis">
       <div class="kpi"><b>3</b><span>级成长路径</span></div>
-      <div class="kpi"><b>6 h</b><span>初级课时（6 节 × 60 分钟）</span></div>
-      <div class="kpi"><b>6</b><span>个教学案例</span></div>
-      <div class="kpi"><b>15+</b><span>个互动练习与测验</span></div>
+      <div class="kpi"><b>6 h + 12 h</b><span>初级 6 节 + 中级 8 模块</span></div>
+      <div class="kpi"><b>15</b><span>个教学案例（含中级主线案例）</span></div>
+      <div class="kpi"><b>40+</b><span>个互动练习与测验</span></div>
     </div>
   </div>
 
@@ -292,14 +305,14 @@ footer{color:var(--ink-3);font-size:.85rem;border-top:1px solid var(--line);marg
 
   <div class="road" id="road">
     <div class="lvl l1 sel" data-l="1">
-      <span class="status">本手册 · 已开放</span>
+      <span class="status">已开放</span>
       <div class="num">LEVEL 1 · 初级</div>
       <h3>Echo 见习生</h3>
       <div class="sub">建立认知和基本功：能在导师带领下参与客户项目，独立完成访谈、问题陈述和用例画布。</div>
       <div class="meta"><span class="tag t">6 小时课程</span><span class="tag">+ 2 周影子实习</span><span class="tag">0–3 个月</span></div>
     </div>
     <div class="lvl l2" data-l="2">
-      <span class="status">即将推出</span>
+      <span class="status">已开放</span>
       <div class="num">LEVEL 2 · 中级</div>
       <h3>Echo 独立负责人</h3>
       <div class="sub">独立负责一条工作流：从发现、原型、试点到上线，对一个业务指标负责。</div>
@@ -961,7 +974,665 @@ footer{color:var(--ink-3);font-size:.85rem;border-top:1px solid var(--line);marg
   </div>
   <button class="btn pri done-btn" data-done="final">✓ 标记结业完成</button>
 
-  <div class="callout blue" style="margin-top:24px"><b class="t">下一步：中级</b>完成初级后，建议在导师带领下参加 2 周的影子实习，跟进一个真实项目的发现阶段。中级课程将覆盖：发现冲刺设计、业务论证、原型与低代码、AI/大模型用例设计、试点设计与指标、变革管理、工作坊主持和复杂干系人管理。</div>
+  <div class="callout blue" style="margin-top:24px"><b class="t">下一步：中级</b>完成初级后，建议在导师带领下参加 2 周的影子实习，跟进一个真实项目的发现阶段。中级课程覆盖：发现冲刺、业务论证、原型与低代码、AI/大模型用例、试点设计与指标、变革管理、工作坊主持和复杂干系人管理。<a href="#l2guide">→ 进入中级课程</a></div>
+</section>
+
+<!-- ============ L2 GUIDE ============ -->
+<section class="chap" id="l2guide">
+  <div class="eyebrow" style="color:var(--blue)">Level 2 · 中级</div>
+  <h2>中级课程说明：从"参与"到"负责"</h2>
+  <p>初级 Echo 跟着导师干活，中级 Echo 要<b>自己扛一条工作流</b>：从发现、论证、原型、试点到推广，全程主导，并对一个业务指标负责。中级课程一共 8 个模块，每个模块 90 分钟，合计 12 小时。学完以后要做一个真实项目（3–6 个月），再参加复盘答辩。</p>
+  <div class="callout blue"><b class="t">入学前提</b>完成初级全部 6 节和结业测验，并且至少做过 2 周影子实习、独立完成过 3 次以上客户访谈。如果还没有，先回到 <a href="#s1">初级第 1 节</a>。</div>
+
+  <h3>贯穿全程的主线案例：远航冷链</h3>
+  <div class="case">
+    <div class="case-h">📁 主线案例：小林在远航冷链的六个月 <small>冷链物流 · 温控货损</small></div>
+    <div class="case-b">
+      <p>初级案例里的 Echo 小林现在是一名中级 Echo，第一次独立负责一条工作流。</p>
+      <p><b>客户：</b>远航冷链，全国 1,200 辆冷藏车，运生鲜和医药。去年因为温度超标造成的货损赔付是 <b>3,600 万元</b>，货损率 1.8%，有两个医药大客户放话：再出问题就换供应商。</p>
+      <p><b>客户的诉求：</b>"我们装了几千个温度传感器，数据都有，你们帮我们用 AI 把货损降下来。"</p>
+      <p><b>小林的任务：</b>负责"温控异常预警与处置"这条工作流，6 个月内把货损率降到 1.2% 以下。</p>
+      <p>接下来 8 个模块，每个模块讲这个项目的一个阶段。你会看到小林每一步怎么做、在哪里差点栽跟头。</p>
+    </div>
+  </div>
+
+  <div class="tbl"><table>
+    <thead><tr><th>模块</th><th>主题</th><th>主线案例里发生了什么</th><th>带走的工具</th></tr></thead>
+    <tbody>
+      <tr><td>M1</td><td>发现冲刺</td><td>两周搞清楚货损到底在哪发生</td><td>10 天冲刺计划、假设追踪板</td></tr>
+      <tr><td>M2</td><td>业务论证</td><td>说服 CFO 批预算</td><td>三情景 NPV 模型、论证一页纸</td></tr>
+      <tr><td>M3</td><td>原型与低代码</td><td>一周做出调度员愿意用的界面</td><td>原型保真度阶梯、原型评审清单</td></tr>
+      <tr><td>M4</td><td>AI 与大模型用例</td><td>决定哪里用 AI、哪里不用</td><td>AI 适配度评分、精确率/召回率</td></tr>
+      <tr><td>M5</td><td>试点设计与指标</td><td>证明效果是真的，不是运气</td><td>对照组设计、双重差分计算</td></tr>
+      <tr><td>M6</td><td>变革管理与采纳</td><td>司机和调度员不买账</td><td>ADKAR、采纳漏斗、超级用户</td></tr>
+      <tr><td>M7</td><td>工作坊主持</td><td>5 个部门 2 小时定下处置标准</td><td>工作坊议程搭建器、引导技巧</td></tr>
+      <tr><td>M8</td><td>复杂干系人</td><td>车队总经理暗中阻挠</td><td>影响力地图、冲突处理情景</td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:.9rem;color:var(--ink-2)">每个模块的标准节奏：开场 10 分钟 · 核心概念 30 分钟 · 案例 20 分钟 · 互动练习 25 分钟 · 小结 5 分钟。</p>
+</section>
+
+<!-- ============ M1 ============ -->
+<section class="chap" id="m1">
+  <div class="sess-head">
+    <div class="no" style="color:var(--blue)">中级 · 模块 1 · 90 分钟</div>
+    <h2>发现冲刺：两周摸清一个业务</h2>
+    <div class="agenda"><div class="c1" style="flex:10">开场 10'</div><div class="c2" style="flex:30">冲刺设计 30'</div><div class="c3" style="flex:20">案例 20'</div><div class="c4" style="flex:25">练习 25'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>设计并带领一次 10 个工作日的发现冲刺</li><li>用"假设驱动"代替"漫无目的地调研"</li><li>在冲刺结束时交出一份能让客户拍板的发现报告</li></ul>
+  </div>
+
+  <h3>1.1 初级做访谈，中级做冲刺</h3>
+  <p>初级 Echo 会做单次访谈；中级 Echo 要在有限时间里，<b>系统地</b>摸清一个陌生业务。没有计划的调研会无限拉长：总觉得还有人没访谈、还有数据没看。发现冲刺用一个固定的时间盒（通常 2 周）逼自己收敛。</p>
+  <div class="grid3">
+    <div class="card"><b>① 假设先行</b><p>开工第一天就写下 10–15 条假设，比如"货损主要发生在途中"。调研是为了证实或推翻它们，而不是"了解一下"。</p></div>
+    <div class="card"><b>② 三角验证</b><p>每个重要结论至少要有三类证据里的两类：<b>数据</b>、<b>现场观察</b>、<b>访谈</b>。只有一个人说的，算传闻。</p></div>
+    <div class="card"><b>③ 每天收敛</b><p>每天下班前花 20 分钟更新假设板：哪些证实、哪些推翻、哪些新冒出来。第 5 天做一次中期回顾。</p></div>
+  </div>
+
+  <h3>1.2 十天冲刺计划</h3>
+  <p>点下面的日期，看每天做什么、交付什么。</p>
+  <div class="lab" style="border-style:solid">
+    <div class="dayrow" id="dayRow"></div>
+    <div class="out" id="dayOut" style="white-space:normal"></div>
+  </div>
+
+  <h3>1.3 访谈样本怎么排</h3>
+  <p>一次两周的冲刺，一般安排 15–25 场访谈和 3–5 次跟岗。样本要覆盖四个方向：</p>
+  <ul>
+    <li><b>纵向：</b>高管 → 中层 → 一线，至少每层 3 人</li>
+    <li><b>横向：</b>上下游部门都要有（比如运营、客服、质量、IT、财务）</li>
+    <li><b>地域/班次：</b>不同站点、白班夜班，问题往往不一样</li>
+    <li><b>正反两面：</b>做得最好和最差的团队各找一个，对比最能看出门道</li>
+  </ul>
+
+  <h3>1.4 发现报告：一页纸讲完</h3>
+  <div class="tpl"><pre>1. 我们问了什么问题（冲刺开始时的 3 个核心问题）
+2. 我们做了什么（访谈 N 场、跟岗 N 次、分析 N 份数据）
+3. 我们发现了什么（3–5 条，每条带证据和数字）
+4. 哪些假设被推翻了（这一条最能体现冲刺价值）
+5. 我们建议做什么（1–3 个用例，按优先级）
+6. 需要客户决定什么</pre></div>
+
+  <div class="case">
+    <div class="case-h">📁 远航冷链 · 第 1–2 周：货损到底在哪发生？ <small>主线案例</small></div>
+    <div class="case-b">
+      <p>第一天，小林在假设板上写下 12 条假设。最重要的一条是客户自己的判断：<b>"温度超标主要发生在长途运输途中，是制冷机故障造成的。"</b></p>
+      <p><b>数据：</b>和 Delta 拉了 3 个月、42 万条温度告警。按发生地点切开一看，<b>62% 的超标发生在装卸货环节</b>，只有 21% 发生在途中。</p>
+      <p><b>跟岗：</b>小林在上海仓待了一个晚班。卸货时司机为了快，冷藏车门一开就是 25 分钟，月台没有冷风帘。司机说："仓库排队，卸慢了后面车要骂。"</p>
+      <p><b>访谈：</b>调度中心每天收到约 3,000 条温度告警，调度员小周说："98% 都是开门时的瞬时波动，我们早就不看了。"<b>告警太多，等于没有告警。</b></p>
+      <p><b>结论：</b>客户的核心假设被推翻了。真正的问题有两个：①装卸环节缺乏控制；②告警噪音太大，真异常被淹没。第 10 天的发现报告建议先做"智能告警分级 + 装卸时长管控"，而不是客户最初想的"制冷机故障预测"。</p>
+      <p><b>讨论题：</b>如果小林没有第一天写下假设，直接按客户的方向去做"制冷机故障预测"，会怎样？</p>
+      <details><summary>参考答案</summary><p>她会花几个月做一个预测模型，即便模型准确，也只能解决 21% 的问题；而且新模型的告警会被加进那 3,000 条噪音里，调度员照样不看。写下假设的价值，就是逼你去<b>证伪</b>客户的判断，而不是替它找证据。</p></details>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 M1：假设追踪板</div>
+    <p class="hint">选一个你熟悉的业务问题，写下你的假设，然后随着调研推进，点击状态标签切换：待验证 → 证实 → 推翻。内容只保存在你自己的浏览器里。</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><input id="hypIn" placeholder="例：货损主要发生在途中" style="flex:1;min-width:200px;font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)"><button class="btn pri" id="hypAdd">添加假设</button><button class="btn" id="hypDemo">载入远航冷链示例</button></div>
+    <div id="hypList" style="margin-top:12px"></div>
+    <div id="hypStat" style="font-size:.88rem;color:var(--ink-2);margin-top:8px"></div>
+  </div>
+
+  <div class="lab"><div class="lab-h">小测验：模块 1</div><div id="quiz-m1"></div></div>
+  <div class="homework"><h4>📝 实战作业</h4><ol><li>为你手上（或想象中）的一个项目，写一份 10 天发现冲刺计划，包括访谈名单（至少 15 人，覆盖四个方向）。</li><li>写出 10 条可被证伪的假设。检查：每一条都能想到一个会推翻它的证据吗？</li></ol></div>
+  <button class="btn pri done-btn" data-done="m1">✓ 标记模块 1 完成</button>
+</section>
+
+<!-- ============ M2 ============ -->
+<section class="chap" id="m2">
+  <div class="sess-head">
+    <div class="no" style="color:var(--blue)">中级 · 模块 2 · 90 分钟</div>
+    <h2>业务论证：让 CFO 点头</h2>
+    <div class="agenda"><div class="c1" style="flex:10">开场 10'</div><div class="c2" style="flex:30">论证结构 30'</div><div class="c3" style="flex:20">案例 20'</div><div class="c4" style="flex:25">建模练习 25'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>把初级的 ROI 估算升级为完整的业务论证（Business Case）</li><li>理解 NPV、回本周期、采纳爬坡，并用三情景做敏感性分析</li><li>预判财务、业务、IT 三方会问的问题</li></ul>
+  </div>
+
+  <h3>2.1 ROI 估算 vs 业务论证</h3>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>初级：ROI 估算</th><th>中级：业务论证</th></tr></thead>
+    <tbody>
+      <tr><td><b>目的</b></td><td>判断值不值得做</td><td>让决策者批钱、批人、批资源</td></tr>
+      <tr><td><b>时间维度</b></td><td>一年</td><td>3 年，考虑资金的时间价值</td></tr>
+      <tr><td><b>不确定性</b></td><td>打一个保守折扣</td><td>保守/基准/乐观三情景 + 关键假设敏感性</td></tr>
+      <tr><td><b>采纳</b></td><td>默认全员使用</td><td>考虑爬坡：第一年 50%，第二年 80%……</td></tr>
+      <tr><td><b>成本</b></td><td>实施费 + 运营费</td><td>加上客户内部人力、培训、流程改造、机会成本</td></tr>
+      <tr><td><b>非财务价值</b></td><td>一般不写</td><td>客户留存、合规、品牌、战略选项</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>2.2 三个必懂的财务概念</h3>
+  <div class="grid3">
+    <div class="card"><b>NPV 净现值</b><p>把未来每年的净收益按折现率换算成今天的钱，再减掉投入。NPV &gt; 0 说明值得做。折现率一般用客户的资金成本，8%–12% 常见。</p></div>
+    <div class="card"><b>回本周期</b><p>累计净收益什么时候转正。很多企业的潜规则是"18 个月内回本"，超过就要讲战略价值。</p></div>
+    <div class="card"><b>采纳爬坡</b><p>系统上线不等于价值兑现。价值 = 理论价值 × 采纳率。第一年按一半算，是最常见的保守做法。</p></div>
+  </div>
+
+  <h3>2.3 三方会问什么</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>谁</th><th>他们一定会问</th><th>你要提前准备</th></tr></thead>
+    <tbody>
+      <tr><td><b>CFO / 财务</b></td><td>数字从哪来？最坏情况多少？什么时候回本？</td><td>每个假设的来源；保守情景也要能回本或说明战略意义</td></tr>
+      <tr><td><b>业务负责人</b></td><td>我的团队要投入多少时间？会不会影响现在的工作？</td><td>客户方投入清单（人 × 天）；试点期的兜底方案</td></tr>
+      <tr><td><b>CIO / IT</b></td><td>安全吗？谁来维护？和现有系统冲突吗？</td><td>数据流图、权限设计、运维分工</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout gold"><b class="t">黄金法则</b>让客户的财务人员参与建模，而不是把做好的模型给他们审。<b>他们算出来的数，才是他们会信的数。</b></div>
+
+  <div class="case">
+    <div class="case-h">📁 远航冷链 · 第 3 周：CFO 的三个问题 <small>主线案例</small></div>
+    <div class="case-b">
+      <p>小林带着发现报告和论证去见 CFO 钱总。基准情景：货损赔付 3,600 万/年，方案目标降低 40%，即每年省 1,440 万。投入：一次性 400 万，每年运营 150 万。</p>
+      <p>钱总问了三个问题：</p>
+      <ol>
+        <li><b>"40% 怎么来的？"</b>小林答：62% 的超标在装卸环节，其中约 2/3 可以通过时长管控避免，62% × 2/3 ≈ 41%，取 40%。依据来自 M1 冲刺的数据。</li>
+        <li><b>"司机不配合怎么办？"</b>小林早有准备：模型里第一年采纳率只按 50% 算；保守情景改善幅度只取 20%。</li>
+        <li><b>"最坏情况呢？"</b>保守情景下 3 年 NPV 仍为正，约 18 个月回本。另外两个医药大客户每年合同额 8,000 万，留住他们的战略价值没算进去。</li>
+      </ol>
+      <p>钱总最后说："把你们的模型发给我们财务部的小郑，让他用我们的口径再算一遍。"一周后小郑的版本和小林的差了不到 10%，预算批了。</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 M2：三情景业务论证模型</div>
+    <p class="hint">默认值是远航冷链的数字。调整参数，观察三种情景下的 3 年 NPV 和回本时间。采纳率爬坡固定为：第 1 年 50%、第 2 年 80%、第 3 年 100%。</p>
+    <div class="calc">
+      <div class="field"><label>年度问题损失基数（万元）</label><input type="number" id="b-base" value="3600"></div>
+      <div class="field"><label>基准情景改善比例（%）</label><input type="number" id="b-imp" value="40"></div>
+      <div class="field"><label>一次性投入（万元）</label><input type="number" id="b-capex" value="400"></div>
+      <div class="field"><label>每年运营成本（万元）</label><input type="number" id="b-opex" value="150"></div>
+      <div class="field"><label>折现率（%）</label><input type="number" id="b-r" value="10"></div>
+      <div class="field"><label>保守 / 乐观系数（相对基准）</label><input id="b-k" value="0.5 / 1.3"></div>
+    </div>
+    <div class="tbl"><table id="bcTable"></table></div>
+    <svg id="bcSvg" viewBox="0 0 560 220" width="100%" role="img" aria-label="三情景累计净收益"></svg>
+    <p id="bcNote" style="font-size:.88rem;color:var(--ink-2)"></p>
+  </div>
+
+  <div class="lab"><div class="lab-h">小测验：模块 2</div><div id="quiz-m2"></div></div>
+  <div class="homework"><h4>📝 实战作业</h4><ol><li>为你的用例做一个三情景 3 年模型，每个假设都标注来源（数据/访谈/行业基准）。</li><li>找一位懂财务的朋友扮演 CFO，让他挑战你的模型 15 分钟，记下你答不上来的问题。</li></ol></div>
+  <button class="btn pri done-btn" data-done="m2">✓ 标记模块 2 完成</button>
+</section>
+
+<!-- ============ M3 ============ -->
+<section class="chap" id="m3">
+  <div class="sess-head">
+    <div class="no" style="color:var(--blue)">中级 · 模块 3 · 90 分钟</div>
+    <h2>原型与低代码：一周做出能点的东西</h2>
+    <div class="agenda"><div class="c1" style="flex:10">开场 10'</div><div class="c2" style="flex:30">原型方法 30'</div><div class="c3" style="flex:20">案例 20'</div><div class="c4" style="flex:25">练习 25'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>按问题的不确定性选择合适保真度的原型</li><li>自己用低代码或 AI 工具搭一个可点击原型，不必事事等 Delta</li><li>组织一次有效的原型测试，拿到真实反馈</li></ul>
+  </div>
+
+  <h3>3.1 原型保真度阶梯</h3>
+  <p>原型越逼真越贵。原则是：<b>用最便宜的原型回答当前最大的不确定性</b>。</p>
+  <div class="tbl"><table>
+    <thead><tr><th>保真度</th><th>形式</th><th>耗时</th><th>能回答的问题</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag">L0 纸面草图</span></td><td>白板、纸、便利贴</td><td>半天</td><td>用户需要看到什么信息？按什么顺序？</td></tr>
+      <tr><td><span class="tag t">L1 可点击原型</span></td><td>Figma、低代码工具、AI 生成的网页</td><td>1–3 天</td><td>流程顺不顺？用户能不能自己完成任务？</td></tr>
+      <tr><td><span class="tag b">L2 真数据原型</span></td><td>接入几天的真实数据，功能简陋</td><td>1–2 周</td><td>数据撑不撑得住？结果对用户有没有用？</td></tr>
+      <tr><td><span class="tag a">L3 生产级</span></td><td>稳定、安全、可运维</td><td>数周以上</td><td>能不能规模化、长期运行？</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><b class="t">中级 Echo 的新能力</b>今天，借助低代码平台和 AI 编程助手，Echo 自己就能在一两天内做出 L1 原型，甚至简单的 L2。这样 Delta 的时间可以留给数据管道和生产级开发。<b>Echo 动手做原型，不是为了替代 Delta，而是为了更快地学习。</b></div>
+
+  <h3>3.2 原型测试五步法</h3>
+  <ol>
+    <li><b>给任务，不给教程：</b>"假设现在有一车医药在卸货，温度开始升高，你会怎么处理？"然后闭嘴看。</li>
+    <li><b>请对方边做边说：</b>"请把你脑子里想的说出来。"</li>
+    <li><b>记录卡住的地方：</b>停顿超过 5 秒、点错、皱眉，都记下来。</li>
+    <li><b>不辩解、不引导：</b>用户点错不是用户的错，是原型的问题。</li>
+    <li><b>测 5 个人就够：</b>5 个用户通常能暴露大部分可用性问题，之后改了再测。</li>
+  </ol>
+
+  <h3>3.3 原型评审清单</h3>
+  <ul class="checks" id="protoChecks"></ul>
+
+  <div class="case">
+    <div class="case-h">📁 远航冷链 · 第 4–5 周：调度员要的不是告警 <small>主线案例</small></div>
+    <div class="case-b">
+      <p><b>L0（第 1 天）：</b>小林和 3 个调度员在白板上画"理想的告警界面"。她原以为他们要"更准的告警"，结果大家画的都是同一样东西：<b>"告诉我下一步该干什么、该打给谁"</b>。</p>
+      <p><b>L1（第 2–3 天）：</b>小林用低代码工具自己搭了一个可点击原型：告警按"紧急 / 关注 / 忽略"三级分好，每条紧急告警下面有"处置卡片"：车牌、司机电话、货物类型、建议动作、一键通知仓库。</p>
+      <p><b>测试：</b>5 个调度员里有 4 个在 30 秒内完成了处置。第 5 个卡住了，因为她管的是医药线，医药货物的处置流程不一样（要先通知客户的质量负责人）。小林当场加了一个"医药专线"分支。</p>
+      <p><b>L2（第 2 周）：</b>Delta 阿杰接入了 3 天的真实数据。告警从每天 3,000 条降到每天约 120 条"紧急 + 关注"。调度员小周说："这个我会看。"</p>
+      <p><b>启示：</b>如果直接做 L3，要两个月才能发现"处置卡片"才是核心需求，"医药专线"也要等上线后才暴露出来。</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 M3：该用哪一级原型？</div>
+    <p class="hint">根据情况选择最合适的原型保真度。</p>
+    <div id="sort-fidelity"></div>
+  </div>
+
+  <div class="lab"><div class="lab-h">小测验：模块 3</div><div id="quiz-m3"></div></div>
+  <div class="homework"><h4>📝 实战作业</h4><ol><li>为你的用例画一张 L0 草图，然后用任意低代码工具或 AI 编程助手做成 L1 可点击原型。</li><li>找 3 个目标用户测试，记录卡住的地方，改一版。</li></ol></div>
+  <button class="btn pri done-btn" data-done="m3">✓ 标记模块 3 完成</button>
+</section>
+
+<!-- ============ M4 ============ -->
+<section class="chap" id="m4">
+  <div class="sess-head">
+    <div class="no" style="color:var(--blue)">中级 · 模块 4 · 90 分钟</div>
+    <h2>AI 与大模型用例：用对地方</h2>
+    <div class="agenda"><div class="c1" style="flex:10">开场 10'</div><div class="c2" style="flex:30">能力边界与评测 30'</div><div class="c3" style="flex:20">案例 20'</div><div class="c4" style="flex:25">练习 25'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>判断一个任务该用规则、传统机器学习、大模型，还是交给人</li><li>看懂精确率、召回率，并能把它们翻译成业务语言</li><li>设计"人在回路"的流程和评测方法</li></ul>
+  </div>
+
+  <h3>4.1 四种工具，各有所长</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>工具</th><th>擅长</th><th>不擅长</th><th>冷链例子</th></tr></thead>
+    <tbody>
+      <tr><td><b>规则</b></td><td>逻辑清楚、要求 100% 可解释</td><td>情况多变、规则写不完</td><td>温度 &gt; 8°C 持续 10 分钟就报警</td></tr>
+      <tr><td><b>传统机器学习</b></td><td>有大量历史标注数据的预测、分类、排序</td><td>没有数据，或需要理解文字</td><td>预测哪条告警会真的造成货损</td></tr>
+      <tr><td><b>大模型（LLM）</b></td><td>理解和生成文字、总结、问答、从非结构化信息里提取</td><td>精确计算、需要绝对正确的决定</td><td>把司机语音、告警、历史记录汇总成一段处置建议</td></tr>
+      <tr><td><b>人</b></td><td>高风险判断、需要承担责任、涉及关系</td><td>大量重复、需要秒级响应</td><td>决定是否通知医药客户、整批货是否报废</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b class="t">最常见的错误</b>客户说"用 AI"，Echo 就默认要上大模型。其实很多问题用一条规则或一张报表就能解决。<b>先问最简单的方法够不够，再加复杂度。</b></div>
+
+  <h3>4.2 精确率与召回率：AI 项目的必修课</h3>
+  <p>任何"报警 / 识别 / 分类"类的 AI，都会犯两种错：</p>
+  <div class="grid2">
+    <div class="card"><b>误报（假阳性）</b><p>没事却报了警。代价：浪费人力、告警疲劳，人们开始无视警报。</p><p><b>精确率</b> = 报出来的里面有多少是真的。</p></div>
+    <div class="card"><b>漏报（假阴性）</b><p>出事了却没报。代价：真实损失，在医药等领域可能非常严重。</p><p><b>召回率</b> = 真实问题里有多少被抓到了。</p></div>
+  </div>
+  <p>两者此消彼长：阈值调低，抓得更全但误报更多；调高则相反。<b>Echo 的工作是和业务方一起决定这条线划在哪</b>，依据是两种错误各自的业务代价。</p>
+
+  <div class="lab">
+    <div class="lab-h">练习 M4-1：精确率 / 召回率翻译器</div>
+    <p class="hint">输入一个模型在一个月里的表现，看看它在业务上意味着什么。默认值是远航冷链告警分级模型的试运行结果。</p>
+    <div class="calc">
+      <div class="field"><label>真阳性：报了，确实有问题</label><input type="number" id="c-tp" value="270"></div>
+      <div class="field"><label>假阳性：报了，其实没事</label><input type="number" id="c-fp" value="3330"></div>
+      <div class="field"><label>假阴性：没报，其实有问题</label><input type="number" id="c-fn" value="30"></div>
+      <div class="field"><label>每条告警处理时间（分钟）</label><input type="number" id="c-min" value="4"></div>
+    </div>
+    <div class="res">
+      <div><b id="c-p">—</b><span>精确率</span></div>
+      <div><b id="c-r">—</b><span>召回率</span></div>
+      <div><b id="c-h">—</b><span>每月处理告警耗时</span></div>
+    </div>
+    <p id="c-note" class="out" style="white-space:normal"></p>
+  </div>
+
+  <h3>4.3 大模型用例的三条护栏</h3>
+  <ol>
+    <li><b>人在回路：</b>高风险决定由人确认，AI 给建议、给依据。界面上要能看到"AI 为什么这么建议"。</li>
+    <li><b>评测集先行：</b>上线前准备 50–200 个真实案例和标准答案，每次改提示词或换模型都跑一遍。没有评测集，就只能凭感觉说"好像变好了"。</li>
+    <li><b>数据与合规：</b>确认哪些数据能发给模型、存在哪里、谁能看到输出。医药、金融、个人信息尤其要提前和合规部门对齐。</li>
+  </ol>
+
+  <div class="case">
+    <div class="case-h">📁 远航冷链 · 第 6–7 周：AI 用在哪 <small>主线案例</small></div>
+    <div class="case-b">
+      <p>小林和阿杰把方案拆成四层，每层用不同的工具：</p>
+      <ol>
+        <li><b>规则层：</b>开门超过 15 分钟、温度超过客户合同上限，直接标"紧急"。清楚、可解释，客户的质量部门一看就懂。</li>
+        <li><b>机器学习层：</b>用过去两年的告警和货损理赔数据训练一个分级模型，判断哪些告警真会造成货损。第一版召回率 90%，精确率只有 7.5%，误报太多。调整后精确率升到 35%，召回率 88%。</li>
+        <li><b>大模型层：</b>把告警、车辆轨迹、司机在 App 里的语音留言、该客户的处置要求汇总成一段三行的"处置建议"，放在处置卡片上。</li>
+        <li><b>人：</b>是否通知医药客户、是否报废整批货，永远由调度主管决定，系统只记录理由。</li>
+      </ol>
+      <p><b>关键的一次对话：</b>医药线的质量经理坚持"召回率必须 99%"。小林没有争论，而是算给她看：召回率 99% 意味着每天 2,000 多条告警，调度员会全部忽略，实际效果反而更差。最后双方商定：<b>医药线单独设更低的阈值（召回 97%），生鲜线用标准阈值</b>。</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 M4-2：这个任务交给谁？</div>
+    <p class="hint">为每个任务选择最合适的方案。</p>
+    <div id="sort-ai"></div>
+  </div>
+
+  <div class="lab"><div class="lab-h">小测验：模块 4</div><div id="quiz-m4"></div></div>
+  <div class="homework"><h4>📝 实战作业</h4><ol><li>把你的用例拆成"规则 / 机器学习 / 大模型 / 人"四层，说明每层为什么这样分。</li><li>如果用例里有大模型，准备 30 个测试案例和标准答案，作为你的第一版评测集。</li></ol></div>
+  <button class="btn pri done-btn" data-done="m4">✓ 标记模块 4 完成</button>
+</section>
+
+<!-- ============ M5 ============ -->
+<section class="chap" id="m5">
+  <div class="sess-head">
+    <div class="no" style="color:var(--blue)">中级 · 模块 5 · 90 分钟</div>
+    <h2>试点设计与指标：证明效果是真的</h2>
+    <div class="agenda"><div class="c1" style="flex:10">开场 10'</div><div class="c2" style="flex:30">试点与指标 30'</div><div class="c3" style="flex:20">案例 20'</div><div class="c4" style="flex:25">练习 25'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>设计一个有对照组的试点，排除"运气"和"季节"的干扰</li><li>搭建三层指标体系：北极星、过程、护栏</li><li>用双重差分法计算净效果，并写出可信的试点结论</li></ul>
+  </div>
+
+  <h3>5.1 为什么"前后对比"不够</h3>
+  <p>"试点后货损率从 1.9% 降到 1.1%"听起来很棒，但财务会问：<b>是不是天气变凉了？是不是那个月刚好没有大单？</b>如果没有对照组，这些质疑你都回答不了。</p>
+  <div class="tbl"><table>
+    <thead><tr><th>设计</th><th>做法</th><th>可信度</th><th>适用</th></tr></thead>
+    <tbody>
+      <tr><td><b>前后对比</b></td><td>只比较试点前后</td><td>低</td><td>没有其他选择时</td></tr>
+      <tr><td><b>对照组</b></td><td>找条件相似、不用新方案的站点/团队同期对比</td><td>中高</td><td>大部分企业试点，推荐</td></tr>
+      <tr><td><b>随机对照（A/B）</b></td><td>随机分配哪些车辆/订单用新方案</td><td>最高</td><td>样本量大、可随机分配时</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>双重差分（DiD）</b>是对照组设计最常用的算法：<code>净效果 =（试点组之后 − 试点组之前）−（对照组之后 − 对照组之前）</code>。对照组的变化代表"不做也会发生的变化"，减掉它，剩下的才是你的功劳。</p>
+
+  <h3>5.2 三层指标体系</h3>
+  <div class="grid3">
+    <div class="card"><b>⭐ 北极星指标</b><p>最终要移动的业务结果，只选 1 个。<br><i>例：货损率</i></p></div>
+    <div class="card"><b>⚙️ 过程指标</b><p>领先指标，能每周看到变化，用来判断方向对不对。<br><i>例：紧急告警平均处置时间、装卸开门时长、调度员周活跃率</i></p></div>
+    <div class="card"><b>🛡 护栏指标</b><p>不能被牺牲的东西，防止"按下葫芦浮起瓢"。<br><i>例：准时交付率、司机满意度、漏报率</i></p></div>
+  </div>
+
+  <h3>5.3 试点设计清单</h3>
+  <ul>
+    <li><b>范围：</b>足够小以便控制，足够大以便看到效果（冷链案例：2 个站点、约 180 辆车）</li>
+    <li><b>时长：</b>至少覆盖 2 个完整业务周期，一般 4–8 周</li>
+    <li><b>基线：</b>试点前至少 4 周的同口径数据</li>
+    <li><b>成功标准：</b>开始前就写下来并让客户签字：达到什么数字就推广，达不到怎么办</li>
+    <li><b>退出机制：</b>出现什么情况立即停止（比如护栏指标恶化超过阈值）</li>
+  </ul>
+  <div class="callout warn"><b class="t">事先写下成功标准</b>如果等结果出来再定标准，无论结果如何都会有人说"这不算数"。</div>
+
+  <div class="case">
+    <div class="case-h">📁 远航冷链 · 第 8–14 周：六周试点 <small>主线案例</small></div>
+    <div class="case-b">
+      <p><b>设计：</b>华东区的上海站、苏州站做试点；条件相近的杭州站、南京站做对照。试点前双方签字的成功标准：<b>净效果下降 ≥ 0.4 个百分点，且准时率下降不超过 1 个百分点</b>。</p>
+      <p><b>结果：</b></p>
+      <div class="tbl"><table><thead><tr><th></th><th>试点前 4 周</th><th>试点 6 周</th><th>变化</th></tr></thead><tbody>
+        <tr><td>试点组 货损率</td><td>1.9%</td><td>1.1%</td><td>−0.8</td></tr>
+        <tr><td>对照组 货损率</td><td>1.8%</td><td>1.6%</td><td>−0.2（天气转凉）</td></tr>
+        <tr><td><b>净效果（DiD）</b></td><td colspan="2"></td><td><b>−0.6 个百分点</b></td></tr>
+        <tr><td>护栏：准时率</td><td>94.1%</td><td>93.6%</td><td>−0.5，在容忍范围内</td></tr>
+      </tbody></table></div>
+      <p>小林在汇报里主动讲了天气因素："如果只看前后对比是降了 0.8，但其中 0.2 是天气带来的，我们的净贡献是 0.6。"CFO 说："你们自己把功劳扣掉一部分，这个数我信。"</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 M5：双重差分计算器</div>
+    <p class="hint">输入试点组和对照组的前后数据（任何指标都行），计算净效果。默认值是远航冷链的货损率（%）。</p>
+    <div class="calc">
+      <div class="field"><label>试点组 · 之前</label><input type="number" step="0.1" id="d-pb" value="1.9"></div>
+      <div class="field"><label>试点组 · 之后</label><input type="number" step="0.1" id="d-pa" value="1.1"></div>
+      <div class="field"><label>对照组 · 之前</label><input type="number" step="0.1" id="d-cb" value="1.8"></div>
+      <div class="field"><label>对照组 · 之后</label><input type="number" step="0.1" id="d-ca" value="1.6"></div>
+    </div>
+    <svg id="didSvg" viewBox="0 0 560 220" width="100%" role="img" aria-label="双重差分示意"></svg>
+    <div class="out" id="didOut" style="white-space:normal"></div>
+  </div>
+
+  <div class="lab"><div class="lab-h">小测验：模块 5</div><div id="quiz-m5"></div></div>
+  <div class="homework"><h4>📝 实战作业</h4><ol><li>为你的用例写一份试点方案：范围、时长、对照组、三层指标、成功标准和退出机制。</li><li>想一想：在你的业务里，有哪些"不做也会发生的变化"可能会被误认成你的功劳？</li></ol></div>
+  <button class="btn pri done-btn" data-done="m5">✓ 标记模块 5 完成</button>
+</section>
+
+<!-- ============ M6 ============ -->
+<section class="chap" id="m6">
+  <div class="sess-head">
+    <div class="no" style="color:var(--blue)">中级 · 模块 6 · 90 分钟</div>
+    <h2>变革管理与采纳：让人真的用起来</h2>
+    <div class="agenda"><div class="c1" style="flex:10">开场 10'</div><div class="c2" style="flex:30">采纳模型 30'</div><div class="c3" style="flex:20">案例 20'</div><div class="c4" style="flex:25">练习 25'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>用 ADKAR 诊断用户为什么不用</li><li>设计一套推广计划：超级用户、培训、激励、反馈闭环</li><li>搭建采纳漏斗，及早发现问题</li></ul>
+  </div>
+
+  <h3>6.1 ADKAR：改变发生的五个台阶</h3>
+  <p>ADKAR 是一个常用的变革管理模型。它认为一个人要真正改变行为，必须依次走过五个台阶。哪一级没过，就在哪一级使劲。</p>
+  <div class="tbl"><table>
+    <thead><tr><th>台阶</th><th>含义</th><th>卡住时用户会说</th><th>对策</th></tr></thead>
+    <tbody>
+      <tr><td><b>A · 知道 Awareness</b></td><td>知道为什么要变</td><td>"好好的为什么要换？"</td><td>讲清楚问题和数据，由他们的领导来讲</td></tr>
+      <tr><td><b>D · 想要 Desire</b></td><td>自己愿意变</td><td>"对我有什么好处？""是不是要监控我？"</td><td>讲"对你"的好处，消除顾虑，调整考核</td></tr>
+      <tr><td><b>K · 会 Knowledge</b></td><td>知道怎么用</td><td>"我不知道在哪点。"</td><td>培训、操作卡、视频</td></tr>
+      <tr><td><b>A · 能 Ability</b></td><td>在真实工作中做得到</td><td>"太忙了，来不及看。""手机信号不好。"</td><td>改流程、改工具，扫清现场障碍</td></tr>
+      <tr><td><b>R · 坚持 Reinforcement</b></td><td>持续下去，不回到老路</td><td>"上个月还用，这个月忘了。"</td><td>表扬、纳入考核、定期复盘</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>6.2 采纳漏斗</h3>
+  <p>不要只看"有多少人登录"，要看用户一路走到哪一步掉了：</p>
+  <svg viewBox="0 0 560 200" width="100%" style="max-width:560px" role="img" aria-label="采纳漏斗：开通 100%、登录 85%、每周使用 60%、完成核心动作 42%、持续 8 周 35%">
+    <g font-size="12">
+      <rect x="10" y="8" width="420" height="30" rx="5" fill="var(--blue)"/><text x="20" y="28" fill="#fff">开通账号 100%</text>
+      <rect x="10" y="46" width="357" height="30" rx="5" fill="var(--blue)" opacity=".85"/><text x="20" y="66" fill="#fff">至少登录一次 85%</text>
+      <rect x="10" y="84" width="252" height="30" rx="5" fill="var(--blue)" opacity=".7"/><text x="20" y="104" fill="#fff">每周使用 60%</text>
+      <rect x="10" y="122" width="176" height="30" rx="5" fill="var(--accent)"/><text x="20" y="142" fill="#fff">完成核心动作 42%</text>
+      <rect x="10" y="160" width="147" height="30" rx="5" fill="var(--accent)" opacity=".8"/><text x="20" y="180" fill="#fff">连续 8 周 35%</text>
+      <text x="440" y="142" fill="var(--accent)" font-weight="700">← 最大流失</text>
+    </g>
+  </svg>
+  <p>上图里最大的流失在"每周使用 → 完成核心动作"：用户打开了，但没有用它做决定。这通常说明工具没有嵌进他们的工作流程，是 ADKAR 中"能"那一级的问题。</p>
+
+  <h3>6.3 推广的四个杠杆</h3>
+  <ul>
+    <li><b>超级用户：</b>每个班组找 1 个愿意尝鲜、有威信的人，提前培训，让他们教同事。同事的话比 Echo 的话管用。</li>
+    <li><b>领导示范：</b>部门领导在例会上用新工具开会，比发十个通知都有效。</li>
+    <li><b>考核对齐：</b>如果考核还在奖励旧行为，新工具注定失败（想想初级结业项目里的店长）。</li>
+    <li><b>反馈闭环：</b>用户提的问题，一周内给出回应。让他们看到"我说的话有用"。</li>
+  </ul>
+
+  <div class="case">
+    <div class="case-h">📁 远航冷链 · 第 15–20 周：司机说"你们在监控我" <small>主线案例</small></div>
+    <div class="case-b">
+      <p>推广到华东全区后第三周，调度员周活跃率 82%，司机端 App 的使用率却只有 31%。装卸开门时长几乎没变。</p>
+      <p>小林跟车两天，用 ADKAR 诊断出三个原因：</p>
+      <ol>
+        <li><b>D（想要）：</b>司机群里传言"系统是用来扣钱的"。开门超时提醒被理解成了"监控"。</li>
+        <li><b>A（能）：</b>仓库月台排队严重，司机就算想快也快不了，提醒只会让人烦。</li>
+        <li><b>R（坚持）：</b>车队的考核只看准点，不看货损。</li>
+      </ol>
+      <p><b>小林的对策：</b>①请车队长在早会上明确"数据不用于扣罚，只用于排查月台问题"；②把开门时长数据反过来给仓库，推动 3 个仓库加装冷风帘、按预约卸货；③和车队总经理商量，把"零货损月"纳入司机奖金（这一步引出了模块 8 的冲突）。</p>
+      <p>六周后，司机端使用率升到 74%，平均开门时长从 25 分钟降到 11 分钟。</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 M6：卡在 ADKAR 哪一级？</div>
+    <p class="hint">根据用户的原话，判断他卡在哪一级。</p>
+    <div id="sort-adkar"></div>
+  </div>
+
+  <div class="lab"><div class="lab-h">小测验：模块 6</div><div id="quiz-m6"></div></div>
+  <div class="homework"><h4>📝 实战作业</h4><ol><li>为你的用例设计采纳漏斗，定义每一层的指标和目标值。</li><li>写一份推广计划：超级用户名单、培训安排、考核调整建议、反馈闭环机制。</li></ol></div>
+  <button class="btn pri done-btn" data-done="m6">✓ 标记模块 6 完成</button>
+</section>
+
+<!-- ============ M7 ============ -->
+<section class="chap" id="m7">
+  <div class="sess-head">
+    <div class="no" style="color:var(--blue)">中级 · 模块 7 · 90 分钟</div>
+    <h2>工作坊主持：让 20 个人 2 小时达成共识</h2>
+    <div class="agenda"><div class="c1" style="flex:10">开场 10'</div><div class="c2" style="flex:30">设计与引导 30'</div><div class="c3" style="flex:20">案例 20'</div><div class="c4" style="flex:25">练习 25'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>区分"开会"和"工作坊"，知道什么时候该开工作坊</li><li>设计一个先发散、后收敛的 2 小时议程</li><li>掌握 5 个常用引导技巧，处理冷场、跑题和一言堂</li></ul>
+  </div>
+
+  <h3>7.1 什么时候需要工作坊</h3>
+  <p>当一个决定需要<b>多个部门共同做出、并且共同执行</b>时，一对一沟通效率太低，普通会议又容易变成"谁官大听谁的"。工作坊用设计好的流程，让每个人都贡献信息，最后得出大家都认的结论。</p>
+  <div class="callout"><b class="t">工作坊的三个产出</b>① 一个明确的决定或共识；② 每个人都知道下一步自己要做什么；③ 参与者觉得"这是我们一起定的"。第三点最容易被忽略，却最重要。</div>
+
+  <h3>7.2 钻石结构：先发散，后收敛</h3>
+  <svg viewBox="0 0 560 150" width="100%" style="max-width:560px" role="img" aria-label="工作坊钻石结构：开场、发散、涌现、收敛、行动">
+    <g font-size="12" text-anchor="middle">
+      <path d="M40 75 L200 15 L360 15 L520 75 L360 135 L200 135 Z" fill="var(--blue-soft)" stroke="var(--blue)"/>
+      <text x="60" y="80" fill="var(--ink)">开场</text>
+      <text x="170" y="80" fill="var(--blue)" font-weight="700">发散</text>
+      <text x="280" y="80" fill="var(--ink-2)">涌现（混乱期）</text>
+      <text x="390" y="80" fill="var(--blue)" font-weight="700">收敛</text>
+      <text x="495" y="80" fill="var(--ink)">行动</text>
+    </g>
+  </svg>
+  <p>中间的"混乱期"是正常的：观点冲突、信息太多。新手主持人常在这里慌了，急着拍板。<b>坚持住，按流程走到收敛。</b></p>
+
+  <h3>7.3 五个常用引导技巧</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>技巧</th><th>怎么做</th><th>解决什么</th></tr></thead>
+    <tbody>
+      <tr><td><b>1-2-4-全体</b></td><td>先 1 分钟独立写，再 2 人讨论，再 4 人合并，最后全体分享</td><td>一言堂；内向的人不说话</td></tr>
+      <tr><td><b>静默书写</b></td><td>每人在便利贴上写，一张一个想法，再贴到墙上</td><td>领导一开口别人就不敢说</td></tr>
+      <tr><td><b>点投票</b></td><td>每人 3 个点，贴在最想优先做的选项上</td><td>选项太多，无法收敛</td></tr>
+      <tr><td><b>停车场</b></td><td>墙上贴一张"停车场"，跑题的话题先停在这里，会后处理</td><td>跑题</td></tr>
+      <tr><td><b>谁-做什么-何时</b></td><td>每个行动项必须写明负责人和日期</td><td>开完会没人执行</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>7.4 现场突发情况</h3>
+  <ul>
+    <li><b>冷场：</b>不要自己填补沉默。换成静默书写，或点名一个你提前沟通过的人先开头。</li>
+    <li><b>一言堂：</b>"谢谢王总，这个观点很重要。我们先听听一线的声音，再回来讨论。"</li>
+    <li><b>激烈冲突：</b>把冲突从"人"移到"事"上：把双方的观点都写在白板上，问"什么样的数据能帮我们判断？"</li>
+    <li><b>领导中途要拍板：</b>提前和最高领导约好，他最后发言，或者只在收敛阶段发言。</li>
+  </ul>
+
+  <div class="case">
+    <div class="case-h">📁 远航冷链 · 第 21 周：5 个部门定处置标准 <small>主线案例</small></div>
+    <div class="case-b">
+      <p>要在全国推广，必须先定一套<b>统一的温控异常处置标准流程</b>。运营、客服、车队、质量、IT 五个部门各有说法，邮件来回吵了三周。</p>
+      <p>小林设计了一个 2 小时工作坊，18 人参加。会前她做了三件事：①分别和五个部门负责人单独聊了 20 分钟，知道每个人的底线；②约好运营副总"最后 10 分钟再发言"；③把现在 4 种不同的处置做法打印成大海报贴在墙上。</p>
+      <p><b>现场：</b>用"静默书写"让每个人写出现行流程的问题，贴了 63 张便利贴；分组归类后得到 7 个主题；点投票选出 3 个最关键的决策点；每个决策点由跨部门小组提出方案。车队和质量部在"谁有权决定报废"上吵起来，小林把它放进"停车场"，约了会后专题会。</p>
+      <p><b>结果：</b>2 小时内定下了 3 个关键决策点的处置规则、12 个行动项（每项有人有日期）。运营副总最后说："这是大家一起定的，下周一开始执行。"</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 M7：工作坊议程搭建器</div>
+    <p class="hint">你要主持一个 120 分钟的跨部门工作坊。勾选你要用的环节，系统会按"开场 → 发散 → 收敛 → 行动"排列并检查议程。</p>
+    <div id="wsBlocks"></div>
+    <div class="agenda" id="wsBar" style="height:34px"></div>
+    <ul class="checks" id="wsChecks"></ul>
+  </div>
+
+  <div class="lab"><div class="lab-h">小测验：模块 7</div><div id="quiz-m7"></div></div>
+  <div class="homework"><h4>📝 实战作业</h4><ol><li>为你项目中一个需要多部门共同决定的问题，设计一份 2 小时工作坊议程，包括会前沟通计划。</li><li>找机会主持一次至少 6 人参加的工作坊（可以是公司内部会议），会后写复盘：哪个环节效果最好，哪里失控了。</li></ol></div>
+  <button class="btn pri done-btn" data-done="m7">✓ 标记模块 7 完成</button>
+</section>
+
+<!-- ============ M8 ============ -->
+<section class="chap" id="m8">
+  <div class="sess-head">
+    <div class="no" style="color:var(--blue)">中级 · 模块 8 · 90 分钟</div>
+    <h2>复杂干系人：处理阻力与冲突</h2>
+    <div class="agenda"><div class="c1" style="flex:10">开场 10'</div><div class="c2" style="flex:30">影响力与冲突 30'</div><div class="c3" style="flex:15">案例 15'</div><div class="c4" style="flex:30">情景模拟 30'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>看懂阻力背后的真实利益，而不是表面立场</li><li>用影响力地图规划"先找谁、怎么谈"</li><li>在不越级、不撕破脸的前提下化解中层阻力</li></ul>
+  </div>
+
+  <h3>8.1 立场 vs 利益</h3>
+  <p>阻力很少是"他就是不讲理"。几乎每一个反对的人，背后都有一个合理的利益。</p>
+  <div class="tbl"><table>
+    <thead><tr><th>表面立场</th><th>可能的真实利益</th></tr></thead>
+    <tbody>
+      <tr><td>"现在系统挺好的，没必要换。"</td><td>旧系统是他主导建的，换掉等于否定他</td></tr>
+      <tr><td>"数据安全有风险，要再评估。"</td><td>IT 担心出了问题要背锅，或者想把项目收归自己做</td></tr>
+      <tr><td>"我们部门现在太忙，下季度再说。"</td><td>新方案会让他的部门指标变难看，或增加工作量</td></tr>
+      <tr><td>"这个应该由总部统一规划。"</td><td>怕失去对本部门的控制权</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>8.2 影响力地图</h3>
+  <p>初级用"影响力 × 支持度"画干系人；中级还要画出<b>人与人之间的影响关系</b>：谁听谁的？谁和谁是盟友、谁和谁有过节？很多时候，搞定一个反对者最好的路径，是通过他信任的人。</p>
+  <svg viewBox="0 0 560 260" width="100%" style="max-width:560px" role="img" aria-label="远航冷链影响力地图">
+    <g font-size="12" text-anchor="middle">
+      <g stroke="var(--ink-3)" fill="none" stroke-width="1.4">
+        <path d="M280 50 L120 140"/><path d="M280 50 L280 140"/><path d="M280 50 L440 140"/>
+        <path d="M120 160 L200 225" stroke-dasharray="4 4"/><path d="M440 160 L360 225"/>
+        <path d="M160 150 L240 150" stroke="var(--bad)" stroke-width="2"/>
+      </g>
+      <circle cx="280" cy="40" r="28" fill="var(--ok-soft)" stroke="var(--ok)"/><text x="280" y="38" fill="var(--ink)">CEO</text><text x="280" y="52" fill="var(--ok)" font-size="10">支持</text>
+      <circle cx="120" cy="150" r="34" fill="var(--bad-soft)" stroke="var(--bad)"/><text x="120" y="147" fill="var(--ink)">车队总经理</text><text x="120" y="162" fill="var(--bad)" font-size="10">老马 · 反对</text>
+      <circle cx="280" cy="150" r="34" fill="var(--ok-soft)" stroke="var(--ok)"/><text x="280" y="147" fill="var(--ink)">运营副总</text><text x="280" y="162" fill="var(--ok)" font-size="10">拥护者</text>
+      <circle cx="440" cy="150" r="34" fill="var(--gold-soft)" stroke="var(--gold)"/><text x="440" y="147" fill="var(--ink)">质量总监</text><text x="440" y="162" fill="var(--gold)" font-size="10">中立</text>
+      <circle cx="200" cy="232" r="24" fill="var(--surface-2)" stroke="var(--line)"/><text x="200" y="236" fill="var(--ink)">车队长们</text>
+      <circle cx="360" cy="232" r="24" fill="var(--surface-2)" stroke="var(--line)"/><text x="360" y="236" fill="var(--ink)">医药客户</text>
+      <text x="200" y="140" fill="var(--bad)" font-size="10">有过节</text>
+      <text x="172" y="200" fill="var(--ink-3)" font-size="10">很信任</text>
+    </g>
+  </svg>
+
+  <h3>8.3 化解阻力的五条原则</h3>
+  <ol>
+    <li><b>先私下、后公开：</b>永远先单独谈，不要在会上让对方下不来台。</li>
+    <li><b>找共同目标：</b>"我们都不想丢掉医药大客户。"</li>
+    <li><b>给对方赢的方式：</b>让他在新方案里有角色、有功劳。</li>
+    <li><b>不越级告状：</b>向他的上级"求助"之前，先告诉他你要这么做。越级是最后手段，用一次就没有第二次信任。</li>
+    <li><b>用数据把对立变成共同问题：</b>"我们一起看看这组数据，你觉得原因是什么？"</li>
+  </ol>
+
+  <div class="case">
+    <div class="case-h">📁 远航冷链 · 第 22–24 周：老马的反对 <small>主线案例</small></div>
+    <div class="case-b">
+      <p>在模块 6 里，小林建议把"零货损月"纳入司机奖金。车队总经理老马表面同意，实际上推广到他的华南车队时一拖再拖：培训一再延期，车队长们收到的口径是"总部的系统，先应付着"。</p>
+      <p>老马在公司干了 18 年，司机们都听他的。他和运营副总在去年的预算分配上有过节。这个项目被看成是"运营副总的项目"。</p>
+      <p>下面的情景模拟会带你走一遍小林当时面临的选择。</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 M8：情景模拟 · 老马的反对</div>
+    <div id="scenario2"></div>
+  </div>
+
+  <div class="lab"><div class="lab-h">小测验：模块 8</div><div id="quiz-m8"></div></div>
+  <div class="homework"><h4>📝 实战作业</h4><ol><li>为你的项目画一张影响力地图，标出支持度和人与人之间的影响关系。</li><li>找出最大的一个阻力，写下他的表面立场和你推测的真实利益，设计一次私下沟通的开场白。</li></ol></div>
+  <button class="btn pri done-btn" data-done="m8">✓ 标记模块 8 完成</button>
+</section>
+
+<!-- ============ L2 FINAL ============ -->
+<section class="chap" id="mfinal">
+  <h2>中级结业：测验、实战项目与答辩</h2>
+  <p>中级结业分三步：<b>结业测验</b>（15 题，答对 12 题及以上通过）→ <b>实战项目</b>（3–6 个月真实项目）→ <b>复盘答辩</b>（导师和客户代表评审）。</p>
+
+  <div class="lab">
+    <div class="lab-h">中级结业测验 · 15 题</div>
+    <div id="quiz-mfinal"></div>
+    <div id="mfinalScore" class="score"></div>
+    <div class="field" id="cert2Name" style="display:none;max-width:320px"><label>输入你的名字，生成中级结业证明</label><input id="cert2Input" placeholder="你的名字"></div>
+    <div class="cert" id="cert2" style="border-color:var(--blue);background:var(--blue-soft)">
+      <div class="eyebrow" style="color:var(--blue)">Certificate of Completion · Level 2</div>
+      <h3>FDE · Echo 中级课程结业</h3>
+      <p>兹证明 <b id="cert2Who">学员</b> 已完成 Echo 中级课程全部 8 个模块，<br>并以 <b id="cert2Score"></b> 的成绩通过结业测验。</p>
+      <p style="font-size:.85rem;color:var(--ink-2)">晋级中级 Echo 还需完成实战项目与复盘答辩。</p>
+      <p style="font-size:.85rem;color:var(--ink-2)" id="cert2Date"></p>
+    </div>
+  </div>
+
+  <h3>实战项目要求</h3>
+  <div class="card">
+    <p>在导师指导下，独立负责一个真实客户的一条工作流，时长 3–6 个月。必须提交以下 8 份产出，与 8 个模块一一对应：</p>
+    <div class="tbl"><table>
+      <thead><tr><th>#</th><th>产出</th><th>对应模块</th><th>合格标准</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>发现报告 + 假设板</td><td>M1</td><td>至少 15 场访谈，至少推翻 1 条初始假设</td></tr>
+        <tr><td>2</td><td>业务论证</td><td>M2</td><td>三情景 3 年模型，客户财务确认过假设</td></tr>
+        <tr><td>3</td><td>原型 + 测试记录</td><td>M3</td><td>至少 5 名用户测试，有迭代前后对比</td></tr>
+        <tr><td>4</td><td>方案分层说明</td><td>M4</td><td>说明规则/ML/大模型/人的分工；涉及 AI 的有评测集</td></tr>
+        <tr><td>5</td><td>试点方案与结果</td><td>M5</td><td>有对照组或说明为何不能有；事先签字的成功标准</td></tr>
+        <tr><td>6</td><td>推广计划 + 采纳漏斗</td><td>M6</td><td>有超级用户机制，漏斗数据至少 4 周</td></tr>
+        <tr><td>7</td><td>工作坊议程与纪要</td><td>M7</td><td>至少主持 1 次跨部门工作坊，行动项有人有期限</td></tr>
+        <tr><td>8</td><td>影响力地图 + 阻力处理记录</td><td>M8</td><td>至少处理 1 个真实阻力，有复盘</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <h3>复盘答辩（45 分钟）</h3>
+  <div class="grid2">
+    <div class="card"><b>流程</b><ul><li>15 分钟：讲述项目（用 M6 的 Demo 原则讲，从一个人的一天讲起）</li><li>20 分钟：评审提问，重点问"如果重来你会怎么做"</li><li>10 分钟：评审闭门讨论</li></ul></div>
+    <div class="card"><b>晋级标准</b><ul><li>负责的业务指标达到目标的 70% 以上</li><li>客户业务负责人的书面评价</li><li>带教 1 名见习生完成初级课程</li><li>答辩评分 ≥ 3.5 / 5</li></ul></div>
+  </div>
+  <details><summary>答辩评分表</summary>
+    <div class="tbl"><table><thead><tr><th>维度</th><th>权重</th><th>5 分的表现</th></tr></thead><tbody>
+      <tr><td>问题与价值</td><td>25%</td><td>问题定义经得起追问，价值数字有对照、有客户确认</td></tr>
+      <tr><td>交付与结果</td><td>25%</td><td>指标达成，采纳率持续，能说清楚哪些是自己的贡献</td></tr>
+      <tr><td>方法运用</td><td>20%</td><td>恰当使用了冲刺、试点设计、ADKAR 等方法，并能说明取舍</td></tr>
+      <tr><td>干系人与影响</td><td>20%</td><td>处理过真实阻力，客户方有明确的拥护者</td></tr>
+      <tr><td>反思</td><td>10%</td><td>能具体说出犯过的错误和学到的东西</td></tr>
+    </tbody></table></div>
+  </details>
+  <button class="btn pri done-btn" data-done="mfinal">✓ 标记中级结业完成</button>
+
+  <div class="case" style="margin-top:24px">
+    <div class="case-h">📁 远航冷链 · 尾声 <small>主线案例</small></div>
+    <div class="case-b"><p>第 26 周，远航冷链全国货损率降到 1.15%，年化减少赔付约 1,300 万元。两个医药大客户都续了约，其中一家把合同额提高了 30%。小林通过了中级答辩。CEO 在季度会上问："温控做完了，下一个能不能做车辆调度？"</p><p>这正是高级 Echo 要回答的问题：<b>怎样把一个用例的成功，变成整个公司的长期合作？</b></p></div>
+  </div>
+  <div class="callout blue"><b class="t">下一步：高级</b>高级课程将覆盖：账户战略、高层对话、平台化扩展、商务与谈判、危机处理、AI 治理、团队建设和方法沉淀。</div>
 </section>
 
 <!-- ============ APPENDIX ============ -->
@@ -1005,6 +1676,27 @@ footer{color:var(--ink-3);font-size:.85rem;border-top:1px solid var(--line);marg
   <div class="tpl"><button class="btn sm cp">复制</button><pre>| 数据项 | 所在系统 | 负责人 | 更新频率 | 质量(高/中/低) | 关联字段 | 访问限制 | 备注 |
 |--------|----------|--------|----------|----------------|----------|----------|------|
 |        |          |        |          |                |          |          |      |</pre></div>
+  <h4>试点方案（中级）</h4>
+  <div class="tpl"><button class="btn sm cp">复制</button><pre>试点名称：
+范围：试点组【站点/团队/人数】 vs 对照组【站点/团队/人数】
+时长：【起止日期】（基线期：【日期】）
+北极星指标：现状 → 目标
+过程指标：
+护栏指标（及容忍阈值）：
+成功标准（双方签字）：净效果 ≥ ___，且护栏指标 ___
+退出机制：出现 ___ 时立即停止
+客户方负责人：            Echo：            Delta：</pre></div>
+  <h4>工作坊议程（中级）</h4>
+  <div class="tpl"><button class="btn sm cp">复制</button><pre>主题：                 时长：120 分钟     人数：
+目标产出：①决定 ___ ②行动项清单 ③共识
+会前：□ 单独沟通各方负责人 □ 与最高领导约定发言时机 □ 准备材料/海报
+0:00  开场：目标、规则、破冰（10'）
+0:10  背景：数据与现状（15'）
+0:25  发散：静默书写 / 1-2-4-全体（20'）
+0:45  收敛：归类 + 点投票（25'）
+1:10  分组设计方案（25'）
+1:35  行动项：谁-做什么-何时（15'）
+1:50  收尾：回顾共识、处理停车场（10'）</pre></div>
 </section>
 
 <section class="chap" id="glossary">
@@ -1026,6 +1718,19 @@ footer{color:var(--ink-3);font-size:.85rem;border-top:1px solid var(--line);marg
       <tr><td>ROI</td><td>投资回报率，（收益 − 成本）÷ 成本</td></tr>
       <tr><td>主数据</td><td>商品、客户、供应商等跨系统共享的核心数据</td></tr>
       <tr><td>泳道图</td><td>按执行者分泳道的流程图，用来发现交接问题</td></tr>
+      <tr><td>发现冲刺</td><td>用固定时间盒（通常 2 周）系统摸清一个业务的调研方法</td></tr>
+      <tr><td>NPV 净现值</td><td>未来净收益按折现率换算成今天的价值，再减去投入</td></tr>
+      <tr><td>业务论证 Business Case</td><td>让决策者批准投入的完整论证，含多情景财务模型</td></tr>
+      <tr><td>保真度</td><td>原型与最终产品的接近程度，从纸面草图到生产级</td></tr>
+      <tr><td>精确率 Precision</td><td>模型报出的结果中，真正正确的比例</td></tr>
+      <tr><td>召回率 Recall</td><td>所有真实问题中，被模型抓到的比例</td></tr>
+      <tr><td>人在回路 Human-in-the-loop</td><td>AI 给建议、人做最终决定的流程设计</td></tr>
+      <tr><td>评测集</td><td>带标准答案的测试案例集合，用来客观衡量 AI 效果</td></tr>
+      <tr><td>双重差分 DiD</td><td>用对照组的变化扣除外部因素，计算试点净效果的方法</td></tr>
+      <tr><td>北极星 / 过程 / 护栏指标</td><td>最终结果指标 / 领先指标 / 不能被牺牲的指标</td></tr>
+      <tr><td>ADKAR</td><td>变革管理模型：知道、想要、会用、做得到、坚持</td></tr>
+      <tr><td>超级用户</td><td>一线中提前培训、帮助同事上手的骨干用户</td></tr>
+      <tr><td>停车场</td><td>工作坊中暂存跑题话题、会后处理的机制</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -1040,7 +1745,7 @@ footer{color:var(--ink-3);font-size:.85rem;border-top:1px solid var(--line);marg
     <li><b>《跨越鸿沟》</b> Geoffrey Moore：新技术在组织中的采纳规律（第 6 节）</li>
     <li>各大 AI 与数据公司关于 Forward Deployed Engineering 的公开博客和招聘说明，可以帮你了解这个岗位在真实公司里的样子</li>
   </ul>
-  <footer>FDE · Echo 培训手册 · 初级版 v1.0 · 2026 年 10 月<br>手册中所有公司、人物和数据均为教学用虚构案例。中级、高级手册编写中。</footer>
+  <footer>FDE · Echo 培训手册 · v2.0（初级 + 中级）· 2026 年 10 月<br>手册中所有公司、人物和数据均为教学用虚构案例。高级手册编写中。</footer>
 </section>
 </main>
 </div>
@@ -1064,12 +1769,12 @@ const spy=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){link
 secs.forEach(s=>spy.observe(s));
 
 /* progress */
-const KEYS=['s1','s2','s3','s4','s5','s6','final'];
+const K1=['s1','s2','s3','s4','s5','s6','final'],K2=['m1','m2','m3','m4','m5','m6','m7','m8','mfinal'],KEYS=K1.concat(K2);
 let done=store.get('done',{});
 function renderProgress(){
   const n=KEYS.filter(k=>done[k]).length;
   $('#pbarFill').style.width=(n/KEYS.length*100)+'%';
-  $('#ptext').textContent=`初级进度 ${n}/${KEYS.length}`;
+  $('#ptext').textContent=`初级 ${K1.filter(k=>done[k]).length}/${K1.length} · 中级 ${K2.filter(k=>done[k]).length}/${K2.length}`;
   $$('#side a[data-k]').forEach(a=>a.querySelector('.ck').textContent=done[a.dataset.k]?'✓':'');
   $$('[data-done]').forEach(b=>{const d=done[b.dataset.done];b.classList.toggle('ok',!!d);b.classList.toggle('pri',!d);b.textContent=d?'✓ 已完成（点击取消）':b.dataset.label;});
 }
@@ -1084,10 +1789,10 @@ const LV={
  exam:['结业测验 ≥ 10/12','结业项目导师评审通过','2 周影子实习，独立完成 3 次以上客户访谈'],
  path:['课程 6h','结业项目','影子实习 2 周','导师评审']},
 2:{c:'var(--blue)',t:'中级 · Echo 独立负责人',pos:'独立负责一条工作流，从发现到上线全程主导，对一个业务指标负责。',mods:[
- ['M1 发现冲刺','两周摸清一个业务部门'],['M2 业务论证','从 ROI 到可拍板的 Business Case'],['M3 原型与低代码','自己动手做可点击原型'],['M4 AI / 大模型用例','能力边界、评测、人机协同'],['M5 试点设计','试点范围、对照组、指标体系'],['M6 变革管理','培训、超级用户、采纳率'],['M7 工作坊主持','让 20 个人在 2 小时内达成共识'],['M8 复杂干系人','处理中层阻力和部门冲突']],
+ ['M1 发现冲刺','10 天冲刺 · 假设追踪板'],['M2 业务论证','三情景 NPV · CFO 三问'],['M3 原型与低代码','保真度阶梯 · 原型测试'],['M4 AI 与大模型用例','四层分工 · 精确率/召回率'],['M5 试点设计与指标','对照组 · 双重差分 · 三层指标'],['M6 变革管理与采纳','ADKAR · 采纳漏斗'],['M7 工作坊主持','钻石结构 · 议程搭建器'],['M8 复杂干系人','立场与利益 · 影响力地图']],
  out:['一个完整用例从 0 到上线','一份业务论证','一次 2 小时工作坊','一份试点复盘报告'],
  exam:['负责的用例指标达到目标的 70%','客户业务负责人书面评价','带教 1 名见习生完成初级'],
- path:['课程约 12h','真实项目 3–6 个月','复盘答辩','晋级评审']},
+ path:['课程 12h（8 模块 × 90 分钟）','结业测验','真实项目 3–6 个月','复盘答辩']},
 3:{c:'var(--accent)',t:'高级 · Echo 账户负责人',pos:'负责一个战略客户的整体部署，经营高层关系，把单点成功扩展成平台化合作。',mods:[
  ['A1 账户战略','多年部署路线图与价值地图'],['A2 高层对话','和 CXO 谈战略、预算与风险'],['A3 平台化扩展','从一个用例到十个用例'],['A4 商务与谈判','续约、扩单、定价与范围'],['A5 危机处理','重大事故与信任修复'],['A6 AI 治理','安全、合规、负责任的 AI'],['A7 团队建设','招聘、培训、文化'],['A8 方法沉淀','把经验变成产品与方法论']],
  out:['一份客户三年部署路线图','一次高层季度业务回顾（QBR）','一套可复用的行业方案','一个带出来的团队'],
@@ -1101,7 +1806,7 @@ function showLevel(l){
   <h4>课程模块</h4><div class="mods">${d.mods.map(m=>`<div class="mod"><b>${m[0]}</b><small>${m[1]}</small></div>`).join('')}</div>
   <div class="grid2"><div><h4>关键产出物</h4><ul>${d.out.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><h4>晋级标准</h4><ul>${d.exam.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
   <h4>成长路径</h4><div class="arrow-row">${d.path.map(x=>`<span class="s">${x}</span>`).join('→')}</div>
-  ${l==1?'<p style="margin-top:14px"><a href="#s1">→ 开始第 1 节</a></p>':'<p style="margin-top:14px;color:var(--ink-3);font-size:.9rem">详细手册编写中，完成初级后开放。</p>'}`;
+  ${l==1?'<p style="margin-top:14px"><a href="#s1">→ 开始初级第 1 节</a></p>':l==2?'<p style="margin-top:14px"><a href="#l2guide">→ 进入中级课程</a></p>':'<p style="margin-top:14px;color:var(--ink-3);font-size:.9rem">详细手册编写中，完成中级后开放。</p>'}`;
 }
 $$('.lvl').forEach(x=>x.onclick=()=>showLevel(x.dataset.l));
 showLevel(1);
@@ -1324,6 +2029,282 @@ quiz('quiz-final',FQ,(r,n)=>{
   $('#finalScore').innerHTML=pass?`🎉 恭喜通过！得分 ${r}/${n}`:`得分 ${r}/${n}，还差 ${10-r} 题通过。建议回顾错题对应的章节后刷新页面重测。`;
   if(pass){$('#certName').style.display='flex';const upd=()=>{$('#certWho').textContent=$('#certInput').value.trim()||'学员';$('#certScore').textContent=`${r}/${n}`;$('#certDate').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'});$('#cert').classList.add('show')};$('#certInput').oninput=upd;upd();}
 });
+
+/* ===== L2 ===== */
+/* generic scenario engine */
+function runScenario(elId,SC,labels){
+  let a=50,b=50;
+  function go(k){
+    const n=SC[k], el=document.getElementById(elId);
+    el.innerHTML=`<div class="scn"><div class="meter">${labels[0]} <b>${a}</b> · ${labels[1]} <b>${b}</b></div><div>${n.t}</div>${n.end?'<div style="margin-top:12px"><button class="btn sm" data-re>重新开始</button></div>':`<div class="opts">${n.o.map((o,i)=>`<button class="opt" data-i="${i}">${o[0]}</button>`).join('')}</div>`}</div>`;
+    if(n.end){el.querySelector('[data-re]').onclick=()=>{a=50;b=50;go('start')};return}
+    el.querySelectorAll('.opt').forEach(btn=>btn.onclick=()=>{const o=n.o[btn.dataset.i];a=Math.max(0,Math.min(100,a+o[2]));b=Math.max(0,Math.min(100,b+o[3]));go(o[1])});
+  }
+  go('start');
+}
+
+/* M1 sprint days */
+const DAYS=[
+ ['D1','启动与假设','启动会：确认 3 个核心问题、访谈名单、数据权限。下午写出 10–15 条假设，建立假设板。','产出：冲刺计划、假设板 v1'],
+ ['D2','高层与中层访谈','访谈业务负责人、各部门经理（6–8 场）。重点：他们怎么定义成功？他们认为问题在哪？','产出：访谈纪要、干系人地图 v1'],
+ ['D3','一线跟岗 ①','全天跟岗一线（白班）。记录影子系统、绕路操作、等待和打断。','产出：跟岗笔记、现状流程草图'],
+ ['D4','数据初探','和 Delta 一起拉取核心数据，做第一轮切片：按时间、地点、类型分布。','产出：数据盘点表、3–5 张关键图表'],
+ ['D5','中期回顾','和客户拥护者开 1 小时回顾会：哪些假设已证实/推翻？下半程重点调整。','产出：假设板 v2、调整后的计划'],
+ ['D6','一线跟岗 ②','跟岗另一个站点或夜班，对比差异。访谈表现最好和最差的团队。','产出：对比分析'],
+ ['D7','上下游访谈','访谈 IT、财务、质量、客服等上下游部门（5–7 场）。','产出：完整的泳道图、约束清单'],
+ ['D8','深度数据验证','针对还没定论的假设做专项数据分析，量化每个问题的影响大小。','产出：问题影响量化表'],
+ ['D9','形成建议','把发现收敛成 3–5 条结论，提出 1–3 个用例，粗估价值和可行性。先和拥护者私下过一遍。','产出：发现报告初稿'],
+ ['D10','汇报与决策','向决策层汇报（30 分钟讲 + 30 分钟讨论），请客户决定先做哪个用例。','产出：发现报告终稿、决策记录'],
+];
+const dayRow=$('#dayRow');
+DAYS.forEach((d,i)=>{const b=document.createElement('button');b.className='btn sm';b.textContent=d[0];b.onclick=()=>showDay(i);dayRow.appendChild(b)});
+function showDay(i){const d=DAYS[i];dayRow.querySelectorAll('button').forEach((b,j)=>b.classList.toggle('pri',j===i));$('#dayOut').innerHTML=`<b>${d[0]} · ${d[1]}</b><br>${d[2]}<br><span style="color:var(--teal)">${d[3]}</span>`}
+showDay(0);
+
+/* M1 hypothesis board */
+const HS=['待验证','证实','推翻'];
+let hyps=store.get('hyps',[]);
+function renderHyps(){
+  const L=$('#hypList'); L.innerHTML='';
+  hyps.forEach((h,i)=>{const r=document.createElement('div');r.className='sort-row';
+    const cls=h.s===1?'right':h.s===2?'wrong':'on';
+    r.innerHTML=`<div>${h.t.replace(/</g,'&lt;')}</div><div class="seg"><button class="${cls}" data-a="s">${HS[h.s]}</button><button data-a="d" title="删除">✕</button></div>`;
+    r.querySelector('[data-a=s]').onclick=()=>{h.s=(h.s+1)%3;save()};
+    r.querySelector('[data-a=d]').onclick=()=>{hyps.splice(i,1);save()};
+    L.appendChild(r)});
+  const c=[0,0,0];hyps.forEach(h=>c[h.s]++);
+  $('#hypStat').textContent=hyps.length?`共 ${hyps.length} 条：待验证 ${c[0]} · 证实 ${c[1]} · 推翻 ${c[2]}${c[2]===0&&hyps.length>=5?'　提示：一条都没推翻？检查一下你是不是只在找支持的证据。':''}`:'还没有假设。';
+}
+function save(){store.set('hyps',hyps);renderHyps()}
+$('#hypAdd').onclick=()=>{const v=$('#hypIn').value.trim();if(!v)return;hyps.push({t:v,s:0});$('#hypIn').value='';save()};
+$('#hypIn').addEventListener('keydown',e=>{if(e.key==='Enter')$('#hypAdd').click()});
+$('#hypDemo').onclick=()=>{hyps=[{t:'温度超标主要发生在长途运输途中',s:2},{t:'制冷机故障是货损主因',s:2},{t:'装卸环节开门时间过长',s:1},{t:'调度员能及时处理所有告警',s:2},{t:'告警数量过多导致告警疲劳',s:1},{t:'医药线和生鲜线的处置要求不同',s:1},{t:'夜班的超标率高于白班',s:0},{t:'司机愿意使用手机 App 上报',s:0}];save()};
+renderHyps();
+
+quiz('quiz-m1',[
+ {q:'发现冲刺第一天写下假设，最主要的目的是？',o:['让客户觉得我们很专业','让调研有方向，并逼自己去寻找推翻假设的证据','方便写报告','减少访谈数量'],a:1,e:'假设驱动的调研更快收敛，而且最有价值的发现往往是被推翻的假设。'},
+ {q:'"三角验证"指的是？',o:['访谈三个人','每个重要结论至少有数据、观察、访谈中的两类证据','做三次汇报','找三个部门确认'],a:1,e:'单一来源的结论容易出错。'},
+ {q:'访谈样本中特意安排"表现最好和最差的团队"，是为了？',o:['公平','对比两者的差异，最能看出问题和最佳做法','给差的团队压力','凑数'],a:1,e:'对比是发现问题最高效的方法之一。'},
+]);
+
+/* M2 business case */
+function bc(){
+  const v=id=>parseFloat($('#'+id).value)||0;
+  const base=v('b-base'),imp=v('b-imp')/100,capex=v('b-capex'),opex=v('b-opex'),r=v('b-r')/100;
+  const ks=($('#b-k').value.match(/[\d.]+/g)||['0.5','1.3']).map(Number);
+  const ramp=[0.5,0.8,1];
+  const sc=[['保守',ks[0]||0.5,'var(--ink-3)'],['基准',1,'var(--blue)'],['乐观',ks[1]||1.3,'var(--ok)']].map(([n,k,c])=>{
+    const flows=ramp.map(a=>base*imp*k*a-opex);
+    const npv=flows.reduce((s,f,i)=>s+f/Math.pow(1+r,i+1),-capex);
+    let cum=-capex,pb=null;const cums=[cum];
+    flows.forEach((f,i)=>{const prev=cum;cum+=f;cums.push(cum);if(pb===null&&cum>=0&&f>0)pb=i+(-prev)/f});
+    return {n,k,c,flows,npv,pb,cums};
+  });
+  const w=x=>Math.round(x).toLocaleString('zh-CN');
+  $('#bcTable').innerHTML=`<thead><tr><th>情景</th><th>系数</th><th>第1年净收益</th><th>第2年</th><th>第3年</th><th>3年 NPV</th><th>回本</th></tr></thead><tbody>${sc.map(s=>`<tr><td><b style="color:${s.c}">${s.n}</b></td><td>${s.k}</td>${s.flows.map(f=>`<td>${w(f)} 万</td>`).join('')}<td><b>${w(s.npv)} 万</b></td><td>${s.pb===null?'3 年内未回本':(s.pb*12).toFixed(0)+' 个月'}</td></tr>`).join('')}</tbody>`;
+  const all=sc.flatMap(s=>s.cums),mx=Math.max(...all,1),mn=Math.min(...all,0);
+  const X=i=>60+i*140,Y=v=>20+(mx-v)/(mx-mn)*170;
+  let h=`<line x1="50" y1="${Y(0)}" x2="545" y2="${Y(0)}" stroke="var(--ink-3)"/><text x="46" y="${Y(0)+4}" text-anchor="end" font-size="10" fill="var(--ink-3)">0</text>`;
+  ['投入','第1年','第2年','第3年'].forEach((t,i)=>h+=`<text x="${X(i)}" y="214" text-anchor="middle" font-size="11" fill="var(--ink-2)">${t}</text>`);
+  sc.forEach(s=>{h+=`<polyline fill="none" stroke="${s.c}" stroke-width="2.5" points="${s.cums.map((c,i)=>X(i)+','+Y(c)).join(' ')}"/>`;s.cums.forEach((c,i)=>h+=`<circle cx="${X(i)}" cy="${Y(c)}" r="3.5" fill="${s.c}"/>`);h+=`<text x="${X(3)+8}" y="${Y(s.cums[3])+4}" font-size="11" fill="${s.c}">${s.n}</text>`});
+  h+=`<text x="60" y="12" font-size="11" fill="var(--ink-2)">累计净现金（万元，未折现）</text>`;
+  $('#bcSvg').innerHTML=h;
+  const c=sc[0];
+  $('#bcNote').textContent=c.npv>0?`保守情景 NPV 仍为正（${w(c.npv)} 万），论证很稳。拿给 CFO 时先讲保守情景。`:`保守情景 NPV 为负（${w(c.npv)} 万）。要么降低投入、分阶段实施，要么补充战略价值（如客户留存）的论证。`;
+}
+$$('#m2 .calc input').forEach(i=>i.addEventListener('input',bc)); bc();
+quiz('quiz-m2',[
+ {q:'业务论证中考虑"采纳爬坡"，是因为？',o:['财务要求','上线不等于价值兑现，价值 = 理论价值 × 实际采纳率','显得更专业','为了让数字更大'],a:1,e:'第一年按 50% 左右采纳率计算是常见的保守做法。'},
+ {q:'给 CFO 讲业务论证，最好先讲哪个情景？',o:['乐观情景，先声夺人','基准情景','保守情景：最坏情况都划算，就好批了','都不讲，只讲功能'],a:2,e:'财务最关心下行风险。'},
+ {q:'让客户自己的财务人员参与建模的最大好处是？',o:['省我们的时间','他们算出来的数，他们才会信','可以推卸责任','财务更懂技术'],a:1,e:'把"我们的数字"变成"他们的数字"。'},
+]);
+
+/* M3 */
+const PC=['原型回答的是当前最大的那个不确定性','用的是真实场景和（尽可能）真实数据','至少 5 名目标用户试用过','记录了用户卡住的地方，而不是只记"喜不喜欢"','原型展示的是用户要做的决定，而不只是数据','迭代过至少一版','Delta 评估过：生产化的难度和数据依赖'];
+$('#protoChecks').innerHTML=PC.map(t=>`<li style="cursor:pointer">${t}</li>`).join('');
+$$('#protoChecks li').forEach(li=>li.onclick=()=>li.classList.toggle('pass'));
+sorter('sort-fidelity',['纸面草图','可点击原型','真数据原型','生产级'],[
+ {t:'还不确定调度员处理告警时需要看哪些信息',a:'纸面草图',e:'信息需求还没定，画在白板上和用户一起改，成本最低。'},
+ {t:'界面已经画好，想知道调度员能不能在 30 秒内完成一次处置',a:'可点击原型',e:'测试流程和可用性，L1 足够。'},
+ {t:'不确定模型对真实告警的分级效果，用户会不会认可',a:'真数据原型',e:'数据和结果质量的问题，必须用真数据回答。'},
+ {t:'试点已证明有效，要推广到全国 1,200 辆车',a:'生产级',e:'规模化、稳定性、运维，需要生产级。'},
+ {t:'高管想在下周董事会上看到"大概会是什么样子"',a:'可点击原型',e:'给高管看方向，可点击原型最划算；不要为此提前做生产级。'},
+ {t:'客户在两种完全不同的方案方向之间犹豫',a:'纸面草图',e:'方向未定，用最便宜的方式快速对比两种方案。'},
+]);
+quiz('quiz-m3',[
+ {q:'选择原型保真度的原则是？',o:['越逼真越好','用最便宜的原型回答当前最大的不确定性','总是从生产级开始','由 Delta 决定'],a:1,e:'原型是学习工具，不是交付物。'},
+ {q:'原型测试时，用户点错了按钮，你应该？',o:['马上告诉他正确的按钮','解释设计思路','记下来，不打断，这是原型的问题','换一个用户'],a:2,e:'用户点错不是用户的错。'},
+ {q:'中级 Echo 自己动手做原型的主要目的是？',o:['替代 Delta','更快地学习，把 Delta 的时间留给更难的工作','节省成本','展示个人能力'],a:1,e:'Echo 做原型是为了加快学习速度。'},
+]);
+
+/* M4 confusion */
+function cm(){
+  const v=id=>Math.max(0,parseFloat($('#'+id).value)||0);
+  const tp=v('c-tp'),fp=v('c-fp'),fn=v('c-fn'),mi=v('c-min');
+  const p=tp+fp?tp/(tp+fp):0,r=tp+fn?tp/(tp+fn):0,hrs=(tp+fp)*mi/60;
+  $('#c-p').textContent=(p*100).toFixed(1)+'%';$('#c-r').textContent=(r*100).toFixed(1)+'%';$('#c-h').textContent=Math.round(hrs)+' 小时';
+  const per=p>0?Math.round(1/p):'∞';
+  $('#c-note').innerHTML=`<b>业务翻译：</b>每 100 条告警里有 <b>${Math.round(p*100)}</b> 条是真问题，调度员平均要看 <b>${per}</b> 条告警才能碰到一条真的；每 100 个真实异常里，系统能抓到 <b>${Math.round(r*100)}</b> 个，漏掉 <b>${100-Math.round(r*100)}</b> 个。每月处理告警约需 <b>${Math.round(hrs)}</b> 小时人力。<br>${p<0.2?'⚠️ 精确率太低，调度员很快会产生告警疲劳。考虑提高阈值或加规则过滤。':r<0.85?'⚠️ 召回率偏低，漏报的业务代价是否可以接受？医药线尤其要谨慎。':'✓ 精确率和召回率比较均衡，可以和业务方确认是否满足要求。'}`;
+}
+$$('#m4 .calc input').forEach(i=>i.addEventListener('input',cm)); cm();
+sorter('sort-ai',['规则','机器学习','大模型','人'],[
+ {t:'温度超过合同约定上限 8°C 持续 10 分钟，立即报警',a:'规则',e:'逻辑清楚、必须可解释，规则最合适。'},
+ {t:'根据两年历史数据，预测哪条告警最可能造成货损',a:'机器学习',e:'有大量标注数据的分类问题。'},
+ {t:'把司机的语音留言、告警记录、客户要求汇总成三行处置建议',a:'大模型',e:'理解和生成非结构化文字，是大模型的强项。'},
+ {t:'决定是否报废一整车价值 200 万的疫苗',a:'人',e:'高风险、需要承担责任的决定必须由人做。'},
+ {t:'从客户发来的各种格式的邮件里提取运输温度要求',a:'大模型',e:'从非结构化文本中提取信息。'},
+ {t:'计算每条线路的月度货损率',a:'规则',e:'精确计算用常规的数据处理，不需要 AI。'},
+ {t:'预测下周各线路的冷藏车需求量',a:'机器学习',e:'基于历史数据的时间序列预测。'},
+ {t:'和医药客户沟通一次严重的温控事故',a:'人',e:'涉及关系和信任，必须由人来做。'},
+]);
+quiz('quiz-m4',[
+ {q:'一个告警模型召回率 99%，精确率 2%，最可能的后果是？',o:['完美，几乎不漏报','告警太多，用户会无视所有告警，实际效果很差','需要更多算力','客户会很满意'],a:1,e:'精确率过低会导致告警疲劳。'},
+ {q:'客户说"用 AI 解决这个问题"，Echo 的第一步应该是？',o:['选一个最新的大模型','先判断最简单的方法（规则/报表）够不够','招聘算法工程师','做技术选型报告'],a:1,e:'先简单后复杂。'},
+ {q:'大模型用例上线前准备"评测集"，是为了？',o:['应付审计','每次改动都能客观比较效果，而不是凭感觉','训练模型','给客户看'],a:1,e:'没有评测集，就无法判断变好还是变坏。'},
+]);
+
+/* M5 DiD */
+function did(){
+  const v=id=>parseFloat($('#'+id).value)||0;
+  const pb=v('d-pb'),pa=v('d-pa'),cb=v('d-cb'),ca=v('d-ca');
+  const dp=pa-pb,dc=ca-cb,net=dp-dc;
+  const all=[pb,pa,cb,ca,pb+dc],mx=Math.max(...all),mn=Math.min(...all),pad=(mx-mn)*0.15||0.5;
+  const Y=x=>20+(mx+pad-x)/((mx+pad)-(mn-pad))*170, X0=140,X1=380;
+  const f=x=>(+x.toFixed(2)).toString();
+  let h=`<text x="${X0}" y="212" text-anchor="middle" font-size="11" fill="var(--ink-2)">之前</text><text x="${X1}" y="212" text-anchor="middle" font-size="11" fill="var(--ink-2)">之后</text>
+  <line x1="${X0}" y1="${Y(cb)}" x2="${X1}" y2="${Y(ca)}" stroke="var(--ink-3)" stroke-width="2.5"/>
+  <line x1="${X0}" y1="${Y(pb)}" x2="${X1}" y2="${Y(pb+dc)}" stroke="var(--blue)" stroke-width="2" stroke-dasharray="5 5" opacity=".7"/>
+  <line x1="${X0}" y1="${Y(pb)}" x2="${X1}" y2="${Y(pa)}" stroke="var(--blue)" stroke-width="2.5"/>
+  <line x1="${X1+18}" y1="${Y(pb+dc)}" x2="${X1+18}" y2="${Y(pa)}" stroke="var(--accent)" stroke-width="3"/>
+  <text x="${X1+26}" y="${(Y(pb+dc)+Y(pa))/2+4}" font-size="11" fill="var(--accent)" font-weight="700">净效果 ${net>0?'+':''}${f(net)}</text>
+  <text x="${X0-8}" y="${Y(pb)+4}" text-anchor="end" font-size="11" fill="var(--blue)">试点 ${pb}</text>
+  <text x="${X0-8}" y="${Y(cb)+4}" text-anchor="end" font-size="11" fill="var(--ink-3)">对照 ${cb}</text>
+  <text x="${X1+8}" y="${Y(ca)+4}" font-size="11" fill="var(--ink-3)">${ca}</text><text x="${X1-6}" y="${Y(pa)+16}" text-anchor="end" font-size="11" fill="var(--blue)">${pa}</text>
+  <text x="${(X0+X1)/2}" y="14" text-anchor="middle" font-size="10" fill="var(--ink-3)">虚线 = 如果不做试点，试点组"本来会"走的路线</text>`;
+  $('#didSvg').innerHTML=h;
+  $('#didOut').innerHTML=`试点组变化：<b>${dp>0?'+':''}${f(dp)}</b>　对照组变化：<b>${dc>0?'+':''}${f(dc)}</b>（不做也会发生的变化）<br>净效果（双重差分）：<b style="color:var(--accent)">${net>0?'+':''}${f(net)}</b>。如果只看前后对比，会把效果${Math.abs(dp)>Math.abs(net)?'高估':'低估'} ${f(Math.abs(dp-net))}。`;
+}
+$$('#m5 .calc input').forEach(i=>i.addEventListener('input',did)); did();
+quiz('quiz-m5',[
+ {q:'为什么试点需要对照组？',o:['显得更科学','排除天气、季节等"不做也会发生"的变化，算出真实贡献','客户要求','让试点更便宜'],a:1,e:'对照组的变化代表外部因素的影响。'},
+ {q:'"准时交付率"在冷链温控项目中属于哪类指标？',o:['北极星指标','过程指标','护栏指标','不需要关注'],a:2,e:'它不能因为温控项目而被牺牲。'},
+ {q:'试点的成功标准应该什么时候定？',o:['试点结束后看结果再定','试点开始前写下来并让客户签字','由 Echo 自己定，不用告诉客户','不需要成功标准'],a:1,e:'事后定标准，结果怎样都会有人不认。'},
+]);
+
+/* M6 */
+sorter('sort-adkar',['知道','想要','会用','做得到','坚持'],[
+ {t:'"现在不是挺好的吗？为什么要搞这个？"',a:'知道',e:'不理解为什么要改变。'},
+ {t:'"这个系统是不是用来扣我们钱的？"',a:'想要',e:'对改变有顾虑，缺乏意愿。'},
+ {t:'"我知道要用，但找不到在哪里确认处置。"',a:'会用',e:'有意愿，但不知道怎么操作。'},
+ {t:'"仓库月台排队那么长，我想快也快不了。"',a:'做得到',e:'知道也会用，但现场条件不允许。'},
+ {t:'"上个月领导天天盯着，这个月没人提了，就忘了。"',a:'坚持',e:'缺乏持续的强化机制。'},
+ {t:'"用这个对我有什么好处？又多一件事。"',a:'想要',e:'没看到对自己的好处。'},
+ {t:'"培训那天我在跑车，没参加。"',a:'会用',e:'知识没有传达到位。'},
+ {t:'"车上手机信号不好，App 老是打不开。"',a:'做得到',e:'工具或环境障碍。'},
+]);
+quiz('quiz-m6',[
+ {q:'用户登录了系统，但很少用它完成核心动作，最可能是 ADKAR 哪一级的问题？',o:['知道','想要','做得到：工具没嵌进他们的工作流程','都不是'],a:2,e:'打开了却不用来做决定，通常是流程和工具的契合问题。'},
+ {q:'推广新工具最有效的"代言人"通常是？',o:['Echo 本人','外部专家','一线同事中有威信的超级用户','IT 部门'],a:2,e:'同事的话比外人的话更有说服力。'},
+ {q:'如果考核仍然奖励旧的行为，会怎样？',o:['没影响','新工具很难被持续采纳','员工会主动改变','只影响管理层'],a:1,e:'考核对齐是采纳的关键杠杆。'},
+]);
+
+/* M7 workshop builder */
+const WB=[
+ ['open','开场：目标、规则、破冰',10,'开场',true],
+ ['ctx','背景：数据与现状回顾',15,'开场',false],
+ ['silent','静默书写：每人写出现行问题',10,'发散',false],
+ ['124','1-2-4-全体：分组讨论',20,'发散',false],
+ ['cluster','归类：把便利贴分成主题',15,'收敛',false],
+ ['dot','点投票：选出最关键的 3 个',10,'收敛',false],
+ ['design','分组设计解决方案',25,'收敛',false],
+ ['break','茶歇',10,'休息',false],
+ ['action','行动项：谁-做什么-何时',10,'行动',true],
+ ['close','收尾：回顾共识、停车场处理',5,'行动',true],
+];
+const wsSel=new Set(['open','ctx','silent','cluster','dot','design','action','close']);
+const wsCol={开场:'c1',发散:'c2',收敛:'c3',行动:'c4',休息:'c5'};
+$('#wsBlocks').innerHTML=WB.map(b=>`<label style="display:flex;gap:8px;align-items:center;padding:4px 0;font-size:.92rem"><input type="checkbox" data-k="${b[0]}" ${wsSel.has(b[0])?'checked':''}> <span class="tag">${b[3]}</span>${b[1]} <span style="color:var(--ink-3)">· ${b[2]} 分钟</span></label>`).join('');
+$$('#wsBlocks input').forEach(c=>c.onchange=()=>{c.checked?wsSel.add(c.dataset.k):wsSel.delete(c.dataset.k);wsRender()});
+function wsRender(){
+  const s=WB.filter(b=>wsSel.has(b[0])),tot=s.reduce((a,b)=>a+b[2],0);
+  $('#wsBar').innerHTML=s.map(b=>`<div class="${wsCol[b[3]]}" style="flex:${b[2]}" title="${b[1]}">${b[2]}'</div>`).join('')+(tot<120?`<div style="flex:${120-tot};background:var(--surface-2);color:var(--ink-3)">空 ${120-tot}'</div>`:'');
+  const has=k=>wsSel.has(k), ph=p=>s.some(b=>b[3]===p);
+  const ck=[
+   [tot<=120,`总时长 ${tot} / 120 分钟${tot>120?'（超时了，砍掉一些环节）':''}`],
+   [tot>=100,'时间利用充分（不少于 100 分钟）'],
+   [has('open'),'有开场：说明目标和规则'],
+   [ph('发散')&&ph('收敛'),'先发散、后收敛，两个阶段都有'],
+   [has('action'),'有行动项环节：每项有负责人和期限'],
+   [has('close'),'有收尾：回顾共识、处理停车场'],
+   [tot<=90||has('break'),'超过 90 分钟的工作坊安排了茶歇'],
+  ];
+  $('#wsChecks').innerHTML=ck.map(c=>`<li class="${c[0]?'pass':'fail'}">${c[1]}</li>`).join('');
+}
+wsRender();
+quiz('quiz-m7',[
+ {q:'工作坊里部门领导一开口，其他人就不说话了。最好的做法是？',o:['请领导离场','改用静默书写，让每个人先独立写下想法','主持人自己多说','直接按领导意见定'],a:1,e:'静默书写让每个人都能平等贡献。'},
+ {q:'讨论进入"混乱期"，观点冲突、信息太多，主持人应该？',o:['赶紧拍板结束混乱','这是正常的，坚持按流程走到收敛','取消工作坊','让最大的领导决定'],a:1,e:'混乱期是发散到收敛的必经阶段。'},
+ {q:'两个部门在一个不属于本次议题的问题上争执不下，你应该？',o:['让他们吵完','放进"停车场"，会后专门处理','站在一方','结束工作坊'],a:1,e:'停车场保护议程，又尊重了问题本身。'},
+]);
+
+/* M8 scenario */
+runScenario('scenario2',{
+ start:{t:'华南车队的推广拖了 4 周。你从车队长那里听说，老马私下说"先应付着"。运营副总问你进展。你会：',o:[
+   ['如实告诉运营副总"老马在阻挠"，请他出面施压','escalate',-20,5],
+   ['先约老马私下喝茶，听听他怎么想','tea',10,0],
+   ['在下周项目周会上公开展示各区域采纳率，让华南"自己难看"','shame',-25,5]]},
+ escalate:{t:'运营副总在高管会上点名批评华南进度慢。老马很没面子，会后对车队长说"这个系统以后少碰"。两人的旧矛盾公开化了。你会：',o:[
+   ['继续施压，请 CEO 介入','end_war',-20,-10],
+   ['亡羊补牢：单独找老马道歉，说明你的本意，请他谈谈顾虑','tea_late',10,0]]},
+ shame:{t:'周会上华南排名垫底，老马当场说："你们的数据不准，华南路线长、天气热，不能和华东比。"会议气氛很僵。你会：',o:[
+   ['坚持数据是准的','end_war',-15,-10],
+   ['承认对比方式不公平，会后找他私下谈','tea_late',5,0]]},
+ tea_late:{t:'老马答应见面，但态度冷淡："你们总部的人，就是来给我们找麻烦的。"信任需要时间修复。你继续倾听，他终于说出顾虑：货损纳入司机奖金后，华南因为线路长、天气热，奖金会明显低于华东，他怕司机流失。',o:[
+   ['提议华南用单独的货损基线','fair',10,10],
+   ['说这是公司统一政策，没办法','end_stuck',-10,-10]]},
+ tea:{t:'喝茶时老马说了实话：华南线路长、天气热，货损天然比华东高。按全国统一标准考核，华南司机奖金会少一截，他担心留不住人。"而且这是运营那边的项目，做好了是他的功劳，做砸了是我的锅。"你会：',o:[
+   ['提议华南按自身历史基线考核"改善幅度"，并请老马牵头设计华南方案','fair',15,10],
+   ['告诉他这是 CEO 支持的项目，最好配合','end_stuck',-15,-5],
+   ['答应帮他向运营副总争取免于考核','promise',0,-10]]},
+ promise:{t:'你私下答应了，但运营副总不同意给华南特殊待遇。老马觉得你说话不算数，对你的信任跌到谷底。',o:[['重新找老马，坦白你无法兑现承诺，提出按历史基线考核的替代方案','fair',5,5]]},
+ fair:{t:'老马觉得被尊重了。你把"华南基线方案"写成提案，<b>先给老马看，再和他一起去找运营副总</b>，并在提案里写明"由华南车队总经理牵头设计"。运营副总要的是全国推广，觉得这个方案可以接受。下一步是？',o:[
+   ['在全国周会上请老马分享华南方案，功劳给他','end_good',15,15],
+   ['方案定下就行了，不用再宣传','end_ok',0,10]]},
+ end_war:{t:'冲突升级成两位高管之间的对立，CEO 被迫介入，项目在华南暂停 2 个月。<b>教训：越级施压和公开羞辱，会把"事"的问题变成"人"的问题。</b>',end:true},
+ end_stuck:{t:'老马表面服从，实际继续拖延。华南采纳率停在 30%，全国目标无法达成。<b>教训：用权力压人只能换来表面服从，不能解决他真正的顾虑。</b>',end:true},
+ end_ok:{t:'华南开始推进，三个月后采纳率到了 70%。不错，但老马对项目仍然只是"不反对"。<b>你错过了把反对者变成拥护者的机会。</b>',end:true},
+ end_good:{t:'老马在全国周会上讲了华南方案，其他区域也开始按各自基线考核。他后来成了项目在一线最有力的推动者，司机们都说"马总认可的东西靠谱"。<b>这是最好的结局：倾听真实利益 → 给出公平方案 → 先私下、后公开 → 把功劳给他。</b>',end:true},
+},['信任','进展']);
+quiz('quiz-m8',[
+ {q:'一个中层管理者反复说"现在太忙，下季度再说"，Echo 首先应该？',o:['向他的上级投诉','私下了解他背后的真实顾虑','绕过他直接找他的下属','接受，等下季度'],a:1,e:'先找到立场背后的利益。'},
+ {q:'向反对者的上级"求助"之前，应该？',o:['不必告诉他','先告诉他你打算这么做，给他机会先解决','收集他的黑材料','发邮件抄送所有人'],a:1,e:'越级是最后手段，且要光明正大。'},
+ {q:'化解阻力后，在公开场合把功劳给原来的反对者，是为了？',o:['讨好他','让他在新方案里"赢"，从反对者变成拥护者','减少自己的责任','形式需要'],a:1,e:'给对方赢的方式，是最持久的化解。'},
+]);
+
+/* L2 final */
+const MFQ=[
+ {q:'中级 Echo 和初级 Echo 最大的区别是？',o:['会写代码','独立负责一条工作流，并对业务指标负责','带更多人','出差更多'],a:1,e:'从"参与"到"负责"。'},
+ {q:'发现冲刺中，以下哪个发现最有价值？',o:['证实了客户最初的判断','推翻了客户的核心假设，并找到证据','访谈了 30 个人','做了很多图表'],a:1,e:'被推翻的假设往往能避免最大的浪费。'},
+ {q:'NPV 为正意味着？',o:['第一年就回本','按折现率计算，未来收益现值超过投入，值得做','一定会成功','不需要再论证'],a:1,e:'NPV 考虑了资金的时间价值。'},
+ {q:'业务论证的保守情景 NPV 为负，最好的做法是？',o:['隐藏保守情景','分阶段投入降低风险，或补充战略价值论证','把系数调高','放弃项目'],a:1,e:'诚实面对，调整方案。'},
+ {q:'想知道"模型对真实告警的分级效果用户是否认可"，应该做？',o:['纸面草图','可点击原型','真数据原型','生产级系统'],a:2,e:'数据质量问题必须用真数据回答。'},
+ {q:'决定是否报废一批高价值药品，应该由谁做？',o:['规则自动判断','机器学习模型','大模型','人，系统提供建议和依据'],a:3,e:'高风险、需担责的决定由人做。'},
+ {q:'精确率低意味着？',o:['漏报多','误报多，报出来的很多是假的','模型很准','召回率也低'],a:1,e:'精确率 = 报出来的里面真的比例。'},
+ {q:'试点组降了 0.8，对照组同期降了 0.2，净效果是？',o:['0.8','1.0','0.6','0.2'],a:2,e:'0.8 − 0.2 = 0.6。'},
+ {q:'以下哪个最适合做"护栏指标"？',o:['货损率','告警处置时长','准时交付率','调度员登录次数'],a:2,e:'护栏指标是不能被牺牲的东西。'},
+ {q:'司机说"这系统是用来扣钱的吧"，卡在 ADKAR 哪一级？',o:['知道','想要','会用','坚持'],a:1,e:'有顾虑、缺乏意愿。'},
+ {q:'采纳漏斗中"打开了但不完成核心动作"的流失最大，应优先？',o:['再做一轮全员培训','研究工具如何嵌入他们的实际工作流程','发通知要求使用','增加功能'],a:1,e:'通常是"做得到"层面的问题。'},
+ {q:'工作坊中最容易被忽略、却最重要的产出是？',o:['好看的纪要','参与者觉得"这是我们一起定的"','准时结束','领导满意'],a:1,e:'共同拥有感决定执行力。'},
+ {q:'工作坊开始前和最高领导约定"最后发言"，是为了？',o:['尊重领导','避免领导一开口就定调，其他人不敢说','节省时间','领导要求'],a:1,e:'保护发散阶段的多样性。'},
+ {q:'化解中层阻力，第一步应该是？',o:['向上级汇报','在会上公开数据','私下沟通，找到立场背后的利益','绕开他'],a:2,e:'先私下、后公开。'},
+ {q:'远航冷链案例中，小林最终化解老马阻力的关键是？',o:['CEO 的支持','发现了华南线路长、天气热导致考核不公平的真实顾虑，并让他牵头设计方案','数据更准确','给老马加薪'],a:1,e:'倾听真实利益，给对方赢的方式。'},
+];
+quiz('quiz-mfinal',MFQ,(r,n)=>{
+  const pass=r>=12;
+  $('#mfinalScore').innerHTML=pass?`🎉 恭喜通过中级结业测验！得分 ${r}/${n}`:`得分 ${r}/${n}，还差 ${12-r} 题通过。建议回顾对应模块后刷新页面重测。`;
+  if(pass){$('#cert2Name').style.display='flex';const upd=()=>{$('#cert2Who').textContent=$('#cert2Input').value.trim()||'学员';$('#cert2Score').textContent=`${r}/${n}`;$('#cert2Date').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'});$('#cert2').classList.add('show')};$('#cert2Input').oninput=upd;upd();}
+});
+
 
 /* copy templates */
 $$('.cp').forEach(b=>b.onclick=async()=>{const t=b.nextElementSibling.textContent;try{await navigator.clipboard.writeText(t);b.textContent='已复制'}catch(e){b.textContent='请手动复制'}setTimeout(()=>b.textContent='复制',1500)});
