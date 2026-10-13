@@ -1,0 +1,1333 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FDE Echo 培训手册</title>
+<meta name="description" content="从外行到 Echo（部署策略师）：三级能力路线图 + 初级 6 小时互动培训手册">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#ffffff; --surface-2:#f0ede6; --ink:#1d1c1a; --ink-2:#55524c; --ink-3:#8a867e;
+  --line:#e2ded5; --accent:#c4562b; --accent-soft:#f6e3d9; --teal:#1f6f6a; --teal-soft:#dcefed;
+  --blue:#2f5d9c; --blue-soft:#e0e9f6; --gold:#9a6b12; --gold-soft:#f5ead2;
+  --ok:#2f7d4a; --ok-soft:#dff1e5; --bad:#b23a3a; --bad-soft:#f7e0e0;
+  --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.05);
+  --radius:12px; --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#161513; --surface:#201f1c; --surface-2:#2a2925; --ink:#ece9e2; --ink-2:#b9b4aa; --ink-3:#857f75;
+    --line:#37352f; --accent:#e9794a; --accent-soft:#3d2a20; --teal:#5cc0b8; --teal-soft:#1c3533;
+    --blue:#7fa8e0; --blue-soft:#1f2a3a; --gold:#e0b55a; --gold-soft:#372d18;
+    --ok:#6cc58a; --ok-soft:#1d3324; --bad:#ec7f7f; --bad-soft:#3a2020; --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161513; --surface:#201f1c; --surface-2:#2a2925; --ink:#ece9e2; --ink-2:#b9b4aa; --ink-3:#857f75;
+  --line:#37352f; --accent:#e9794a; --accent-soft:#3d2a20; --teal:#5cc0b8; --teal-soft:#1c3533;
+  --blue:#7fa8e0; --blue-soft:#1f2a3a; --gold:#e0b55a; --gold-soft:#372d18;
+  --ok:#6cc58a; --ok-soft:#1d3324; --bad:#ec7f7f; --bad-soft:#3a2020; --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+h1,h2,h3,h4{line-height:1.3;margin:1.6em 0 .6em}
+h2{font-size:1.65rem}
+h3{font-size:1.2rem}
+h4{font-size:1.02rem}
+p{margin:.6em 0}
+ul,ol{padding-left:1.3em}
+li{margin:.25em 0}
+code{font-family:var(--mono);font-size:.9em;background:var(--surface-2);padding:.1em .35em;border-radius:4px}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{border-bottom:1px solid var(--line);padding:.55em .7em;text-align:left;vertical-align:top}
+th{background:var(--surface-2);font-weight:600;white-space:nowrap}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);margin:1em 0}
+.tbl table th:first-child,.tbl table td:first-child{padding-left:1em}
+
+/* topbar */
+.topbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1240px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px}
+.brand{font-weight:700;letter-spacing:.02em;white-space:nowrap;text-decoration:none;color:var(--ink)}
+.brand span{color:var(--accent)}
+.pbar{flex:1;height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden;min-width:60px}
+.pbar i{display:block;height:100%;width:0;background:var(--teal);transition:width .4s}
+.ptext{font-size:.82rem;color:var(--ink-2);white-space:nowrap}
+.iconbtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:4px 10px;cursor:pointer;font-size:.85rem}
+.menubtn{display:none}
+
+/* layout */
+.wrap{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:250px minmax(0,1fr);gap:40px;padding:0 16px}
+nav.side{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 80px);overflow:auto;padding:24px 0;font-size:.92rem}
+nav.side .grp{font-size:.75rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;margin:18px 0 6px}
+nav.side a{display:flex;justify-content:space-between;gap:8px;padding:5px 10px;border-radius:8px;color:var(--ink-2);text-decoration:none}
+nav.side a:hover{background:var(--surface-2);color:var(--ink)}
+nav.side a.active{background:var(--accent-soft);color:var(--accent);font-weight:600}
+nav.side a .ck{color:var(--ok);font-weight:700}
+main{min-width:0;padding:8px 0 80px}
+section.chap{padding-top:16px;border-top:1px solid var(--line);margin-top:48px}
+section.chap:first-child{border-top:0;margin-top:0}
+
+/* hero */
+.hero{padding:40px 0 16px}
+.eyebrow{font-size:.8rem;letter-spacing:.12em;color:var(--accent);font-weight:700;text-transform:uppercase}
+.hero h1{font-size:clamp(1.9rem,4.5vw,2.9rem);margin:.3em 0 .4em}
+.lead{font-size:1.1rem;color:var(--ink-2);max-width:760px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.kpi b{display:block;font-size:1.6rem;line-height:1.2}
+.kpi span{font-size:.85rem;color:var(--ink-2)}
+
+/* cards & callouts */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:1em 0;box-shadow:var(--shadow)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.callout{border-left:4px solid var(--teal);background:var(--teal-soft);padding:12px 16px;border-radius:0 10px 10px 0;margin:1em 0}
+.callout.warn{border-color:var(--accent);background:var(--accent-soft)}
+.callout.gold{border-color:var(--gold);background:var(--gold-soft)}
+.callout.blue{border-color:var(--blue);background:var(--blue-soft)}
+.callout b.t{display:block;margin-bottom:2px}
+.tag{display:inline-block;font-size:.75rem;padding:1px 8px;border-radius:99px;background:var(--surface-2);color:var(--ink-2);margin-right:4px;border:1px solid var(--line)}
+.tag.a{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.tag.t{background:var(--teal-soft);color:var(--teal);border-color:transparent}
+.tag.b{background:var(--blue-soft);color:var(--blue);border-color:transparent}
+.tag.g{background:var(--gold-soft);color:var(--gold);border-color:transparent}
+
+/* roadmap */
+.road{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+.lvl{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;position:relative;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,border-color .15s}
+.lvl:hover{transform:translateY(-2px)}
+.lvl.sel{border-color:var(--accent);outline:2px solid var(--accent-soft)}
+.lvl .num{font-size:.78rem;font-weight:700;letter-spacing:.1em}
+.lvl h3{margin:.3em 0 .2em;font-size:1.3rem}
+.lvl .sub{color:var(--ink-2);font-size:.9rem}
+.lvl .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.lvl .status{display:inline-block;margin-bottom:8px;font-size:.75rem;padding:2px 8px;border-radius:99px}
+.l1 .num{color:var(--teal)} .l2 .num{color:var(--blue)} .l3 .num{color:var(--accent)}
+.l1 .status{background:var(--ok-soft);color:var(--ok)}
+.l2 .status,.l3 .status{background:var(--surface-2);color:var(--ink-3)}
+.lvl-detail{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow)}
+.lvl-detail h4{margin-top:1em}
+.mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:10px 0}
+.mod{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg);font-size:.9rem}
+.mod b{display:block}
+.mod small{color:var(--ink-3)}
+.arrow-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.88rem;color:var(--ink-2);margin:8px 0 0}
+.arrow-row span.s{background:var(--surface-2);border-radius:8px;padding:3px 10px}
+
+/* session header */
+.sess-head{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin:12px 0 18px;box-shadow:var(--shadow)}
+.sess-head .no{font-size:.8rem;font-weight:700;color:var(--teal);letter-spacing:.1em}
+.sess-head h2{margin:.2em 0 .4em}
+.agenda{display:flex;gap:3px;margin:14px 0 6px;border-radius:8px;overflow:hidden;height:30px;font-size:.72rem}
+.agenda div{display:flex;align-items:center;justify-content:center;color:#fff;white-space:nowrap;overflow:hidden;padding:0 4px}
+.agenda .c1{background:#6b7f7a}.agenda .c2{background:var(--teal)}.agenda .c3{background:var(--blue)}.agenda .c4{background:var(--accent)}.agenda .c5{background:#8b7a5a}
+.goals{margin:.4em 0 0}
+.done-btn{margin-top:14px}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:9px;padding:7px 14px;cursor:pointer;font:inherit;font-size:.92rem;transition:background .15s}
+.btn:hover{background:var(--surface-2)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.pri:hover{filter:brightness(1.05)}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.btn.sm{padding:3px 10px;font-size:.84rem}
+
+/* case */
+.case{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);margin:1.2em 0;overflow:hidden}
+.case-h{background:var(--gold-soft);color:var(--gold);padding:10px 18px;font-weight:700;font-size:.92rem;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.case-h small{font-weight:400;opacity:.85}
+.case-b{padding:6px 18px 14px}
+.diary{display:grid;grid-template-columns:70px 1fr;gap:6px 14px;margin:10px 0}
+.diary b{color:var(--teal)}
+
+/* interactive */
+.lab{border:2px dashed var(--line);border-radius:14px;padding:18px 20px;margin:1.4em 0;background:var(--surface)}
+.lab-h{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:6px}
+.lab-h::before{content:"互动";font-size:.72rem;background:var(--accent);color:#fff;border-radius:6px;padding:1px 7px}
+.lab .hint{color:var(--ink-2);font-size:.9rem;margin:0 0 10px}
+.q{padding:12px 0;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:0}
+.q .qt{font-weight:600;margin-bottom:6px}
+.opts{display:flex;flex-direction:column;gap:6px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:9px;padding:8px 12px;cursor:pointer;font:inherit;font-size:.93rem}
+.opt:hover:not([disabled]){border-color:var(--ink-3)}
+.opt.right{background:var(--ok-soft);border-color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.opt[disabled]{cursor:default}
+.exp{margin-top:8px;font-size:.9rem;color:var(--ink-2);display:none;background:var(--surface-2);border-radius:8px;padding:8px 12px}
+.exp.show{display:block}
+.score{font-weight:700;margin-top:10px}
+.sort-row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.sort-row:last-child{border-bottom:0}
+.seg{display:flex;flex-wrap:wrap;gap:4px}
+.seg button{border:1px solid var(--line);background:var(--bg);color:var(--ink-2);border-radius:7px;padding:3px 10px;cursor:pointer;font:inherit;font-size:.84rem}
+.seg button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.seg button.right{background:var(--ok);color:#fff;border-color:var(--ok)}
+.seg button.wrong{background:var(--bad);color:#fff;border-color:var(--bad)}
+.sort-exp{grid-column:1/-1;font-size:.86rem;color:var(--ink-2);display:none}
+.sort-exp.show{display:block}
+.field{display:flex;flex-direction:column;gap:4px;margin:8px 0}
+.field label{font-size:.86rem;color:var(--ink-2);font-weight:600}
+.field input,.field textarea,.field select{font:inherit;font-size:.95rem;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.field textarea{min-height:70px;resize:vertical}
+.out{background:var(--surface-2);border-radius:10px;padding:12px 14px;margin-top:10px;white-space:pre-wrap}
+.checks{list-style:none;padding:0;margin:8px 0}
+.checks li::before{content:"○ ";color:var(--ink-3)}
+.checks li.pass::before{content:"✓ ";color:var(--ok);font-weight:700}
+.checks li.fail::before{content:"✗ ";color:var(--bad);font-weight:700}
+.why{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.why .w{border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:var(--bg);display:none}
+.why .w.show{display:block;animation:fade .3s}
+.why .w b{color:var(--accent)}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1}}
+.calc{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 16px}
+.res{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.res div{background:var(--surface-2);border-radius:10px;padding:10px 12px}
+.res b{display:block;font-size:1.3rem}
+.res span{font-size:.8rem;color:var(--ink-2)}
+.matrix{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+.uc{padding:8px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.uc .rng{display:grid;grid-template-columns:52px 1fr 24px;align-items:center;gap:6px;font-size:.8rem;color:var(--ink-2)}
+.uc input[type=range]{width:100%}
+svg text{font-family:inherit}
+.scn{background:var(--bg);border-radius:10px;padding:14px 16px;border:1px solid var(--line)}
+.scn .meter{font-size:.85rem;color:var(--ink-2);margin-bottom:6px}
+.scn .opts{margin-top:10px}
+.lane{overflow-x:auto}
+.timeline{border-left:2px solid var(--line);margin:10px 0 10px 8px;padding-left:18px}
+.timeline div{position:relative;margin:8px 0}
+.timeline div::before{content:"";position:absolute;left:-24px;top:9px;width:10px;height:10px;border-radius:50%;background:var(--teal)}
+.homework{background:var(--blue-soft);border-radius:var(--radius);padding:14px 18px;margin:1.2em 0}
+.homework h4{margin:.2em 0 .4em;color:var(--blue)}
+.cert{display:none;text-align:center;border:3px double var(--gold);border-radius:16px;padding:28px 20px;margin-top:16px;background:var(--gold-soft)}
+.cert.show{display:block}
+.cert h3{margin:.2em 0;font-size:1.5rem}
+.tpl{position:relative}
+.tpl pre{background:var(--surface-2);border-radius:10px;padding:14px;white-space:pre-wrap;font-family:var(--mono);font-size:.85rem;margin:6px 0 0}
+.tpl .btn{position:absolute;top:8px;right:8px}
+details{border:1px solid var(--line);border-radius:10px;padding:8px 14px;margin:8px 0;background:var(--surface)}
+details summary{cursor:pointer;font-weight:600}
+footer{color:var(--ink-3);font-size:.85rem;border-top:1px solid var(--line);margin-top:60px;padding-top:20px}
+
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr;gap:0}
+  nav.side{position:fixed;top:52px;left:0;bottom:0;width:270px;max-height:none;background:var(--surface);border-right:1px solid var(--line);padding:16px;transform:translateX(-100%);transition:transform .25s;z-index:30}
+  nav.side.open{transform:none}
+  .menubtn{display:inline-block}
+  .road,.grid3{grid-template-columns:1fr}
+  .grid2,.calc{grid-template-columns:1fr}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .matrix{grid-template-columns:1fr}
+  .res{grid-template-columns:1fr}
+  .ptext{display:none}
+}
+@media print{.topbar,nav.side,.lab{display:none}.wrap{display:block}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-in">
+    <button class="iconbtn menubtn" id="menuBtn" aria-label="目录">☰</button>
+    <a class="brand" href="#home">FDE · <span>Echo</span> 培训手册</a>
+    <div class="pbar" title="初级学习进度"><i id="pbarFill"></i></div>
+    <span class="ptext" id="ptext">初级进度 0/7</span>
+    <button class="iconbtn" id="themeBtn" aria-label="切换主题">◐</button>
+  </div>
+</header>
+
+<div class="wrap">
+<nav class="side" id="side">
+  <div class="grp">总览</div>
+  <a href="#home">导言：什么是 Echo</a>
+  <a href="#roadmap">三级成长路线图</a>
+  <a href="#l1guide">初级课程说明</a>
+  <div class="grp">初级 · 6 小时</div>
+  <a href="#s1" data-k="s1">第1节 认识 FDE 与 Echo <span class="ck"></span></a>
+  <a href="#s2" data-k="s2">第2节 定义真正的问题 <span class="ck"></span></a>
+  <a href="#s3" data-k="s3">第3节 客户发现与访谈 <span class="ck"></span></a>
+  <a href="#s4" data-k="s4">第4节 读懂业务与数据 <span class="ck"></span></a>
+  <a href="#s5" data-k="s5">第5节 用例设计与价值 <span class="ck"></span></a>
+  <a href="#s6" data-k="s6">第6节 交付、演示与沟通 <span class="ck"></span></a>
+  <a href="#final" data-k="final">结业测验与项目 <span class="ck"></span></a>
+  <div class="grp">附录</div>
+  <a href="#templates">模板工具箱</a>
+  <a href="#glossary">术语表</a>
+  <a href="#reading">延伸阅读</a>
+</nav>
+
+<main>
+<!-- ============ HOME ============ -->
+<section class="chap" id="home">
+  <div class="hero">
+    <div class="eyebrow">Forward Deployed Engineering · Echo Track</div>
+    <h1>从外行到 Echo：<br>前线部署策略师培训手册</h1>
+    <p class="lead">这份手册写给没有咨询、产品或技术背景的新人。学完以后，你能走进一家陌生企业，弄清他们真正的问题，把问题变成软件能解决的用例，再带着工程师把方案落地，最后让一线员工真的用起来。</p>
+    <div class="kpis">
+      <div class="kpi"><b>3</b><span>级成长路径</span></div>
+      <div class="kpi"><b>6 h</b><span>初级课时（6 节 × 60 分钟）</span></div>
+      <div class="kpi"><b>6</b><span>个教学案例</span></div>
+      <div class="kpi"><b>15+</b><span>个互动练习与测验</span></div>
+    </div>
+  </div>
+
+  <h2>FDE 是什么？Echo 又是谁？</h2>
+  <p><b>FDE（Forward Deployed Engineer，前线部署工程师）</b>是一种工作模式：软件公司不只是把产品卖给客户，还把一支小团队派到客户现场，和客户一起把产品用在最难、最值钱的业务问题上。这种模式由 Palantir 带火，现在很多 AI 公司和企业软件公司都在用（OpenAI、Anthropic、Scale AI 和不少 AI 应用公司都设了 FDE 岗位）。</p>
+  <p>业内常把一支 FDE 小队拆成两种角色，名字来自 Palantir 内部的叫法：</p>
+  <div class="grid2">
+    <div class="card"><span class="tag a">Echo</span><h3 style="margin:.4em 0">部署策略师 · 偏业务</h3><p>Echo 对的是<b>问题</b>。他们泡在客户的业务里，搞清楚"该解决什么、为什么值得解决、解决了怎么算成功"，再把这些翻译成工程师能动手的需求。他们也是客户最信任的联系人。</p></div>
+    <div class="card"><span class="tag b">Delta</span><h3 style="margin:.4em 0">部署工程师 · 偏技术</h3><p>Delta 对的是<b>方案</b>。他们接数据、写代码、配平台、做原型，把 Echo 定义好的问题变成一套能跑的系统。</p></div>
+  </div>
+  <div class="callout">
+    <b class="t">一句话记住 Echo</b>
+    Echo 把客户嘴里的"我们想要个系统"，变成"调度员每天早上 8 点能少花 40 分钟排车，准点率从 82% 提到 92%"，然后一直跟到这件事真的发生。
+  </div>
+  <p>Echo 不需要会写代码，但要懂得足够多的技术，才能和 Delta 对话；不一定当过咨询顾问，但得会拆问题、会讲故事；也不是销售，可是要能让客户的高管和一线员工都信得过你。这份手册就是按这个画像设计的。</p>
+  <div class="callout gold"><b class="t">关于案例</b>手册里的公司、人名和数字都是教学用的虚构案例，改编自常见的行业场景，不对应任何真实客户。</div>
+</section>
+
+<!-- ============ ROADMAP ============ -->
+<section class="chap" id="roadmap">
+  <h2>三级成长路线图</h2>
+  <p>Echo 的成长分三级。每一级要回答的问题不一样：<b>初级</b>要学会"看懂"，<b>中级</b>要能"独立交付"，<b>高级</b>要能"做大账户、带人"。点下面任意一级，查看课程模块、产出物和晋级标准。</p>
+
+  <div class="road" id="road">
+    <div class="lvl l1 sel" data-l="1">
+      <span class="status">本手册 · 已开放</span>
+      <div class="num">LEVEL 1 · 初级</div>
+      <h3>Echo 见习生</h3>
+      <div class="sub">建立认知和基本功：能在导师带领下参与客户项目，独立完成访谈、问题陈述和用例画布。</div>
+      <div class="meta"><span class="tag t">6 小时课程</span><span class="tag">+ 2 周影子实习</span><span class="tag">0–3 个月</span></div>
+    </div>
+    <div class="lvl l2" data-l="2">
+      <span class="status">即将推出</span>
+      <div class="num">LEVEL 2 · 中级</div>
+      <h3>Echo 独立负责人</h3>
+      <div class="sub">独立负责一条工作流：从发现、原型、试点到上线，对一个业务指标负责。</div>
+      <div class="meta"><span class="tag b">约 12 小时课程</span><span class="tag">+ 1 个完整项目</span><span class="tag">3–12 个月</span></div>
+    </div>
+    <div class="lvl l3" data-l="3">
+      <span class="status">即将推出</span>
+      <div class="num">LEVEL 3 · 高级</div>
+      <h3>Echo 账户负责人</h3>
+      <div class="sub">负责一个战略客户的整体部署：经营高层关系，把单点成功扩展成平台化合作，带领团队。</div>
+      <div class="meta"><span class="tag a">约 16 小时课程</span><span class="tag">+ 带教 2 名新人</span><span class="tag">1–3 年</span></div>
+    </div>
+  </div>
+  <div class="lvl-detail" id="lvlDetail"></div>
+
+  <h3>能力矩阵：每一级要做到什么程度</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>能力维度</th><th>初级 · 见习生</th><th>中级 · 独立负责人</th><th>高级 · 账户负责人</th></tr></thead>
+    <tbody>
+      <tr><td><b>问题定义</b></td><td>会用 5 Why 和问题树，能把客户的诉求改写成问题陈述</td><td>能在模糊、多方意见冲突时定出优先问题，敢否掉伪需求</td><td>能找出客户自己都没意识到的战略问题，并据此设计多年路线图</td></tr>
+      <tr><td><b>客户发现</b></td><td>按提纲做访谈、做现场观察、画干系人地图</td><td>独立设计调研计划，一周内摸清一个业务部门</td><td>能和 CXO 做战略对话，摸清组织政治和预算走向</td></tr>
+      <tr><td><b>业务与数据理解</b></td><td>能画泳道流程图，能用"对象-属性-关系-动作"描述业务</td><td>能主导数据盘点，判断数据能不能撑起用例，和 Delta 一起设计数据模型</td><td>能判断客户整体数据架构，规划跨部门的统一数据底座</td></tr>
+      <tr><td><b>用例与价值</b></td><td>会填用例画布，做简单的 ROI 估算</td><td>能做完整业务论证（Business Case），设计指标并追踪</td><td>能把价值汇总成高管能拍板的投资故事，推动续约和扩单</td></tr>
+      <tr><td><b>交付管理</b></td><td>会写周报、做会议纪要、跟进行动项</td><td>管理 2–6 周迭代、范围变更、试点上线和推广</td><td>同时管多条工作流，协调多个团队与资源</td></tr>
+      <tr><td><b>沟通与影响</b></td><td>能清楚地讲一个 5 分钟的 Demo</td><td>能主持工作坊，处理用户抵触和中层阻力</td><td>能影响高层决策，处理危机，代表公司谈判</td></tr>
+      <tr><td><b>技术素养</b></td><td>懂基本数据概念、表结构和 API 是什么</td><td>能读简单的 SQL、会用低代码工具搭原型、理解大模型能力边界</td><td>能和客户 CIO 讨论架构、安全与 AI 治理</td></tr>
+      <tr><td><b>带人与组织</b></td><td>主动求反馈，写好复盘</td><td>带 1 名见习生，沉淀可复用的方法</td><td>搭建团队、做培训、参与招聘，塑造团队文化</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>一个 Echo 项目的标准生命周期</h3>
+  <p>不管哪一级，Echo 的工作都围着同一条主线转。初级要认识这条线的每一站，中级要能独立走完全程，高级要能同时跑好几条。</p>
+  <div class="lane">
+  <svg viewBox="0 0 900 150" width="100%" style="min-width:640px" role="img" aria-label="项目生命周期：发现、定义、原型、试点、推广、扩展">
+    <g font-size="13" text-anchor="middle">
+      <g><rect x="5" y="30" width="135" height="60" rx="10" fill="var(--teal-soft)" stroke="var(--teal)"/><text x="72" y="56" fill="var(--teal)" font-weight="700">① 发现</text><text x="72" y="76" fill="var(--ink-2)" font-size="11">访谈·观察·盘点</text></g>
+      <g><rect x="155" y="30" width="135" height="60" rx="10" fill="var(--teal-soft)" stroke="var(--teal)"/><text x="222" y="56" fill="var(--teal)" font-weight="700">② 定义</text><text x="222" y="76" fill="var(--ink-2)" font-size="11">问题陈述·用例</text></g>
+      <g><rect x="305" y="30" width="135" height="60" rx="10" fill="var(--blue-soft)" stroke="var(--blue)"/><text x="372" y="56" fill="var(--blue)" font-weight="700">③ 原型</text><text x="372" y="76" fill="var(--ink-2)" font-size="11">2 周做出能点的</text></g>
+      <g><rect x="455" y="30" width="135" height="60" rx="10" fill="var(--blue-soft)" stroke="var(--blue)"/><text x="522" y="56" fill="var(--blue)" font-weight="700">④ 试点</text><text x="522" y="76" fill="var(--ink-2)" font-size="11">真用户·真数据</text></g>
+      <g><rect x="605" y="30" width="135" height="60" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="672" y="56" fill="var(--accent)" font-weight="700">⑤ 推广</text><text x="672" y="76" fill="var(--ink-2)" font-size="11">培训·采纳·指标</text></g>
+      <g><rect x="755" y="30" width="135" height="60" rx="10" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="822" y="56" fill="var(--accent)" font-weight="700">⑥ 扩展</text><text x="822" y="76" fill="var(--ink-2)" font-size="11">下一个用例</text></g>
+      <g stroke="var(--ink-3)" stroke-width="1.5" fill="none"><path d="M140 60h15M290 60h15M440 60h15M590 60h15M740 60h15"/></g>
+      <path d="M822 92 C822 140, 72 140, 72 92" stroke="var(--ink-3)" stroke-dasharray="4 4" fill="none"/>
+      <text x="450" y="135" fill="var(--ink-3)" font-size="11">价值被证明 → 发现下一个问题，飞轮转起来</text>
+      <text x="147" y="18" fill="var(--teal)" font-size="11">初级重点</text>
+      <text x="447" y="18" fill="var(--blue)" font-size="11">中级重点</text>
+      <text x="747" y="18" fill="var(--accent)" font-size="11">高级重点</text>
+    </g>
+  </svg>
+  </div>
+</section>
+
+<!-- ============ L1 GUIDE ============ -->
+<section class="chap" id="l1guide">
+  <h2>初级课程说明</h2>
+  <p>初级课程一共 6 节，每节 60 分钟，可以一天上完（上午 3 节、下午 3 节），也可以分两周、每周三次晚上上。每节都按同样的节奏走：</p>
+  <div class="agenda" aria-hidden="true">
+    <div class="c1" style="flex:5">开场 5'</div><div class="c2" style="flex:20">核心概念 20'</div><div class="c3" style="flex:15">案例 15'</div><div class="c4" style="flex:15">互动练习 15'</div><div class="c5" style="flex:5">小结 5'</div>
+  </div>
+  <p style="font-size:.88rem;color:var(--ink-2)">每节的时间分配按内容略有调整，见各节开头。</p>
+  <div class="tbl"><table>
+    <thead><tr><th>节次</th><th>主题</th><th>你会学到</th><th>带走的工具</th></tr></thead>
+    <tbody>
+      <tr><td>第1节</td><td>认识 FDE 与 Echo</td><td>Echo 的职责、和其他角色的分工、工作心态</td><td>Echo 五顶帽子、角色分工表</td></tr>
+      <tr><td>第2节</td><td>定义真正的问题</td><td>分清诉求、需求和问题，避开"伪需求"</td><td>5 Why、问题树、问题陈述模板</td></tr>
+      <tr><td>第3节</td><td>客户发现与访谈</td><td>找对人、问对问题、看见没人说出口的东西</td><td>干系人地图、访谈提纲、观察清单</td></tr>
+      <tr><td>第4节</td><td>读懂业务与数据</td><td>用流程和"对象"描述业务，盘点数据</td><td>泳道图、本体四要素、数据盘点表</td></tr>
+      <tr><td>第5节</td><td>用例设计与价值</td><td>把问题变成用例，算清值多少钱，排优先级</td><td>用例画布、ROI 计算器、价值×可行性矩阵</td></tr>
+      <tr><td>第6节</td><td>交付、演示与沟通</td><td>迭代节奏、讲好 Demo、写周报、管期望</td><td>Demo 脚本、周报模板、风险红黄绿</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout blue"><b class="t">怎么用这份手册</b>每节末尾有"标记本节完成"按钮，顶部进度条会记录你的进度（只存在你自己的浏览器里）。建议准备一个笔记本，课后作业都写下来，结业项目会用到。</div>
+</section>
+
+<!-- ============ S1 ============ -->
+<section class="chap" id="s1">
+  <div class="sess-head">
+    <div class="no">第 1 节 · 60 分钟</div>
+    <h2>认识 FDE 与 Echo</h2>
+    <div class="agenda"><div class="c1" style="flex:10">开场 10'</div><div class="c2" style="flex:15">角色对比 15'</div><div class="c3" style="flex:15">案例 15'</div><div class="c4" style="flex:15">练习 15'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>说清楚 FDE 模式为什么存在，和传统软件交付、咨询有什么不同</li><li>分清 Echo、Delta、产品经理、销售、项目经理的职责边界</li><li>理解 Echo 的五顶帽子和五条工作信条</li></ul>
+  </div>
+
+  <h3>1.1 为什么需要 FDE：软件交付的"最后一公里"</h3>
+  <p>传统企业软件是这样卖的：销售签单，实施顾问按需求文档配置，上线，然后走人。结果大家都见过：系统上线了，一线员工照旧用 Excel 和微信群干活，系统成了"摆设"。</p>
+  <p>问题出在三个地方：</p>
+  <ol>
+    <li><b>需求是"说"出来的，不是"看"出来的。</b>客户写的需求文档，常常是某个领导想象中的流程，而不是一线真实的流程。</li>
+    <li><b>价值没人负责。</b>实施团队只对"按时上线"负责，没人对"业务指标有没有变好"负责。</li>
+    <li><b>产品和现场脱节。</b>真实场景里的脏数据、例外情况、组织阻力，产品团队坐在总部是看不见的。</li>
+  </ol>
+  <p>FDE 模式的回答是：<b>把一支懂产品、懂技术、懂业务的小队直接放进客户现场，对业务结果负责。</b></p>
+  <div class="tbl"><table>
+    <thead><tr><th></th><th>传统实施</th><th>管理咨询</th><th>FDE 模式</th></tr></thead>
+    <tbody>
+      <tr><td><b>交付物</b></td><td>上线的系统</td><td>报告和建议</td><td>正在被使用、能移动指标的方案</td></tr>
+      <tr><td><b>需求来源</b></td><td>客户写的需求文档</td><td>访谈和行业框架</td><td>现场观察 + 真实数据 + 快速试错</td></tr>
+      <tr><td><b>节奏</b></td><td>按里程碑，几个月一交付</td><td>按阶段汇报</td><td>1–2 周一个迭代，持续上线</td></tr>
+      <tr><td><b>成功标准</b></td><td>验收通过</td><td>客户认可报告</td><td>业务指标改善、用户持续使用</td></tr>
+      <tr><td><b>离场后</b></td><td>进入运维</td><td>客户自己执行</td><td>发现下一个问题，合作扩大</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>1.2 Echo 与其他角色的分工</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>角色</th><th>核心问题</th><th>主要产出</th><th>怎么算干得好</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag a">Echo</span></td><td>该解决什么？值不值？用起来没有？</td><td>问题陈述、用例、业务论证、Demo、周报、培训</td><td>业务指标改善，用户在用，客户愿意扩大合作</td></tr>
+      <tr><td><span class="tag b">Delta</span></td><td>怎么做出来？数据怎么接？能不能稳定运行？</td><td>数据管道、应用、模型、集成</td><td>系统可靠、迭代快、技术债可控</td></tr>
+      <tr><td><span class="tag">产品经理</span></td><td>多个客户共同需要什么？产品该往哪走？</td><td>产品路线图、功能规格</td><td>产品被越来越多客户复用</td></tr>
+      <tr><td><span class="tag">销售/客户经理</span></td><td>能不能签？签多大？</td><td>合同、报价</td><td>签单额、续约率</td></tr>
+      <tr><td><span class="tag">项目经理</span></td><td>按时、按预算了吗？</td><td>计划、进度表</td><td>里程碑按期完成</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b class="t">常见误解</b>Echo 不是"拿着 PPT 的项目经理"。项目经理管进度，Echo 管<b>方向和价值</b>。如果一个项目按时上线了但没人用，项目经理可能算完成任务，Echo 算失败。</div>
+
+  <h4>Echo 的五顶帽子</h4>
+  <div class="grid3">
+    <div class="card"><b>🔍 侦探</b><p>不轻信第一个答案。追问、观察、查数据，找到问题的根。</p></div>
+    <div class="card"><b>🌉 翻译官</b><p>把业务语言翻译成工程师能做的需求，再把技术进展翻译成客户听得懂的价值。</p></div>
+    <div class="card"><b>🧭 产品经理</b><p>决定先做什么、不做什么，把有限的工程时间花在最值钱的地方。</p></div>
+    <div class="card"><b>🤝 顾问</b><p>帮客户想清楚他们的业务，有时候得说他们不爱听的实话。</p></div>
+    <div class="card"><b>📣 布道者</b><p>培训用户、培养内部拥护者，让新工具在组织里扎根。</p></div>
+    <div class="card" style="background:var(--surface-2)"><b>⚖️ 平衡</b><p>不同阶段，戴的帽子不一样：发现期多当侦探，原型期多当产品经理，推广期多当布道者。</p></div>
+  </div>
+
+  <h4>五条工作信条</h4>
+  <ol>
+    <li><b>现场优先：</b>能去现场就不开会，能看真实数据就不看汇报材料。</li>
+    <li><b>对结果负责：</b>你的 KPI 是客户的业务指标，不是你交了多少文档。</li>
+    <li><b>先做出来再说：</b>一个能点的粗糙原型，胜过十页完美的需求文档。</li>
+    <li><b>好奇且谦逊：</b>客户比你懂他们的业务。你的价值是带来新的视角和工具，不是装专家。</li>
+    <li><b>把问题当成自己的：</b>遇到卡点不说"这不归我管"，而是想办法推动，或者找到对的人。</li>
+  </ol>
+
+  <div class="case">
+    <div class="case-h">📁 案例 1：Echo 小林的第一周 <small>制造业 · 交付延误</small></div>
+    <div class="case-b">
+      <p><b>背景：</b>华辰精密是一家做汽车零部件的中型工厂，订单准时交付率只有 78%，主机厂客户已经发出警告。公司买了一个数据平台，派来一支 FDE 小队：Echo 小林和 Delta 阿杰。</p>
+      <div class="diary">
+        <b>周一</b><div>和生产副总开启动会。副总说："我们要一个生产驾驶舱，看所有订单进度。"小林没有马上答应，而是问："如果有了驾驶舱，您每天会因为看到什么，去做什么不同的决定？"副总想了一会儿："看到要延误的订单，提前调产能。"</div>
+        <b>周二</b><div>小林在计划科坐了一整天。她发现计划员老周每天早上花 2 小时，从 ERP、MES 和三个 Excel 里手工拼一张"排产总表"，拼完已经 10 点，排产其实是按昨天的数据做的。</div>
+        <b>周三</b><div>去车间跟班组长聊。班组长说："计划总变，我们收到通知的时候，模具都已经装上了。"小林意识到，换模时间占了一大块产能。</div>
+        <b>周四</b><div>和阿杰一起看数据。ERP 的交期和 MES 的完工时间可以用工单号对上，但有 15% 的工单号格式不一致。阿杰估计两天能清洗好。</div>
+        <b>周五</b><div>小林向副总汇报，没有讲"驾驶舱"，而是讲：<i>"计划员每天用前一天的数据排产，导致车间频繁换模，这是交付延误的主要原因之一。我们建议先做一个每天 7 点自动更新的排产视图，目标是 6 周内把准时率提到 85%。"</i>副总当场拍板。</div>
+      </div>
+      <p><b>讨论题：</b>小林这一周做对了哪几件事？如果周一她直接答应做驾驶舱，结果可能会怎样？</p>
+      <details><summary>参考答案</summary><ul><li>没有接受"解决方案式"的需求，而是追问背后的决策。</li><li>花时间在现场观察，而不是只听领导说。</li><li>从不同层级（副总、计划员、班组长）收集视角。</li><li>和 Delta 一起尽早验证数据可行性。</li><li>汇报时讲业务问题和可衡量的目标，而不是功能。</li></ul><p>如果直接做驾驶舱，大概率会做出一个好看但没人每天看的大屏，因为它没有改变任何人的具体工作。</p></details>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 1：这件事该谁来做？</div>
+    <p class="hint">给每项任务选一个最主要的负责人。全部选完后点"核对答案"。</p>
+    <div id="sort-roles"></div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">小测验：第 1 节</div>
+    <div id="quiz-s1"></div>
+  </div>
+
+  <div class="homework">
+    <h4>📝 课后作业（20 分钟）</h4>
+    <ol><li>用 300 字写下"我理解的 Echo"，要用到至少 3 顶帽子。</li><li>回想你工作或生活中一个"上线了却没人用"的系统或工具，分析是哪个环节出了问题。</li></ol>
+  </div>
+  <button class="btn pri done-btn" data-done="s1">✓ 标记第 1 节完成</button>
+</section>
+
+<!-- ============ S2 ============ -->
+<section class="chap" id="s2">
+  <div class="sess-head">
+    <div class="no">第 2 节 · 60 分钟</div>
+    <h2>定义真正的问题</h2>
+    <div class="agenda"><div class="c1" style="flex:5">开场 5'</div><div class="c2" style="flex:20">概念与工具 20'</div><div class="c3" style="flex:15">案例 15'</div><div class="c4" style="flex:15">练习 15'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>分清诉求、需求、问题三层</li><li>认出"伪装成需求的解决方案"</li><li>熟练使用 5 Why、问题树和问题陈述模板</li></ul>
+  </div>
+
+  <h3>2.1 三层洋葱：诉求、需求、问题</h3>
+  <p>客户第一次开口说的，几乎从来不是真正的问题。要一层层剥：</p>
+  <div class="tbl"><table>
+    <thead><tr><th>层次</th><th>是什么</th><th>例子（物流公司）</th></tr></thead>
+    <tbody>
+      <tr><td><b>诉求 Ask</b></td><td>客户嘴上说要的东西，通常是一个方案</td><td>"我们要一个 AI 调度系统。"</td></tr>
+      <tr><td><b>需求 Need</b></td><td>他想达成的目的</td><td>"想让调度更快、更准。"</td></tr>
+      <tr><td><b>问题 Problem</b></td><td>阻碍目的达成的根本原因，具体、可衡量</td><td>"下午 3 点后的临时订单要靠调度员电话逐个问司机位置，平均 25 分钟才能派出，导致 30% 的当日达订单超时。"</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b class="t">警惕"解决方案伪装成需求"</b>只要听到下面这些词，就要停下来追问：<b>大屏、驾驶舱、中台、AI、系统、平台、App、自动化、一键……</b>它们说的是"怎么做"，没说"为什么做"。</div>
+
+  <h3>2.2 工具一：5 Why</h3>
+  <p>连续问"为什么"，直到找到一个<b>可以采取行动</b>的原因。不一定要正好五次，问到能动手为止。要注意两点：</p>
+  <ul><li>每一个"为什么"的答案都要有证据（数据、观察、多人印证），不要靠猜。</li><li>答案可能有分叉，要沿着影响最大的那条走。</li></ul>
+
+  <h3>2.3 工具二：问题树</h3>
+  <p>把一个大问题拆成几个互不重叠、加起来又完整的子问题（这叫 <b>MECE</b> 原则：Mutually Exclusive, Collectively Exhaustive）。比如"利润下降"可以拆成"收入下降"和"成本上升"，收入再拆成"量"和"价"……拆到每个叶子都能用数据验证。</p>
+  <div class="lane">
+  <svg viewBox="0 0 760 200" width="100%" style="min-width:560px" role="img" aria-label="问题树示例：急诊滞留时间长">
+    <g font-size="12" text-anchor="middle">
+      <rect x="10" y="80" width="150" height="44" rx="8" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="85" y="100" fill="var(--ink)" font-weight="600">急诊病人滞留超 4 小时</text><text x="85" y="116" fill="var(--ink-2)" font-size="11">占比 38%</text>
+      <rect x="230" y="20" width="160" height="38" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><text x="310" y="44" fill="var(--ink)">入口：到院量过大</text>
+      <rect x="230" y="82" width="160" height="38" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><text x="310" y="106" fill="var(--ink)">过程：检查、诊断慢</text>
+      <rect x="230" y="144" width="160" height="38" rx="8" fill="var(--teal-soft)" stroke="var(--teal)"/><text x="310" y="168" fill="var(--teal)" font-weight="600">出口：转不出去</text>
+      <rect x="460" y="120" width="140" height="32" rx="8" fill="var(--surface-2)" stroke="var(--line)"/><text x="530" y="141" fill="var(--ink)">外院转诊难</text>
+      <rect x="460" y="162" width="140" height="32" rx="8" fill="var(--teal-soft)" stroke="var(--teal)"/><text x="530" y="183" fill="var(--teal)" font-weight="600">住院床位不够</text>
+      <rect x="640" y="162" width="115" height="32" rx="8" fill="var(--teal)" stroke="var(--teal)"/><text x="697" y="183" fill="#fff" font-weight="600">出院太晚 ←根因</text>
+      <g stroke="var(--ink-3)" fill="none"><path d="M160 102 C195 102,195 39,230 39"/><path d="M160 102h70"/><path d="M160 102 C195 102,195 163,230 163"/><path d="M390 163 C425 163,425 136,460 136"/><path d="M390 163 C425 163,425 178,460 178"/><path d="M600 178h40"/></g>
+    </g>
+  </svg>
+  </div>
+
+  <h3>2.4 工具三：问题陈述模板</h3>
+  <div class="tpl"><pre>【谁】在【什么场景/环节】，因为【根本原因】，
+导致【可衡量的影响：数字 + 单位 + 时间】。
+如果解决，我们期望在【时间】内把【指标】从【现状】改善到【目标】。</pre></div>
+  <p>好的问题陈述有五个特征：<b>有具体的人、有具体的场景、有根因、有数字、不提方案</b>。</p>
+
+  <div class="case">
+    <div class="case-h">📁 案例 2：医院要的"实时大屏" <small>医疗 · 急诊拥堵</small></div>
+    <div class="case-b">
+      <p><b>背景：</b>某三甲医院急诊科长期拥堵，院长办公室提出："我们要一个急诊实时大屏，挂在护士站。"Echo 小陈接手。点击下面的按钮，一层层看小陈是怎么追问的。</p>
+      <div class="why" id="whyBox">
+        <div class="w show"><b>诉求：</b>做一个急诊实时大屏。</div>
+        <div class="w"><b>为什么 1：</b>为什么要大屏？→ 护士长说"不知道哪些病人等太久了"。</div>
+        <div class="w"><b>为什么 2：</b>为什么病人会等太久？→ 小陈拉了 3 个月数据：38% 的病人急诊滞留超过 4 小时，大部分是<b>已经决定住院</b>、在等床位的病人。</div>
+        <div class="w"><b>为什么 3：</b>为什么等床位？→ 病房床位使用率 98%，但小陈去病房观察发现：上午 10 点医生就开了出院医嘱，病人却到下午 3 点才真正离开。</div>
+        <div class="w"><b>为什么 4：</b>为什么出院要 5 小时？→ 出院结算、带药、写出院小结三件事串行办理，药房下午才统一配药。</div>
+        <div class="w"><b>为什么 5：</b>为什么药房下午才配？→ 历史习惯，药房上午忙门诊，没人看到这件事对急诊的影响。<b>这里可以动手了。</b></div>
+        <div class="w" style="border-color:var(--teal);background:var(--teal-soft)"><b>问题陈述：</b>住院病房因出院手续串行办理（结算、带药、小结），病人从开出院医嘱到实际离院平均需要 5 小时，导致急诊待入院病人无床可转，38% 的急诊病人滞留超过 4 小时。目标是 3 个月内把出院平均耗时降到 2.5 小时，急诊滞留超 4 小时的比例降到 20% 以下。</div>
+      </div>
+      <button class="btn sm" id="whyNext">再问一个为什么 →</button> <button class="btn sm" id="whyReset">重来</button>
+      <p style="margin-top:12px"><b>启示：</b>真正的解法是"出院流程并行化 + 出院预测提醒"，跟大屏关系不大。如果直接做大屏，护士只会更清楚地看到病人在等，却什么也改变不了。</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 2：问题陈述构建器</div>
+    <p class="hint">选一个你熟悉的场景（工作、学校、社区都行），填写下面的字段，系统会生成问题陈述并做质量检查。不知道写什么？点"填入示例"。</p>
+    <div class="grid2">
+      <div class="field"><label>谁（具体的岗位/人群）</label><input id="ps-who" placeholder="例：门店店长"></div>
+      <div class="field"><label>在什么场景/环节</label><input id="ps-where" placeholder="例：每周一下补货订单时"></div>
+      <div class="field"><label>根本原因</label><input id="ps-cause" placeholder="例：只能凭经验估算销量"></div>
+      <div class="field"><label>可衡量的影响</label><input id="ps-impact" placeholder="例：生鲜报损率 9%，每月损失约 12 万元"></div>
+      <div class="field"><label>改善指标与目标</label><input id="ps-goal" placeholder="例：报损率从 9% 降到 5%"></div>
+      <div class="field"><label>期限</label><input id="ps-time" placeholder="例：3 个月"></div>
+    </div>
+    <button class="btn pri" id="psGen">生成并检查</button> <button class="btn" id="psDemo">填入示例</button>
+    <div class="out" id="psOut" style="display:none"></div>
+    <ul class="checks" id="psChecks"></ul>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">小测验：第 2 节</div>
+    <div id="quiz-s2"></div>
+  </div>
+
+  <div class="homework">
+    <h4>📝 课后作业（20 分钟）</h4>
+    <ol><li>找一个你听到过的"解决方案式诉求"（比如"我们要上个小程序"），用 5 Why 推到可行动的根因。</li><li>为"公司员工满意度下降"画一棵三层的问题树，检查是否符合 MECE。</li></ol>
+  </div>
+  <button class="btn pri done-btn" data-done="s2">✓ 标记第 2 节完成</button>
+</section>
+
+<!-- ============ S3 ============ -->
+<section class="chap" id="s3">
+  <div class="sess-head">
+    <div class="no">第 3 节 · 60 分钟</div>
+    <h2>客户发现：找对人、问对问题、看见真相</h2>
+    <div class="agenda"><div class="c1" style="flex:5">开场 5'</div><div class="c2" style="flex:20">干系人与访谈 20'</div><div class="c3" style="flex:15">案例 15'</div><div class="c4" style="flex:15">练习 15'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>画出一个项目的干系人地图，识别决策者、拥护者和阻力</li><li>设计并执行一次 45 分钟的用户访谈</li><li>用现场观察发现"说的"和"做的"之间的差距</li></ul>
+  </div>
+
+  <h3>3.1 干系人地图：项目里有哪些人</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>角色</th><th>典型职位</th><th>他们关心什么</th><th>Echo 怎么对待</th></tr></thead>
+    <tbody>
+      <tr><td><b>经济决策者</b></td><td>CEO、事业部总经理</td><td>投入产出、战略、风险</td><td>少而精的汇报，讲钱和战略</td></tr>
+      <tr><td><b>业务负责人 / 拥护者</b></td><td>部门总监、经理</td><td>部门指标、自己的业绩</td><td>最紧密的合作伙伴，每周同步</td></tr>
+      <tr><td><b>一线用户</b></td><td>计划员、调度员、护士</td><td>工作是不是更轻松、会不会被替代</td><td>花最多时间观察和倾听，让他们参与设计</td></tr>
+      <tr><td><b>IT / 数据团队</b></td><td>CIO、数据工程师</td><td>安全、稳定、工作量、话语权</td><td>尽早拉进来，尊重他们的系统，给他们功劳</td></tr>
+      <tr><td><b>合规 / 安全</b></td><td>法务、信息安全</td><td>数据权限、审计、监管</td><td>提前沟通，别等到上线前被叫停</td></tr>
+      <tr><td><b>潜在反对者</b></td><td>原有系统负责人、觉得被威胁的中层</td><td>失去控制权或地位</td><td>了解顾虑，找到共赢点，不要回避</td></tr>
+    </tbody>
+  </table></div>
+  <p>画地图时用"<b>影响力 × 支持度</b>"两个维度给每个人定位：影响力高且支持的是你的盟友，要重点经营；影响力高但不支持的是风险，要尽早沟通。</p>
+
+  <h3>3.2 好问题的四条原则</h3>
+  <div class="grid2">
+    <div class="card"><b>① 问过去，不问未来</b><p>✗ "你会用这个功能吗？"<br>✓ "上一次遇到这种情况，你是怎么处理的？"</p></div>
+    <div class="card"><b>② 问具体，不问抽象</b><p>✗ "你们的流程有什么问题？"<br>✓ "能带我走一遍昨天下午那张订单的处理过程吗？"</p></div>
+    <div class="card"><b>③ 问行为，不问意见</b><p>✗ "你觉得自动化好不好？"<br>✓ "这件事你每周花多少时间？最烦的是哪一步？"</p></div>
+    <div class="card"><b>④ 开放，不诱导</b><p>✗ "数据不准是不是最大的问题？"<br>✓ "做这件事时，最让你头疼的是什么？"</p></div>
+  </div>
+  <p>这几条原则的核心思路来自 Rob Fitzpatrick 的《The Mom Test》：人们会出于礼貌说你想听的话，但他们过去的行为不会骗人。</p>
+
+  <h4>45 分钟访谈结构</h4>
+  <div class="timeline">
+    <div><b>0–5 分钟 · 破冰：</b>介绍自己和目的，强调"我们是来学习的，不是来考核的"，请求允许记笔记。</div>
+    <div><b>5–15 分钟 · 了解角色：</b>"你一天的工作是怎样的？"、"你的工作怎么算做得好？"</div>
+    <div><b>15–35 分钟 · 深挖具体事件：</b>"讲讲最近一次……"，用"然后呢？""为什么这样做？""能给我看看吗？"追问。</div>
+    <div><b>35–42 分钟 · 验证假设：</b>把你的猜测说出来，看对方的反应。</div>
+    <div><b>42–45 分钟 · 收尾：</b>"还有什么我该问却没问的？"、"我还应该找谁聊？"</div>
+  </div>
+
+  <h3>3.3 现场观察（跟岗）</h3>
+  <p>访谈听到的是人们<b>以为</b>自己怎么做事，观察看到的是他们<b>实际</b>怎么做事。跟岗时重点看这些信号：</p>
+  <ul>
+    <li><b>影子系统：</b>正式系统之外的 Excel、便利贴、白板、微信群、手写本子。它们说明正式系统没满足需求。</li>
+    <li><b>绕路操作：</b>为了绕开系统限制而做的额外步骤，比如"先填个假值，回头再改"。</li>
+    <li><b>等待和打断：</b>谁在等谁？哪一步让人停下来打电话问？</li>
+    <li><b>情绪：</b>叹气、抱怨、骂系统的时刻，往往就是痛点所在。</li>
+  </ul>
+
+  <div class="case">
+    <div class="case-h">📁 案例 3：调度员王姐的"第二套系统" <small>物流 · 车辆调度</small></div>
+    <div class="case-b">
+      <p><b>背景：</b>快达物流（同城配送，200 辆车）刚买了一套运输管理系统（TMS），管理层抱怨调度效率没有提升。Echo 小赵去调度中心跟岗。</p>
+      <p><b>访谈时，</b>调度主管王姐说："系统挺好的，就是有时候慢一点。"</p>
+      <p><b>跟岗时，</b>小赵却看到：王姐桌上有一个自己做的 Excel，记着每个司机的"脾气"——谁不愿意跑远郊、谁的车能进地库、谁下午要接孩子。她先在 Excel 上把单子配好，再录进 TMS。一天下来，这个双重录入要花 1.5 小时。</p>
+      <p><b>追问后，</b>王姐才说："系统只知道车和距离，不知道人。按系统派，司机会拒单，最后还是要我打电话调。"</p>
+      <p><b>小赵的发现：</b>真正的问题不是系统慢，而是<b>司机的约束条件（车型、区域偏好、时间限制）没有进入系统</b>。他把这个发现写成用例："把司机约束结构化录入，让系统派单时自动考虑，目标是把拒单率从 18% 降到 5%，节省调度员每天 1.5 小时。"</p>
+      <p><b>讨论题：</b>如果小赵只做了访谈没做跟岗，他会得出什么结论？王姐的 Excel 应该被"消灭"吗？</p>
+      <details><summary>参考答案</summary><p>只做访谈，小赵可能会得出"系统性能需要优化"这种错误结论。王姐的 Excel 不该被简单消灭，它是宝贵的业务知识。正确的做法是把它变成系统里的结构化数据，并请王姐作为"超级用户"参与设计。这样她从潜在的反对者变成了拥护者。</p></details>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 3：好问题还是坏问题？</div>
+    <p class="hint">判断以下访谈问题是"好问题"还是"坏问题"。</p>
+    <div id="sort-questions"></div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">小测验：第 3 节</div>
+    <div id="quiz-s3"></div>
+  </div>
+
+  <div class="homework">
+    <h4>📝 课后作业（30 分钟）</h4>
+    <ol><li>找一位朋友或同事，就"他工作中最花时间的一件重复性事务"做一次 20 分钟访谈，用本节的结构，事后写 1 页访谈纪要（模板见附录）。</li><li>列出你所在组织里一个项目的干系人，按影响力 × 支持度画出地图。</li></ol>
+  </div>
+  <button class="btn pri done-btn" data-done="s3">✓ 标记第 3 节完成</button>
+</section>
+
+<!-- ============ S4 ============ -->
+<section class="chap" id="s4">
+  <div class="sess-head">
+    <div class="no">第 4 节 · 60 分钟</div>
+    <h2>读懂业务与数据：用"对象"思考</h2>
+    <div class="agenda"><div class="c1" style="flex:5">开场 5'</div><div class="c2" style="flex:20">流程与本体 20'</div><div class="c3" style="flex:15">案例 15'</div><div class="c4" style="flex:15">练习 15'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>画出一个业务流程的泳道图，区分现状和未来</li><li>用"对象-属性-关系-动作"四要素描述一个业务</li><li>完成一份数据盘点，判断数据能不能撑起用例</li></ul>
+  </div>
+
+  <h3>4.1 泳道流程图</h3>
+  <p>泳道图把流程按"谁来做"分成横向的泳道，一眼就能看出交接点在哪儿。交接点往往就是等待、出错和扯皮的地方。下面是一个零售门店补货的<b>现状</b>流程：</p>
+  <div class="lane">
+  <svg viewBox="0 0 820 230" width="100%" style="min-width:640px" role="img" aria-label="门店补货现状泳道图">
+    <g font-size="12">
+      <rect x="0" y="0" width="820" height="70" fill="var(--surface-2)"/><rect x="0" y="80" width="820" height="70" fill="var(--surface-2)"/><rect x="0" y="160" width="820" height="70" fill="var(--surface-2)"/>
+      <text x="12" y="40" fill="var(--ink-2)" font-weight="700">门店店长</text><text x="12" y="120" fill="var(--ink-2)" font-weight="700">采购部</text><text x="12" y="200" fill="var(--ink-2)" font-weight="700">仓库(WMS)</text>
+      <g text-anchor="middle">
+        <rect x="100" y="15" width="120" height="40" rx="6" fill="var(--surface)" stroke="var(--line)"/><text x="160" y="40" fill="var(--ink)">盘点货架</text>
+        <rect x="250" y="15" width="130" height="40" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="315" y="33" fill="var(--ink)">凭经验估销量</text><text x="315" y="48" fill="var(--accent)" font-size="10">痛点：不准</text>
+        <rect x="410" y="15" width="120" height="40" rx="6" fill="var(--surface)" stroke="var(--line)"/><text x="470" y="40" fill="var(--ink)">填 Excel 发邮件</text>
+        <rect x="410" y="95" width="120" height="40" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="470" y="113" fill="var(--ink)">手工汇总 80 店</text><text x="470" y="128" fill="var(--accent)" font-size="10">痛点：耗时 1 天</text>
+        <rect x="560" y="95" width="120" height="40" rx="6" fill="var(--surface)" stroke="var(--line)"/><text x="620" y="120" fill="var(--ink)">下采购单</text>
+        <rect x="560" y="175" width="120" height="40" rx="6" fill="var(--accent-soft)" stroke="var(--accent)"/><text x="620" y="193" fill="var(--ink)">按编码拣货</text><text x="620" y="208" fill="var(--accent)" font-size="10">痛点：编码对不上</text>
+        <rect x="700" y="15" width="110" height="40" rx="6" fill="var(--surface)" stroke="var(--line)"/><text x="755" y="40" fill="var(--ink)">收货上架</text>
+      </g>
+      <g stroke="var(--ink-3)" fill="none" stroke-width="1.4"><path d="M220 35h30M380 35h30M470 55v40M530 115h30M620 135v40M680 195 C740 195,755 120,755 55"/></g>
+    </g>
+  </svg>
+  </div>
+  <p>画完现状后，再画<b>未来</b>流程：哪些步骤可以自动化？哪些交接可以去掉？哪些决策可以前移？两张图之间的差距，就是你的项目范围。</p>
+
+  <h3>4.2 本体思维：让数据像业务一样说话</h3>
+  <p>工程师看到的是一张张数据库表，业务人员脑子里想的是"门店""商品""订单"。<b>本体（Ontology）</b>就是在两者之间搭一座桥：用业务的语言，把世界描述成对象和它们之间的关系。这是很多 FDE 平台的核心理念，也是 Echo 和 Delta 沟通时最好用的共同语言。</p>
+  <div class="tbl"><table>
+    <thead><tr><th>要素</th><th>是什么</th><th>怎么识别</th><th>零售补货例子</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag t">对象 Object</span></td><td>业务里的"东西"，可以是实体或事件</td><td>句子里的名词，可以被数出来</td><td>门店、商品、供应商、补货订单</td></tr>
+      <tr><td><span class="tag b">属性 Property</span></td><td>对象的特征</td><td>"……的……"，比如门店的面积</td><td>商品的保质期、门店的城市、订单的数量</td></tr>
+      <tr><td><span class="tag g">关系 Link</span></td><td>对象之间的联系</td><td>"属于""包含""由……供应"</td><td>订单<i>属于</i>门店，商品<i>由</i>供应商供应</td></tr>
+      <tr><td><span class="tag a">动作 Action</span></td><td>用户对对象做的、会改变数据的操作</td><td>句子里的动词，是一个决策</td><td>创建补货单、调整安全库存、标记报损</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><b class="t">为什么"动作"最重要</b>只有对象和属性，系统只能"看"；有了动作，系统才能"用"。一个好的用例一定落在某个动作上：<b>谁，在什么时候，基于什么信息，做出什么操作</b>。</div>
+
+  <h3>4.3 数据盘点：Echo 必须问清的 7 个问题</h3>
+  <ol>
+    <li><b>在哪里？</b>哪个系统、哪张表、哪个文件？</li>
+    <li><b>谁负责？</b>谁录入、谁维护、谁能批准访问？</li>
+    <li><b>多新？</b>实时、每小时、每天还是每月更新？</li>
+    <li><b>多准？</b>有没有缺失、重复、格式不一致？（让一线用户说说他们信不信这份数据）</li>
+    <li><b>多全？</b>覆盖了多长时间、多少门店/产品？</li>
+    <li><b>怎么连？</b>不同系统之间用什么字段关联？（这是最常出问题的地方）</li>
+    <li><b>能不能用？</b>有没有隐私、合规或合同限制？</li>
+  </ol>
+  <p>你不用自己写 SQL，但要看得懂表结构（哪些是列、哪些是行、主键是什么），能和 Delta 一起判断"这个用例的数据够不够"。</p>
+
+  <div class="case">
+    <div class="case-h">📁 案例 4：鲜丰超市的"幽灵缺货" <small>零售 · 补货</small></div>
+    <div class="case-b">
+      <p><b>背景：</b>鲜丰超市有 80 家门店，系统显示仓库有货，门店却经常缺货，顾客投诉不断。总部认为是门店"懒得补货"。</p>
+      <p><b>Echo 小吴的做法：</b></p>
+      <ol>
+        <li>先画本体：门店、商品、仓库库存、补货单、配送单，再画它们之间的关系。</li>
+        <li>和 Delta 一起把门店 POS 销售数据、补货单和仓库 WMS 出库数据按商品对齐，结果<b>有 11% 的商品对不上</b>。</li>
+        <li>追查后发现：同一种商品，POS 用 13 位条码，WMS 用内部 8 位编码，中间靠一张"对照表"维护，而这张表半年没人更新了。新品、换包装的商品都"失联"了。</li>
+        <li>门店下的补货单里这些商品被系统静默丢弃，仓库根本没收到。</li>
+      </ol>
+      <p><b>结论：</b>不是门店懒，是"商品"这个对象在两个系统里不是同一个东西。第一个用例改成："建立统一的商品主数据，任何编码对不上的补货单当天报警"。两周后，缺货投诉下降了 40%。</p>
+      <p><b>启示：</b>大部分"业务问题"背后都藏着一个"数据对象没对齐"的问题。用本体思维画一遍，很多问题就自己浮出来了。</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 4：识别本体四要素</div>
+    <p class="hint">场景：一家医院的手术排程。判断每个词是对象、属性、关系还是动作。</p>
+    <div id="sort-ontology"></div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">小测验：第 4 节</div>
+    <div id="quiz-s4"></div>
+  </div>
+
+  <div class="homework">
+    <h4>📝 课后作业（30 分钟）</h4>
+    <ol><li>选一个你熟悉的流程（比如报销、请假、点外卖），画出现状泳道图，标出至少 2 个痛点。</li><li>为这个流程写出本体：至少 4 个对象、每个对象 3 个属性、3 种关系、2 个动作。</li></ol>
+  </div>
+  <button class="btn pri done-btn" data-done="s4">✓ 标记第 4 节完成</button>
+</section>
+
+<!-- ============ S5 ============ -->
+<section class="chap" id="s5">
+  <div class="sess-head">
+    <div class="no">第 5 节 · 60 分钟</div>
+    <h2>用例设计与价值量化</h2>
+    <div class="agenda"><div class="c1" style="flex:5">开场 5'</div><div class="c2" style="flex:15">用例画布 15'</div><div class="c3" style="flex:10">价值量化 10'</div><div class="c4" style="flex:25">案例与练习 25'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>用用例画布把一个问题变成可以交付的用例</li><li>用保守假设估算一个用例的年化价值</li><li>用"价值 × 可行性"矩阵给多个用例排优先级</li></ul>
+  </div>
+
+  <h3>5.1 好用例 = 改变一个具体的决策</h3>
+  <p>用例（Use Case）是 Echo 和 Delta 之间的"合同"。判断一个用例好不好，就问一句：<b>它改变了谁的哪一个重复决策？</b></p>
+  <div class="grid2">
+    <div class="card"><b>✗ 弱用例</b><p>"建设供应链可视化平台"<br><span style="color:var(--ink-3)">没有用户、没有决策、没法衡量</span></p></div>
+    <div class="card"><b>✓ 强用例</b><p>"采购员每天上午根据缺货风险预警，决定是否给供应商下加急单"<br><span style="color:var(--ink-3)">用户明确、决策明确、可衡量</span></p></div>
+  </div>
+  <h4>用例画布（9 格）</h4>
+  <div class="tbl"><table>
+    <tbody>
+      <tr><th>① 用户</th><td>谁会用？多少人？</td><th>② 决策/动作</th><td>他们要做什么决定？多频繁？</td></tr>
+      <tr><th>③ 现状做法</th><td>现在怎么做？耗时多少？</td><th>④ 痛点</th><td>哪里慢、哪里错、哪里贵？</td></tr>
+      <tr><th>⑤ 所需数据</th><td>需要哪些对象和属性？在哪个系统？</td><th>⑥ 方案形态</th><td>提醒、推荐、自动化，还是工作台？</td></tr>
+      <tr><th>⑦ 价值指标</th><td>看哪个数字变化？现状和目标是多少？</td><th>⑧ 负责人</th><td>客户方谁对结果负责？</td></tr>
+      <tr><th>⑨ 风险与假设</th><td colspan="3">哪些前提不成立，用例就会失败？（数据质量、用户意愿、系统权限……）</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>5.2 价值量化：四个来源</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>来源</th><th>公式思路</th><th>例子</th></tr></thead>
+    <tbody>
+      <tr><td><b>省时间</b></td><td>人数 × 节省小时 × 时薪 × 工作周数</td><td>20 个调度员每周各省 6 小时</td></tr>
+      <tr><td><b>降成本</b></td><td>减少的次数 × 每次成本</td><td>每月少报损 300 件，每件 40 元</td></tr>
+      <tr><td><b>增收入</b></td><td>增加的订单/转化 × 单位毛利</td><td>准时率提升带来的续约订单</td></tr>
+      <tr><td><b>降风险</b></td><td>事件概率下降 × 事件损失</td><td>避免一次合规罚款或停产</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout gold"><b class="t">三条纪律</b>① 用客户自己的数字，不用行业报告里的数字；② 宁可保守，打个折（比如只算 50% 的效果）；③ 让客户的财务或业务负责人确认假设，让数字变成"他们的数字"。</div>
+
+  <div class="lab">
+    <div class="lab-h">练习 5：ROI 计算器</div>
+    <p class="hint">默认值来自下面的保险理赔案例，你可以调整任意数字，看价值怎么变化。</p>
+    <div class="calc">
+      <div class="field"><label>受影响员工数（人）</label><input type="number" id="r-n" value="40"></div>
+      <div class="field"><label>每人每周节省（小时）</label><input type="number" id="r-h" value="5" step="0.5"></div>
+      <div class="field"><label>员工综合时薪（元）</label><input type="number" id="r-w" value="120"></div>
+      <div class="field"><label>每年减少的错误/损失次数</label><input type="number" id="r-e" value="600"></div>
+      <div class="field"><label>每次错误平均损失（元）</label><input type="number" id="r-c" value="800"></div>
+      <div class="field"><label>效果折扣（保守系数 %）</label><input type="number" id="r-d" value="50" min="0" max="100"></div>
+      <div class="field"><label>一次性实施成本（元）</label><input type="number" id="r-i" value="600000"></div>
+      <div class="field"><label>每年运营成本（元）</label><input type="number" id="r-o" value="200000"></div>
+    </div>
+    <div class="res">
+      <div><b id="r-v">—</b><span>年化价值（打折后）</span></div>
+      <div><b id="r-net">—</b><span>首年净收益</span></div>
+      <div><b id="r-pb">—</b><span>回本周期</span></div>
+    </div>
+    <p id="r-note" style="font-size:.88rem;color:var(--ink-2);margin-top:10px"></p>
+  </div>
+
+  <h3>5.3 排优先级：价值 × 可行性</h3>
+  <p>手里通常不止一个用例。按两个维度打分（1–10）：</p>
+  <ul><li><b>价值：</b>年化金额、战略重要性、影响人数</li><li><b>可行性：</b>数据是否就绪、技术难度、用户意愿、需要多少部门配合</li></ul>
+  <p>横轴是可行性，纵轴是价值。右上角"<b>速赢</b>"先做，用来建立信任；左上角"<b>大赌注</b>"（价值高但难做）在信任建立后再做；右下角"<b>顺手做</b>"（容易但价值一般）有空就做；左下角"<b>先放下</b>"。</p>
+
+  <div class="case">
+    <div class="case-h">📁 案例 5：安盛保险的五个候选用例 <small>保险 · 理赔</small></div>
+    <div class="case-b">
+      <p><b>背景：</b>安盛财险车险理赔部有 40 名理赔员，平均结案时间 9 天，客户投诉率高。Echo 小郑经过两周发现，列出了 5 个候选用例。拖动下面的滑块给它们打分，看看矩阵上的位置。</p>
+      <div class="matrix">
+        <div id="ucList"></div>
+        <svg id="ucSvg" viewBox="0 0 300 300" width="100%" style="max-width:300px" role="img" aria-label="价值可行性矩阵"></svg>
+      </div>
+      <details style="margin-top:12px"><summary>小郑最终的选择</summary><p>小郑先做了<b>①理赔材料自动核对</b>：数据就在影像系统里，理赔员每单要花 40 分钟对材料，痛点大、见效快，3 周就上线了试点。有了这个速赢，理赔部总监才愿意配合推进更难的<b>③反欺诈预警</b>，因为它需要打通外部数据，还要合规审批。<b>⑤全流程 AI 自动理赔</b>听起来最诱人，但数据、监管和用户信任都不到位，被放到了第二年路线图里。</p></details>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">小测验：第 5 节</div>
+    <div id="quiz-s5"></div>
+  </div>
+
+  <div class="homework">
+    <h4>📝 课后作业（30 分钟）</h4>
+    <ol><li>用第 4 节作业的流程，填一张完整的用例画布。</li><li>用 ROI 计算器的逻辑，估算这个用例的年化价值，写清楚每个假设的来源。</li></ol>
+  </div>
+  <button class="btn pri done-btn" data-done="s5">✓ 标记第 5 节完成</button>
+</section>
+
+<!-- ============ S6 ============ -->
+<section class="chap" id="s6">
+  <div class="sess-head">
+    <div class="no">第 6 节 · 60 分钟</div>
+    <h2>交付、演示与沟通</h2>
+    <div class="agenda"><div class="c1" style="flex:5">开场 5'</div><div class="c2" style="flex:20">节奏与沟通 20'</div><div class="c3" style="flex:10">案例 10'</div><div class="c4" style="flex:20">情景模拟 20'</div><div class="c5" style="flex:5">小结 5'</div></div>
+    <b>学习目标</b>
+    <ul class="goals"><li>理解原型 → 试点 → 推广的迭代节奏</li><li>讲好一个 5 分钟的 Demo</li><li>写出一份让高管 1 分钟看懂的周报，学会管理期望和传递坏消息</li></ul>
+  </div>
+
+  <h3>6.1 迭代节奏：小步快跑</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>阶段</th><th>时长</th><th>目标</th><th>Echo 的重点</th></tr></thead>
+    <tbody>
+      <tr><td><b>原型</b></td><td>1–2 周</td><td>证明"方向对"</td><td>用真实数据做出能点的东西，给 3–5 个用户看，收集反馈</td></tr>
+      <tr><td><b>试点</b></td><td>4–6 周</td><td>证明"有价值"</td><td>选一个小范围（一个班组、一个门店），每天用，追踪指标</td></tr>
+      <tr><td><b>推广</b></td><td>1–3 个月</td><td>证明"能规模化"</td><td>培训、培养超级用户、处理例外情况、固化流程</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><b class="t">上线 ≠ 成功</b>要追踪的是<b>采纳率</b>：每周活跃用户占目标用户的比例、核心动作的使用次数、用户有没有偷偷回到老办法。上线后头两周，Echo 最好每天都在现场。</div>
+
+  <h3>6.2 讲好一个 Demo</h3>
+  <ol>
+    <li><b>从一个人的一天讲起：</b>"这是计划员老周，每天早上 8 点……"，而不是"这是我们的系统首页"。</li>
+    <li><b>用客户自己的数据：</b>看到自家工厂的工单号，客户的反应完全不一样。</li>
+    <li><b>只讲三个点：</b>一个痛点、一个关键时刻、一个数字结果。</li>
+    <li><b>先讲"之前"再讲"之后"：</b>对比才有冲击力。</li>
+    <li><b>留出一半时间听反馈：</b>Demo 的目的不是展示，是学习。</li>
+    <li><b>彩排并准备备份：</b>录屏、截图，防止现场网络或数据出问题。</li>
+  </ol>
+
+  <h3>6.3 周报：一页纸、红黄绿</h3>
+  <div class="tpl"><pre>【项目】华辰精密 · 排产优化   【周次】第 4 周   【整体状态】🟡 黄
+
+一、本周进展
+  · 排产视图试点上线，2 号车间 6 名计划员每日使用
+  · 自动更新时间从 10:00 提前到 07:05
+
+二、关键指标
+  · 准时交付率：78% → 81%（目标 85%，第 6 周）
+  · 计划员每日拼表时间：2h → 0.3h
+
+三、风险与问题
+  🔴 MES 数据接口每周二凌晨维护，导致周二视图延迟 → 已与 IT 商定改到周日
+  🟡 3 号车间主任对试点有顾虑 → 周四安排老周现场分享
+
+四、需要的支持
+  · 请副总在周例会上点名表扬 2 号车间，帮助推广
+
+五、下周计划
+  · 扩展到 3 号车间；上线换模提醒功能</pre></div>
+
+  <h3>6.4 期望管理与坏消息</h3>
+  <ul>
+    <li><b>坏消息早说：</b>发现延期的那一天就说，别等到截止日。客户能接受延期，不能接受被蒙在鼓里。</li>
+    <li><b>带着方案说：</b>"X 出了问题，影响是 Y，我们有 A、B 两个方案，建议 A，需要您决定……"</li>
+    <li><b>学会说"不是现在"：</b>新需求来了，不直接拒绝，而是放进待办清单，说明它会挤掉什么，让客户自己权衡。</li>
+    <li><b>功劳给客户：</b>成功是客户团队的成功，在他们领导面前替他们说话。</li>
+  </ul>
+
+  <div class="case">
+    <div class="case-h">📁 案例 6：演示前一晚 <small>综合 · 危机处理</small></div>
+    <div class="case-b">
+      <p>明天上午 10 点，Echo 小林要向华辰精密的总经理演示排产视图的试点结果。晚上 9 点，她发现视图里显示的准时率是 91%，但计划科自己统计的是 81%。差了 10 个百分点。</p>
+      <p>下面的情景模拟会带你一步步做决定。每个选择都会影响<b>客户信任</b>和<b>项目进展</b>。</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">练习 6：情景模拟</div>
+    <div id="scenario"></div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-h">小测验：第 6 节</div>
+    <div id="quiz-s6"></div>
+  </div>
+
+  <div class="homework">
+    <h4>📝 课后作业（30 分钟）</h4>
+    <ol><li>为你的用例写一个 5 分钟的 Demo 脚本：开场人物、三个关键点、结尾的数字。</li><li>假设项目第 3 周遇到了数据延迟，写一份红黄绿周报。</li></ol>
+  </div>
+  <button class="btn pri done-btn" data-done="s6">✓ 标记第 6 节完成</button>
+</section>
+
+<!-- ============ FINAL ============ -->
+<section class="chap" id="final">
+  <h2>结业测验与结业项目</h2>
+  <p>初级结业由两部分组成：<b>结业测验</b>（12 题，答对 10 题及以上通过），和一个<b>结业项目</b>（由导师评审）。</p>
+
+  <div class="lab">
+    <div class="lab-h">结业测验 · 12 题</div>
+    <p class="hint">答完全部题目后会显示总分。</p>
+    <div id="quiz-final"></div>
+    <div id="finalScore" class="score"></div>
+    <div class="field" id="certName" style="display:none;max-width:320px"><label>输入你的名字，生成结业证明</label><input id="certInput" placeholder="你的名字"></div>
+    <div class="cert" id="cert">
+      <div class="eyebrow">Certificate of Completion</div>
+      <h3>FDE · Echo 初级结业</h3>
+      <p>兹证明 <b id="certWho">学员</b> 已完成 Echo 初级课程全部 6 节内容，<br>并以 <b id="certScore"></b> 的成绩通过结业测验。</p>
+      <p style="font-size:.85rem;color:var(--ink-2)" id="certDate"></p>
+    </div>
+  </div>
+
+  <h3>结业项目：鲜丰超市生鲜报损</h3>
+  <div class="card">
+    <p><b>情景：</b>鲜丰超市（案例 4 的客户）解决了缺货问题后，营运副总又提出："我们想用 AI 预测生鲜销量。"已知信息：</p>
+    <ul>
+      <li>80 家门店，生鲜报损率 9%，行业优秀水平是 4–5%，每年生鲜销售额约 2.4 亿元</li>
+      <li>店长每天晚上 9 点根据经验给第二天的叶菜、水果、肉类下单</li>
+      <li>POS 有 3 年的销售数据，天气数据可以免费获取，促销计划存在市场部的 Excel 里</li>
+      <li>有店长私下说："总部考核缺货，不考核报损，所以我们宁愿多订。"</li>
+    </ul>
+    <p><b>你需要提交（建议 2–3 小时）：</b></p>
+    <ol>
+      <li><b>问题陈述：</b>用第 2 节的模板，注意店长那句话暗示了什么。</li>
+      <li><b>干系人地图：</b>至少 5 类角色，标出影响力和支持度。</li>
+      <li><b>访谈提纲：</b>给店长的 45 分钟访谈，至少 8 个问题。</li>
+      <li><b>本体草图：</b>对象、关系和关键动作。</li>
+      <li><b>用例画布 + ROI 估算：</b>写清楚所有假设。</li>
+      <li><b>第一周周报：</b>假设你刚完成发现阶段。</li>
+    </ol>
+    <details><summary>评审标准</summary>
+      <div class="tbl"><table><thead><tr><th>维度</th><th>权重</th><th>优秀的表现</th></tr></thead><tbody>
+        <tr><td>问题定义</td><td>30%</td><td>识别出"考核机制"这个组织层面的根因，而不是只盯着预测模型</td></tr>
+        <tr><td>客户发现</td><td>20%</td><td>访谈问题符合四原则，干系人包含考核制定者</td></tr>
+        <tr><td>业务与数据</td><td>15%</td><td>本体清晰，指出促销数据在 Excel 里是风险</td></tr>
+        <tr><td>价值与用例</td><td>20%</td><td>ROI 假设保守且有来源，用例落在"店长下单"这个决策上</td></tr>
+        <tr><td>沟通</td><td>15%</td><td>周报一页内，状态、风险、需要的支持清楚</td></tr>
+      </tbody></table></div>
+    </details>
+  </div>
+  <button class="btn pri done-btn" data-done="final">✓ 标记结业完成</button>
+
+  <div class="callout blue" style="margin-top:24px"><b class="t">下一步：中级</b>完成初级后，建议在导师带领下参加 2 周的影子实习，跟进一个真实项目的发现阶段。中级课程将覆盖：发现冲刺设计、业务论证、原型与低代码、AI/大模型用例设计、试点设计与指标、变革管理、工作坊主持和复杂干系人管理。</div>
+</section>
+
+<!-- ============ APPENDIX ============ -->
+<section class="chap" id="templates">
+  <h2>附录 A · 模板工具箱</h2>
+  <p>点"复制"直接拿去用。</p>
+  <h4>访谈纪要</h4>
+  <div class="tpl"><button class="btn sm cp">复制</button><pre>【访谈对象】姓名 / 岗位 / 工龄
+【日期与时长】
+【访谈目的】我们想验证的 2-3 个假设
+
+一、角色与日常
+二、关键事件（具体的一次经历，按时间顺序）
+三、痛点（原话引用 + 频率 + 影响）
+四、现有的变通办法 / 影子系统
+五、假设验证结果：✓ 证实 / ✗ 推翻 / ? 待验证
+六、意外发现
+七、推荐的下一位访谈对象
+八、后续行动</pre></div>
+  <h4>问题陈述</h4>
+  <div class="tpl"><button class="btn sm cp">复制</button><pre>【谁】在【什么场景/环节】，因为【根本原因】，
+导致【可衡量的影响：数字 + 单位 + 时间】。
+如果解决，我们期望在【时间】内把【指标】从【现状】改善到【目标】。
+
+证据来源：
+- 数据：
+- 观察：
+- 访谈：</pre></div>
+  <h4>用例画布</h4>
+  <div class="tpl"><button class="btn sm cp">复制</button><pre>用例名称：
+① 用户（谁、多少人）：
+② 决策/动作（做什么、多频繁）：
+③ 现状做法（怎么做、耗时）：
+④ 痛点：
+⑤ 所需数据（对象/属性/系统）：
+⑥ 方案形态（提醒/推荐/自动化/工作台）：
+⑦ 价值指标（现状 → 目标）：
+⑧ 客户方负责人：
+⑨ 风险与关键假设：</pre></div>
+  <h4>数据盘点表</h4>
+  <div class="tpl"><button class="btn sm cp">复制</button><pre>| 数据项 | 所在系统 | 负责人 | 更新频率 | 质量(高/中/低) | 关联字段 | 访问限制 | 备注 |
+|--------|----------|--------|----------|----------------|----------|----------|------|
+|        |          |        |          |                |          |          |      |</pre></div>
+</section>
+
+<section class="chap" id="glossary">
+  <h2>附录 B · 术语表</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>术语</th><th>解释</th></tr></thead>
+    <tbody>
+      <tr><td>FDE</td><td>Forward Deployed Engineer，前线部署工程师，派驻客户现场、对业务结果负责的团队模式</td></tr>
+      <tr><td>Echo</td><td>FDE 中偏业务的角色，也叫部署策略师（Deployment Strategist）</td></tr>
+      <tr><td>Delta</td><td>FDE 中偏技术的角色，负责数据集成和应用开发</td></tr>
+      <tr><td>本体 Ontology</td><td>用业务对象、属性、关系和动作来组织数据的模型</td></tr>
+      <tr><td>MECE</td><td>相互独立、完全穷尽，拆分问题的原则</td></tr>
+      <tr><td>5 Why</td><td>连续追问为什么来找到根因的方法</td></tr>
+      <tr><td>用例 Use Case</td><td>一个具体用户在具体场景下用方案完成具体决策的描述</td></tr>
+      <tr><td>拥护者 Champion</td><td>客户内部支持项目、愿意推动的人</td></tr>
+      <tr><td>影子系统</td><td>正式系统之外，员工自己维护的 Excel、本子、群聊等</td></tr>
+      <tr><td>采纳率 Adoption</td><td>目标用户中真正持续使用新工具的比例</td></tr>
+      <tr><td>速赢 Quick Win</td><td>价值高、易实现，能快速建立信任的用例</td></tr>
+      <tr><td>ROI</td><td>投资回报率，（收益 − 成本）÷ 成本</td></tr>
+      <tr><td>主数据</td><td>商品、客户、供应商等跨系统共享的核心数据</td></tr>
+      <tr><td>泳道图</td><td>按执行者分泳道的流程图，用来发现交接问题</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="chap" id="reading">
+  <h2>附录 C · 延伸阅读</h2>
+  <ul>
+    <li><b>《The Mom Test》</b> Rob Fitzpatrick：怎么问出真话（第 3 节）</li>
+    <li><b>《金字塔原理》</b> 芭芭拉·明托：结构化思考与表达（第 2、6 节）</li>
+    <li><b>《丰田生产方式》</b> 大野耐一：5 Why 与现场主义的源头（第 2、3 节）</li>
+    <li><b>《用户故事地图》</b> Jeff Patton：从用户行为出发设计功能（第 5 节）</li>
+    <li><b>《跨越鸿沟》</b> Geoffrey Moore：新技术在组织中的采纳规律（第 6 节）</li>
+    <li>各大 AI 与数据公司关于 Forward Deployed Engineering 的公开博客和招聘说明，可以帮你了解这个岗位在真实公司里的样子</li>
+  </ul>
+  <footer>FDE · Echo 培训手册 · 初级版 v1.0 · 2026 年 10 月<br>手册中所有公司、人物和数据均为教学用虚构案例。中级、高级手册编写中。</footer>
+</section>
+</main>
+</div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const store={get(k,d){try{const v=localStorage.getItem('echo:'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem('echo:'+k,JSON.stringify(v))}catch(e){}}};
+
+/* theme */
+const savedTheme=store.get('theme',null); if(savedTheme) document.documentElement.dataset.theme=savedTheme;
+$('#themeBtn').onclick=()=>{const cur=document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');const n=cur==='dark'?'light':'dark';document.documentElement.dataset.theme=n;store.set('theme',n);drawMatrix();};
+
+/* mobile menu */
+$('#menuBtn').onclick=()=>$('#side').classList.toggle('open');
+$$('#side a').forEach(a=>a.addEventListener('click',()=>$('#side').classList.remove('open')));
+
+/* scroll spy */
+const links=$$('#side a'); const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+const spy=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.toggle('active',l.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-30% 0px -65% 0px'});
+secs.forEach(s=>spy.observe(s));
+
+/* progress */
+const KEYS=['s1','s2','s3','s4','s5','s6','final'];
+let done=store.get('done',{});
+function renderProgress(){
+  const n=KEYS.filter(k=>done[k]).length;
+  $('#pbarFill').style.width=(n/KEYS.length*100)+'%';
+  $('#ptext').textContent=`初级进度 ${n}/${KEYS.length}`;
+  $$('#side a[data-k]').forEach(a=>a.querySelector('.ck').textContent=done[a.dataset.k]?'✓':'');
+  $$('[data-done]').forEach(b=>{const d=done[b.dataset.done];b.classList.toggle('ok',!!d);b.classList.toggle('pri',!d);b.textContent=d?'✓ 已完成（点击取消）':b.dataset.label;});
+}
+$$('[data-done]').forEach(b=>{b.dataset.label=b.textContent;b.onclick=()=>{done[b.dataset.done]=!done[b.dataset.done];store.set('done',done);renderProgress();}});
+renderProgress();
+
+/* roadmap */
+const LV={
+1:{c:'var(--teal)',t:'初级 · Echo 见习生',pos:'能在导师带领下参与客户项目，听得懂、问得对、写得清。',mods:[
+ ['第1节 认识 FDE 与 Echo','角色、分工、心态'],['第2节 定义真正的问题','5 Why · 问题树 · 问题陈述'],['第3节 客户发现与访谈','干系人 · 访谈 · 跟岗'],['第4节 读懂业务与数据','泳道图 · 本体 · 数据盘点'],['第5节 用例设计与价值','用例画布 · ROI · 优先级'],['第6节 交付、演示与沟通','迭代 · Demo · 周报']],
+ out:['一份访谈纪要','一份问题陈述','一张干系人地图','一张用例画布 + ROI 估算','一份周报'],
+ exam:['结业测验 ≥ 10/12','结业项目导师评审通过','2 周影子实习，独立完成 3 次以上客户访谈'],
+ path:['课程 6h','结业项目','影子实习 2 周','导师评审']},
+2:{c:'var(--blue)',t:'中级 · Echo 独立负责人',pos:'独立负责一条工作流，从发现到上线全程主导，对一个业务指标负责。',mods:[
+ ['M1 发现冲刺','两周摸清一个业务部门'],['M2 业务论证','从 ROI 到可拍板的 Business Case'],['M3 原型与低代码','自己动手做可点击原型'],['M4 AI / 大模型用例','能力边界、评测、人机协同'],['M5 试点设计','试点范围、对照组、指标体系'],['M6 变革管理','培训、超级用户、采纳率'],['M7 工作坊主持','让 20 个人在 2 小时内达成共识'],['M8 复杂干系人','处理中层阻力和部门冲突']],
+ out:['一个完整用例从 0 到上线','一份业务论证','一次 2 小时工作坊','一份试点复盘报告'],
+ exam:['负责的用例指标达到目标的 70%','客户业务负责人书面评价','带教 1 名见习生完成初级'],
+ path:['课程约 12h','真实项目 3–6 个月','复盘答辩','晋级评审']},
+3:{c:'var(--accent)',t:'高级 · Echo 账户负责人',pos:'负责一个战略客户的整体部署，经营高层关系，把单点成功扩展成平台化合作。',mods:[
+ ['A1 账户战略','多年部署路线图与价值地图'],['A2 高层对话','和 CXO 谈战略、预算与风险'],['A3 平台化扩展','从一个用例到十个用例'],['A4 商务与谈判','续约、扩单、定价与范围'],['A5 危机处理','重大事故与信任修复'],['A6 AI 治理','安全、合规、负责任的 AI'],['A7 团队建设','招聘、培训、文化'],['A8 方法沉淀','把经验变成产品与方法论']],
+ out:['一份客户三年部署路线图','一次高层季度业务回顾（QBR）','一套可复用的行业方案','一个带出来的团队'],
+ exam:['负责账户年度续约并扩大','至少 2 名学员晋级中级','向公司贡献 1 套可复用方法或产品需求'],
+ path:['课程约 16h','账户负责 12 个月+','高层评审','晋级']}
+};
+function showLevel(l){
+  const d=LV[l];
+  $$('.lvl').forEach(x=>x.classList.toggle('sel',x.dataset.l==l));
+  $('#lvlDetail').innerHTML=`<h3 style="margin-top:0;color:${d.c}">${d.t}</h3><p>${d.pos}</p>
+  <h4>课程模块</h4><div class="mods">${d.mods.map(m=>`<div class="mod"><b>${m[0]}</b><small>${m[1]}</small></div>`).join('')}</div>
+  <div class="grid2"><div><h4>关键产出物</h4><ul>${d.out.map(x=>`<li>${x}</li>`).join('')}</ul></div><div><h4>晋级标准</h4><ul>${d.exam.map(x=>`<li>${x}</li>`).join('')}</ul></div></div>
+  <h4>成长路径</h4><div class="arrow-row">${d.path.map(x=>`<span class="s">${x}</span>`).join('→')}</div>
+  ${l==1?'<p style="margin-top:14px"><a href="#s1">→ 开始第 1 节</a></p>':'<p style="margin-top:14px;color:var(--ink-3);font-size:.9rem">详细手册编写中，完成初级后开放。</p>'}`;
+}
+$$('.lvl').forEach(x=>x.onclick=()=>showLevel(x.dataset.l));
+showLevel(1);
+
+/* MCQ quiz engine */
+function quiz(id,qs,onAll){
+  const el=document.getElementById(id); let answered=0,right=0;
+  qs.forEach((q,i)=>{
+    const d=document.createElement('div'); d.className='q';
+    d.innerHTML=`<div class="qt">${i+1}. ${q.q}</div><div class="opts">${q.o.map((o,j)=>`<button class="opt" data-j="${j}">${String.fromCharCode(65+j)}. ${o}</button>`).join('')}</div><div class="exp">${q.e}</div>`;
+    d.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+      const j=+b.dataset.j; d.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(+x.dataset.j===q.a)x.classList.add('right')});
+      if(j!==q.a)b.classList.add('wrong'); else right++;
+      answered++; d.querySelector('.exp').classList.add('show');
+      if(answered===qs.length){const s=document.createElement('div');s.className='score';s.textContent=`得分：${right} / ${qs.length}`;el.appendChild(s);onAll&&onAll(right,qs.length);}
+    });
+    el.appendChild(d);
+  });
+}
+/* sorter engine */
+function sorter(id,cats,items){
+  const el=document.getElementById(id); const pick={};
+  items.forEach((it,i)=>{
+    const r=document.createElement('div'); r.className='sort-row';
+    r.innerHTML=`<div>${it.t}</div><div class="seg">${cats.map(c=>`<button data-c="${c}">${c}</button>`).join('')}</div><div class="sort-exp">${it.e||''}</div>`;
+    r.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(el.dataset.checked)return;pick[i]=b.dataset.c;r.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b))});
+    el.appendChild(r);
+  });
+  const bar=document.createElement('div'); bar.style.marginTop='12px';
+  bar.innerHTML=`<button class="btn pri">核对答案</button> <button class="btn">重置</button> <span class="score" style="margin-left:8px"></span>`;
+  const [chk,rst]=bar.querySelectorAll('button'), sc=bar.querySelector('span');
+  chk.onclick=()=>{
+    if(Object.keys(pick).length<items.length){sc.textContent=`还有 ${items.length-Object.keys(pick).length} 项没选`;return}
+    el.dataset.checked=1; let ok=0;
+    el.querySelectorAll('.sort-row').forEach((r,i)=>{r.querySelectorAll('button').forEach(b=>{b.classList.remove('on');if(b.dataset.c===items[i].a)b.classList.add('right');else if(b.dataset.c===pick[i])b.classList.add('wrong')});if(pick[i]===items[i].a)ok++;r.querySelector('.sort-exp').classList.add('show')});
+    sc.textContent=`答对 ${ok} / ${items.length}`;
+  };
+  rst.onclick=()=>{delete el.dataset.checked;Object.keys(pick).forEach(k=>delete pick[k]);el.querySelectorAll('.sort-row button').forEach(b=>b.className='');el.querySelectorAll('.sort-exp').forEach(e=>e.classList.remove('show'));sc.textContent=''};
+  el.appendChild(bar);
+}
+
+/* S1 */
+sorter('sort-roles',['Echo','Delta','销售'],[
+ {t:'在客户仓库跟岗一天，观察拣货员怎么工作',a:'Echo',e:'现场观察、理解业务是 Echo 的核心工作。'},
+ {t:'把 ERP 和 MES 的数据接入平台并清洗',a:'Delta',e:'数据集成是 Delta 的工作，Echo 负责说清楚需要什么数据、为什么。'},
+ {t:'把"我们要个驾驶舱"改写成可衡量的问题陈述',a:'Echo',e:'问题定义是 Echo 的第一职责。'},
+ {t:'和客户采购部谈合同价格和付款条款',a:'销售',e:'商务谈判主要由销售负责，Echo 提供价值依据。'},
+ {t:'决定这两周先做排产视图，换模提醒放到下个迭代',a:'Echo',e:'决定先做什么、后做什么，是 Echo 的"产品经理帽子"。'},
+ {t:'优化排产算法的运行速度，从 5 分钟降到 30 秒',a:'Delta',e:'性能优化是技术工作。'},
+ {t:'给 2 号车间的计划员做新工具培训',a:'Echo',e:'培训和推广是 Echo 的"布道者帽子"。'},
+ {t:'搭建一个可以点击的原型页面',a:'Delta',e:'原型通常由 Delta 搭建，Echo 定义内容并拿去给用户测试。中级 Echo 也会用低代码工具自己搭。'},
+]);
+quiz('quiz-s1',[
+ {q:'FDE 模式和传统软件实施最大的不同是？',o:['FDE 团队人数更多','FDE 团队对业务结果负责，而不只是按时上线','FDE 只服务大客户','FDE 不需要写代码'],a:1,e:'FDE 的核心是对业务指标和实际使用负责。'},
+ {q:'一个系统按时上线、验收通过，但三个月后一线员工都回到了 Excel。从 Echo 的角度看，这个项目：',o:['成功了，按合同交付了','部分成功','失败了，因为价值没有实现','和 Echo 无关，是用户的问题'],a:2,e:'Echo 的成功标准是用户在用、指标在变。'},
+ {q:'客户副总说"我们要一个生产驾驶舱"，Echo 最好的第一反应是？',o:['马上答应，让 Delta 开始做','解释驾驶舱没用','追问："有了它，您会因为看到什么去做什么不同的决定？"','让客户写一份详细的需求文档'],a:2,e:'追问背后的决策，是把方案式诉求转化为真问题的第一步。'},
+]);
+
+/* S2 five whys */
+let wi=1; const ws=$$('#whyBox .w');
+$('#whyNext').onclick=()=>{if(wi<ws.length){ws[wi].classList.add('show');wi++}if(wi>=ws.length)$('#whyNext').disabled=true};
+$('#whyReset').onclick=()=>{ws.forEach((w,i)=>w.classList.toggle('show',i===0));wi=1;$('#whyNext').disabled=false};
+
+/* S2 problem statement builder */
+$('#psDemo').onclick=()=>{const v={who:'连锁超市的门店店长',where:'每天晚上 9 点给第二天的生鲜下单时',cause:'只能凭经验估算销量，看不到天气和促销信息',impact:'生鲜报损率 9%，每年损失约 2100 万元',goal:'生鲜报损率从 9% 降到 6%，同时缺货率不上升',time:'4 个月'};Object.keys(v).forEach(k=>$('#ps-'+k).value=v[k]);};
+$('#psGen').onclick=()=>{
+  const g=k=>$('#ps-'+k).value.trim(); const v={who:g('who'),where:g('where'),cause:g('cause'),impact:g('impact'),goal:g('goal'),time:g('time')};
+  const f=(x,p)=>x||`【${p}】`;
+  $('#psOut').style.display='block';
+  $('#psOut').textContent=`${f(v.who,'谁')}在${f(v.where,'什么场景')}，因为${f(v.cause,'根本原因')}，导致${f(v.impact,'可衡量的影响')}。\n如果解决，我们期望在${f(v.time,'时间')}内实现：${f(v.goal,'指标从现状到目标')}。`;
+  const all=Object.values(v).join(' ');
+  const sol=/(大屏|驾驶舱|中台|平台|系统|App|APP|小程序|AI|人工智能|自动化|一键|看板|dashboard)/i;
+  const checks=[
+    [v.who.length>=2 && !/^(大家|所有人|用户|员工|我们)$/.test(v.who),'有具体的人（不是"大家"、"用户"）'],
+    [v.where.length>=4,'有具体的场景或环节'],
+    [v.cause.length>=4,'写出了根本原因'],
+    [/\d/.test(v.impact),'影响里有数字'],
+    [/\d/.test(v.goal) && /\d/.test(v.time),'目标和期限都可衡量'],
+    [!sol.test(all),'没有提前写解决方案（大屏、系统、AI 之类的词）'],
+  ];
+  $('#psChecks').innerHTML=checks.map(c=>`<li class="${c[0]?'pass':'fail'}">${c[1]}</li>`).join('');
+};
+quiz('quiz-s2',[
+ {q:'下面哪一句是"问题"，而不是"诉求"？',o:['我们需要一个数据中台','我们要用 AI 提升效率','30% 的当日达订单因派单慢而超时','我们想做数字化转型'],a:2,e:'只有 C 描述了具体的影响和可衡量的现状，其余都是方案或口号。'},
+ {q:'用 5 Why 时，什么时候可以停下来？',o:['正好问满 5 次','找到一个可以采取行动、有证据支持的原因','客户不耐烦了','找到一个可以怪罪的部门'],a:1,e:'5 是经验数字，关键是找到可行动的根因。'},
+ {q:'"利润下降"拆成"收入下降、成本上升、销售不好"，违反了什么原则？',o:['不够具体','"销售不好"和"收入下降"重叠了，违反 MECE 的"相互独立"','没有数据','层级太少'],a:1,e:'MECE 要求子项互不重叠、合起来完整。'},
+]);
+
+/* S3 */
+sorter('sort-questions',['好问题','坏问题'],[
+ {t:'如果我们做一个自动排班功能，你会用吗？',a:'坏问题',e:'问的是未来假设，对方出于礼貌多半会说"会"。'},
+ {t:'上周排班的时候，具体是怎么做的？能给我看看吗？',a:'好问题',e:'问过去、问具体，还能看到实物。'},
+ {t:'你觉得现在的系统好用吗？',a:'坏问题',e:'问意见，答案很难转化为行动。'},
+ {t:'这件事你每周大概花多少时间？最花时间的是哪一步？',a:'好问题',e:'问行为、可量化。'},
+ {t:'数据不准是不是你们最大的问题？',a:'坏问题',e:'诱导性问题，你把自己的假设塞给了对方。'},
+ {t:'上一次因为这个出错，后来是怎么处理的？',a:'好问题',e:'问具体事件，能挖出影响和变通办法。'},
+ {t:'你们部门的流程有什么可以优化的地方？',a:'坏问题',e:'太抽象，对方很难回答，会给出空泛答案。'},
+ {t:'还有什么我应该问、但还没问到的？',a:'好问题',e:'收尾必问，常常带来意外发现。'},
+]);
+quiz('quiz-s3',[
+ {q:'访谈时调度主管说"系统挺好的"，跟岗时你却发现她每天在 Excel 里先配一遍单。你应该更相信哪个？',o:['访谈，因为是她亲口说的','跟岗看到的行为','都不信，去问她领导','以系统日志为准，不用管'],a:1,e:'行为比说法更可靠，这就是跟岗的价值。'},
+ {q:'IT 部门在项目里通常最关心的是？',o:['业务指标能提升多少','安全、稳定、工作量和话语权','能不能升职','项目报价'],a:1,e:'尽早让 IT 参与、尊重他们的系统，能避免后期被卡住。'},
+ {q:'一线员工自己维护的 Excel（影子系统）应该怎么对待？',o:['尽快禁止使用','忽略它','把它当成宝贵的业务知识，转化进新方案，并请作者参与设计','让 IT 去审计'],a:2,e:'影子系统暴露了正式系统没满足的需求，它的作者往往是最好的超级用户。'},
+]);
+
+/* S4 */
+sorter('sort-ontology',['对象','属性','关系','动作'],[
+ {t:'手术室',a:'对象',e:'可以被数出来的业务实体。'},
+ {t:'病人的血型',a:'属性',e:'"病人的……"，描述对象的特征。'},
+ {t:'手术 <i>安排在</i> 某个手术室',a:'关系',e:'连接"手术"和"手术室"两个对象。'},
+ {t:'取消一台手术',a:'动作',e:'用户做的、会改变数据的操作。'},
+ {t:'主刀医生',a:'对象',e:'医生是业务实体。'},
+ {t:'手术的预计时长',a:'属性',e:'手术这个对象的特征。'},
+ {t:'把手术改期到明天',a:'动作',e:'改变数据的决策动作。'},
+ {t:'病人 <i>由</i> 某医生主治',a:'关系',e:'病人和医生之间的关系。'},
+ {t:'手术（一次手术事件）',a:'对象',e:'事件也可以是对象。'},
+ {t:'手术室的消毒状态',a:'属性',e:'手术室的特征，会随时间变化。'},
+]);
+quiz('quiz-s4',[
+ {q:'泳道图最有价值的地方是什么？',o:['好看，适合放 PPT','让人一眼看到不同角色之间的交接点，问题常出在那里','代替需求文档','方便写代码'],a:1,e:'交接点往往是等待、出错和扯皮的地方。'},
+ {q:'在鲜丰超市案例里，"幽灵缺货"的根因是？',o:['门店店长懒','仓库没货','POS 和 WMS 的商品编码没对齐，补货单被静默丢弃','顾客买得太多'],a:2,e:'同一个"商品"对象在两个系统里不一致，是最常见的数据问题。'},
+ {q:'为什么说本体里"动作"最重要？',o:['因为动作最难实现','因为有了动作系统才能被"用"来做决策，而不只是"看"','因为客户要求','因为动作数据最多'],a:1,e:'用例最终要落在某个人做出的某个动作上。'},
+]);
+
+/* S5 ROI */
+const fmt=n=>{if(!isFinite(n))return '—';const a=Math.abs(n);return (n<0?'-':'')+(a>=1e8?(a/1e8).toFixed(2)+' 亿':a>=1e4?(a/1e4).toFixed(1)+' 万':Math.round(a).toString())+' 元'};
+function roi(){
+  const v=id=>parseFloat($('#'+id).value)||0;
+  const time=v('r-n')*v('r-h')*v('r-w')*48, err=v('r-e')*v('r-c'), disc=Math.min(Math.max(v('r-d'),0),100)/100;
+  const val=(time+err)*disc, net=val-v('r-i')-v('r-o'), mon=val-v('r-o')>0?v('r-i')/((val-v('r-o'))/12):Infinity;
+  $('#r-v').textContent=fmt(val); $('#r-net').textContent=fmt(net);
+  $('#r-pb').textContent=isFinite(mon)?mon.toFixed(1)+' 个月':'无法回本';
+  $('#r-note').textContent=`拆解：省时间 ${fmt(time)}/年（按每年 48 个工作周）+ 减少损失 ${fmt(err)}/年，按 ${Math.round(disc*100)}% 保守系数折算。${isFinite(mon)&&mon<=12?'一年内回本，很有说服力。':isFinite(mon)?'回本超过一年，需要补充战略价值或分期投入。':'运营成本高于收益，要重新审视方案。'}`;
+}
+$$('.calc input').forEach(i=>i.addEventListener('input',roi)); roi();
+
+/* S5 matrix */
+const UC=[
+ {n:'理赔材料自动核对',v:8,f:8},{n:'理赔进度主动通知客户',v:5,f:9},{n:'反欺诈风险预警',v:9,f:4},{n:'理赔员工作量看板',v:3,f:7},{n:'全流程 AI 自动理赔',v:10,f:2}
+];
+const ucList=$('#ucList');
+UC.forEach((u,i)=>{
+  const d=document.createElement('div'); d.className='uc';
+  d.innerHTML=`<b>${'①②③④⑤'[i]} ${u.n}</b><div class="rng">价值<input type="range" min="1" max="10" value="${u.v}" data-i="${i}" data-k="v"><span>${u.v}</span></div><div class="rng">可行性<input type="range" min="1" max="10" value="${u.f}" data-i="${i}" data-k="f"><span>${u.f}</span></div>`;
+  ucList.appendChild(d);
+});
+ucList.addEventListener('input',e=>{const t=e.target;if(t.type!=='range')return;UC[t.dataset.i][t.dataset.k]=+t.value;t.nextElementSibling.textContent=t.value;drawMatrix()});
+function drawMatrix(){
+  const s=$('#ucSvg'), P=30, W=300-P-10;
+  const x=f=>P+(f-0.5)/10*W, y=v=>10+(1-(v-0.5)/10)*W;
+  let h=`<rect x="${P}" y="10" width="${W}" height="${W}" fill="var(--surface-2)" rx="6"/>
+  <line x1="${P+W/2}" y1="10" x2="${P+W/2}" y2="${10+W}" stroke="var(--line)"/><line x1="${P}" y1="${10+W/2}" x2="${P+W}" y2="${10+W/2}" stroke="var(--line)"/>
+  <g font-size="12" fill="var(--ink-3)" text-anchor="middle" opacity=".75"><text x="${P+W*.75}" y="${10+W*.25}" fill="var(--ok)" font-weight="700">速赢</text><text x="${P+W*.25}" y="${10+W*.25}">大赌注</text><text x="${P+W*.75}" y="${10+W*.75}">顺手做</text><text x="${P+W*.25}" y="${10+W*.75}">先放下</text></g>
+  <text x="${P+W/2}" y="296" text-anchor="middle" font-size="11" fill="var(--ink-2)">可行性 →</text>
+  <text x="12" y="${10+W/2}" font-size="11" fill="var(--ink-2)" transform="rotate(-90 12 ${10+W/2})" text-anchor="middle">价值 →</text>`;
+  UC.forEach((u,i)=>{const cx=x(u.f),cy=y(u.v),q=u.v>5.5&&u.f>5.5;h+=`<circle cx="${cx}" cy="${cy}" r="12" fill="${q?'var(--ok)':'var(--accent)'}" opacity=".9"/><text x="${cx}" y="${cy+4}" text-anchor="middle" font-size="12" fill="#fff" font-weight="700">${i+1}</text>`});
+  s.innerHTML=h;
+}
+drawMatrix();
+quiz('quiz-s5',[
+ {q:'下面哪个是"强用例"？',o:['建设智慧仓储平台','提升仓库数字化水平','仓库主管每天早上根据爆仓预警，决定是否调用临时工','用 AI 赋能仓储'],a:2,e:'C 有明确的用户、决策和时间点。'},
+ {q:'做价值估算时，以下哪种做法最可取？',o:['引用行业报告里"效率提升 50%"的数字','用客户自己的数据，打保守折扣，并请客户确认假设','尽量把数字估大，方便立项','不做估算，等上线后再说'],a:1,e:'客户自己确认过的保守数字，才是可信的数字。'},
+ {q:'有一个价值很高但数据和合规都没准备好的用例，项目刚开始，应该？',o:['马上全力做，价值最大','放进路线图，先用一个速赢建立信任','直接放弃','让客户自己做'],a:1,e:'先速赢建立信任，再挑战大赌注。'},
+]);
+
+/* S6 scenario */
+const SC={
+ start:{t:'晚上 9 点，你发现视图显示准时率 91%，计划科统计是 81%。离演示还有 13 小时。你会：',o:[
+   ['先不管，明天就展示 91%，反正数字好看','bad1',-30,0],
+   ['马上找 Delta 阿杰一起排查两个口径的差异','dig',10,0],
+   ['给总经理发消息，说演示要推迟','delay',-5,-10]]},
+ bad1:{t:'演示时，计划科长当场指出："这个数和我们的对不上。"总经理脸色一沉。信任受到重创。你会：',o:[
+   ['坚持系统是对的','end_bad',-30,-20],
+   ['当场承认没核对口径，承诺会后两小时内给出解释','recover',10,0]]},
+ delay:{t:'总经理回复："这周我只有明天有空，下次要两周后。"推迟会让项目停滞两周。你会：',o:[
+   ['坚持推迟','end_slow',0,-20],
+   ['改为不推迟，连夜排查','dig',5,0]]},
+ dig:{t:'11 点，你们找到原因：系统把"部分发货"算作准时，计划科只算"全部按时交齐"。按计划科的口径，系统算出来是 83%，比试点前的 78% 提高了 5 个点。你会：',o:[
+   ['用 83%，并在演示时主动说明口径差异和为什么采用客户口径','end_good',25,20],
+   ['还是用 91%，因为部分发货也算一种准时','bad1',-20,0],
+   ['两个数都不放，只演示功能','end_meh',-5,-5]]},
+ recover:{t:'会后你和阿杰查清了口径问题，两小时后给总经理发了一份清晰的说明，附上按客户口径算的 83%。总经理回复："下次先对口径。数字是真提升了，继续做。"',end:true},
+ end_bad:{t:'总经理叫停了试点，要求重新评估供应商。教训：数字和客户口径对不上时，任何辩解都会被看成不诚实。',end:true},
+ end_slow:{t:'项目停滞两周，拥护者副总的热情下降，3 号车间的推广计划被搁置。教训：推迟不是唯一的选择，先想办法解决问题。',end:true},
+ end_meh:{t:'演示平稳但缺乏说服力，总经理问："那效果到底怎么样？"你答不上来。教训：Demo 一定要有一个可信的数字结果。',end:true},
+ end_good:{t:'演示时你说："我们发现系统和计划科的口径不一致，昨晚统一成了计划科的标准。按这个标准，6 周试点准时率从 78% 提升到 83%。"计划科长点头补充。总经理当场批准推广到全厂。<b>这是最好的结局：诚实 + 用客户的口径 + 主动说明。</b>',end:true},
+};
+let trust=50,prog=50;
+function scene(k){
+  const n=SC[k], el=$('#scenario');
+  el.innerHTML=`<div class="scn"><div class="meter">客户信任 <b>${trust}</b> · 项目进展 <b>${prog}</b></div><div>${n.t}</div>${n.end?'':`<div class="opts">${n.o.map((o,i)=>`<button class="opt" data-i="${i}">${o[0]}</button>`).join('')}</div>`}${n.end?'<div style="margin-top:12px"><button class="btn sm" id="scRe">重新开始</button></div>':''}</div>`;
+  if(n.end){$('#scRe').onclick=()=>{trust=50;prog=50;scene('start')};return}
+  el.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const o=n.o[b.dataset.i];trust=Math.max(0,Math.min(100,trust+o[2]));prog=Math.max(0,Math.min(100,prog+o[3]));scene(o[1])});
+}
+scene('start');
+quiz('quiz-s6',[
+ {q:'试点上线两周后，最应该看的指标是？',o:['系统有没有宕机','目标用户的每周活跃比例和核心动作使用次数','Delta 写了多少行代码','客户有没有付款'],a:1,e:'上线不等于成功，采纳率才是关键。'},
+ {q:'Demo 最好的开场是？',o:['介绍我们公司的历史','展示系统架构图','"这是计划员老周，他每天早上 8 点要……"','列出所有功能'],a:2,e:'从一个具体的人和他的一天讲起，客户才有代入感。'},
+ {q:'项目发现会延期一周，Echo 应该？',o:['等到截止日再说，也许能赶上','发现当天就告诉客户，说明影响并给出备选方案','让销售去说','不说，周末加班赶'],a:1,e:'坏消息早说，并且带着方案说。'},
+]);
+
+/* final */
+const FQ=[
+ {q:'Echo 和 Delta 的根本区别是？',o:['Echo 级别更高','Echo 对"问题和价值"负责，Delta 对"方案和实现"负责','Echo 不去客户现场','Delta 不和客户说话'],a:1,e:'两者分工不同、互相依赖。'},
+ {q:'客户说"我们要一个 AI 客服"，这属于？',o:['问题','需求','诉求（方案式）','用例'],a:2,e:'这是一个方案，需要追问背后的需求和问题。'},
+ {q:'问题陈述里最不该出现的是？',o:['具体岗位','数字','解决方案的名称','期限'],a:2,e:'问题陈述描述问题，不预设方案。'},
+ {q:'以下哪个访谈问题最好？',o:['你喜欢新系统吗？','你们会愿意为这个功能付费吗？','上周二那张加急单，你是怎么处理的？','流程有什么问题吗？'],a:2,e:'问过去、问具体事件。'},
+ {q:'谁最可能成为项目的"拥护者"？',o:['完全不了解项目的 CEO','部门总监，他的指标会因项目而改善','被新系统替代的原系统负责人','外部审计'],a:1,e:'利益一致的业务负责人最可能主动推动。'},
+ {q:'"门店的面积"在本体里是？',o:['对象','属性','关系','动作'],a:1,e:'描述门店这个对象的特征。'},
+ {q:'"批准一张采购单"在本体里是？',o:['对象','属性','关系','动作'],a:3,e:'改变数据状态的用户操作。'},
+ {q:'数据盘点中，最常出问题的环节通常是？',o:['数据在哪里','不同系统之间怎么关联','数据有多少行','数据库品牌'],a:1,e:'跨系统关联字段不一致是最常见的坑。'},
+ {q:'价值估算时打"保守折扣"，主要是为了？',o:['让数字更小，显得谦虚','提高可信度，避免过度承诺','财务要求','方便计算'],a:1,e:'保守、可验证的数字最能建立信任。'},
+ {q:'"价值高、可行性高"的用例应该？',o:['放到最后做','先做，作为速赢','直接放弃','外包出去'],a:1,e:'速赢建立信任，为后续更难的用例铺路。'},
+ {q:'周报中"需要的支持"这一栏的作用是？',o:['抱怨','明确请求客户方协助，推动阻塞问题','凑字数','写给自己看'],a:1,e:'让客户领导知道他能帮上什么忙。'},
+ {q:'演示前发现系统数字和客户统计不一致，最佳做法是？',o:['展示更好看的那个数','连夜查清口径，用客户口径并主动说明','取消演示','只演示功能不展示数字'],a:1,e:'诚实、用客户口径、主动说明，是建立长期信任的方式。'},
+];
+let finalScore=0;
+quiz('quiz-final',FQ,(r,n)=>{
+  finalScore=r; const pass=r>=10;
+  $('#finalScore').innerHTML=pass?`🎉 恭喜通过！得分 ${r}/${n}`:`得分 ${r}/${n}，还差 ${10-r} 题通过。建议回顾错题对应的章节后刷新页面重测。`;
+  if(pass){$('#certName').style.display='flex';const upd=()=>{$('#certWho').textContent=$('#certInput').value.trim()||'学员';$('#certScore').textContent=`${r}/${n}`;$('#certDate').textContent=new Date().toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'});$('#cert').classList.add('show')};$('#certInput').oninput=upd;upd();}
+});
+
+/* copy templates */
+$$('.cp').forEach(b=>b.onclick=async()=>{const t=b.nextElementSibling.textContent;try{await navigator.clipboard.writeText(t);b.textContent='已复制'}catch(e){b.textContent='请手动复制'}setTimeout(()=>b.textContent='复制',1500)});
+})();
+</script>
+</body>
+</html>
